@@ -1,0 +1,55 @@
+baseURL = 'https://biz-agentic-ai.github.io/'
+languageCode = 'ko-kr'
+title = 'Biz Agentic AI Personal Blog'
+theme = 'PaperMod'
+
+[params]
+  # 기본 설정
+  defaultTheme = 'auto'
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = true
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  
+  # 메뉴 설정
+  ShowMenu = true
+  
+  # 소셜 미디어
+  [params.socialIcons]
+    github = "fab fa-github"
+    twitter = "fab fa-twitter"
+    linkedin = "fab fa-linkedin"
+    email = "fas fa-envelope"
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 20
+  [[menu.main]]
+    identifier = "categories"
+    name = "Categories"
+    url = "/categories/"
+    weight = 30
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 40
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
