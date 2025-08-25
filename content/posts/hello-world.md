@@ -2,9 +2,14 @@
 title: "Hello World - Biz Agentic AI Blog 시작"
 date: 2025-08-21T09:48:00+09:00
 draft: false
-description: "Biz Agentic AI Personal Blog의 첫 번째 포스트입니다."
-tags: ["blog", "hugo", "github-pages"]
-categories: ["기술"]
+description: "Biz Agentic AI Personal Blog의 첫 번째 포스트입니다. AI와 데이터 플랫폼 관련 정보를 체계적으로 정리하고 공유하는 블로그의 시작을 소개합니다."
+keywords: ["AI", "데이터 플랫폼", "자동화", "블로그", "Hugo", "GitHub Pages", "기술", "인공지능", "데이터 분석", "파이프라인"]
+author: "Biz Agentic AI"
+cover:
+  image: "/images/hello-world-cover.jpg"
+  alt: "Biz Agentic AI Blog 시작"
+tags: ["blog", "hugo", "github-pages", "AI", "자동화", "데이터 플랫폼"]
+categories: ["기술", "AI", "블로그"]
 ---
 
 # Hello World! 🚀

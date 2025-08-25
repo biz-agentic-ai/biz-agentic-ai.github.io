@@ -1,8 +1,13 @@
 ---
-title: "About"
+title: "About - Biz Agentic AI Personal Blog"
 date: 2025-08-21T09:46:00+09:00
 draft: false
-description: "Biz Agentic AI Personal Blog에 대한 소개"
+description: "AI와 데이터 플랫폼 관련 정보를 체계적으로 정리하고 공유하는 Biz Agentic AI Personal Blog에 대한 상세한 소개입니다."
+keywords: ["AI", "데이터 플랫폼", "자동화", "블로그", "기술", "인공지능", "데이터 분석", "파이프라인", "Hugo", "GitHub Pages"]
+author: "Biz Agentic AI"
+cover:
+  image: "/images/about-cover.jpg"
+  alt: "Biz Agentic AI Personal Blog 소개"
 ---
 
 # Biz Agentic AI Personal Blog

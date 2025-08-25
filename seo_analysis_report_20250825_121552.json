@@ -1,0 +1,57 @@
+{
+  "local_files": {
+    "robots_txt": {
+      "exists": false,
+      "content": ""
+    },
+    "sitemap_xml": {
+      "exists": false,
+      "content": ""
+    },
+    "favicon": {
+      "exists": false,
+      "types": []
+    },
+    "images_dir": {
+      "exists": false,
+      "count": 0
+    },
+    "issues": [
+      "robots.txt 파일이 없습니다",
+      "sitemap.xml 파일이 없습니다 (Hugo 빌드 후 생성됨)",
+      "favicon 파일이 없습니다",
+      "images 디렉토리가 없습니다"
+    ]
+  },
+  "config_files": {
+    "hugo_toml": {
+      "exists": false,
+      "seo_settings": {}
+    },
+    "extend_head": {
+      "exists": false,
+      "content": ""
+    },
+    "issues": [
+      "hugo.toml 파일이 없습니다",
+      "extend_head.html 파일이 없습니다"
+    ]
+  },
+  "content_quality": {
+    "posts": {
+      "count": 0,
+      "with_meta": 0,
+      "issues": [
+        "posts 디렉토리가 없습니다"
+      ]
+    },
+    "about_page": {
+      "exists": false,
+      "meta": {},
+      "issues": [
+        "About 페이지가 없습니다"
+      ]
+    },
+    "total_issues": 2
+  }
+}
