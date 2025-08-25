@@ -1,0 +1,17 @@
+{
+  "meta_tags": {
+    "error": "HTTPSConnectionPool(host='biz-agentic-ai.github.io', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1028)')))"
+  },
+  "images": {
+    "error": "HTTPSConnectionPool(host='biz-agentic-ai.github.io', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1028)')))"
+  },
+  "links": {
+    "error": "HTTPSConnectionPool(host='biz-agentic-ai.github.io', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1028)')))"
+  },
+  "content": {
+    "error": "HTTPSConnectionPool(host='biz-agentic-ai.github.io', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1028)')))"
+  },
+  "technical": {
+    "error": "HTTPSConnectionPool(host='biz-agentic-ai.github.io', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1028)')))"
+  }
+}

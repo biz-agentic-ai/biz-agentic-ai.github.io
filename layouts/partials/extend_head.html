@@ -1,0 +1,71 @@
+{{- /* 추가 SEO 메타태그 */ -}}
+{{- if .IsPage -}}
+  {{- with .Params.author -}}
+    <meta name="author" content="{{ . }}">
+  {{- end -}}
+  
+  {{- with .Params.keywords -}}
+    <meta name="keywords" content="{{ delimit . ", " }}">
+  {{- end -}}
+  
+  {{- if .Params.cover.image -}}
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ .Params.cover.alt | default .Title }}">
+  {{- end -}}
+  
+  {{- with .Params.cover.alt -}}
+    <meta name="twitter:image:alt" content="{{ . }}">
+  {{- end -}}
+{{- end -}}
+
+{{- /* 추가 소셜 미디어 메타태그 */ -}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@biz_agentic_ai">
+<meta name="twitter:creator" content="@biz_agentic_ai">
+
+{{- /* 추가 검색 엔진 최적화 */ -}}
+<meta name="googlebot" content="index, follow">
+<meta name="bingbot" content="index, follow">
+<meta name="slurp" content="index, follow">
+
+{{- /* 언어 및 지역 설정 */ -}}
+<meta name="language" content="ko">
+<meta name="geo.region" content="KR">
+<meta name="geo.placename" content="Seoul">
+
+{{- /* 추가 Open Graph 태그 */ -}}
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:locale" content="ko_KR">
+
+{{- /* 추가 Schema.org 마크업 */ -}}
+{{- if .IsPage -}}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{ .Title | plainify }}",
+    "description": "{{ with .Description }}{{ . | plainify }}{{ else }}{{ .Summary | plainify }}{{ end }}",
+    "image": "{{ if .Params.cover.image }}{{ .Params.cover.image | absURL }}{{ end }}",
+    "author": {
+      "@type": "Person",
+      "name": "{{ .Params.author | default site.Params.author | default `Biz Agentic AI` }}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "{{ site.Title }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ site.Params.assets.favicon | absURL }}"
+      }
+    },
+    "datePublished": "{{ .PublishDate.Format `2006-01-02T15:04:05Z07:00` }}",
+    "dateModified": "{{ .Lastmod.Format `2006-01-02T15:04:05Z07:00` }}",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "{{ .Permalink }}"
+    }
+  }
+  </script>
+{{- end -}}

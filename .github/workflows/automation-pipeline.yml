@@ -1,0 +1,243 @@
+name: Biz Agentic AI Automation Pipeline
+
+on:
+  schedule:
+    # 매일 오전 9시에 실행
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+    # 수동 실행 가능
+  push:
+    branches: ["main"]
+    paths:
+      - 'content/**'
+      - 'data/**'
+      - 'scripts/**'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "automation-pipeline"
+  cancel-in-progress: false
+
+env:
+  PYTHON_VERSION: '3.11'
+  HUGO_VERSION: 'latest'
+
+jobs:
+  # 1. 데이터 수집 단계
+  data-collection:
+    name: Data Collection
+    runs-on: ubuntu-latest
+    outputs:
+      new-data: ${{ steps.check-new-data.outputs.has-new-data }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r data-pipeline/requirements.txt
+
+      - name: Setup environment variables
+        run: |
+          cp data-pipeline/env.example data-pipeline/.env
+          echo "GOOGLE_SHEETS_CREDENTIALS=${{ secrets.GOOGLE_SHEETS_CREDENTIALS }}" >> data-pipeline/.env
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> data-pipeline/.env
+          echo "NOTION_API_KEY=${{ secrets.NOTION_API_KEY }}" >> data-pipeline/.env
+
+      - name: Run data collection
+        run: |
+          cd data-pipeline
+          python -m src.collectors.main
+
+      - name: Check for new data
+        id: check-new-data
+        run: |
+          cd data-pipeline
+          python -m src.utils.check_new_data
+          echo "has-new-data=$(python -m src.utils.check_new_data)" >> $GITHUB_OUTPUT
+
+  # 2. AI 처리 단계
+  ai-processing:
+    name: AI Processing
+    runs-on: ubuntu-latest
+    needs: data-collection
+    if: needs.data-collection.outputs.new-data == 'true'
+    outputs:
+      processed-content: ${{ steps.process-content.outputs.has-processed-content }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r ai-engine/requirements.txt
+
+      - name: Setup environment variables
+        run: |
+          cp ai-engine/env.example ai-engine/.env
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> ai-engine/.env
+          echo "GOOGLE_SHEETS_CREDENTIALS=${{ secrets.GOOGLE_SHEETS_CREDENTIALS }}" >> ai-engine/.env
+
+      - name: Run AI processing
+        id: process-content
+        run: |
+          cd ai-engine
+          python -m src.core.main
+          echo "has-processed-content=true" >> $GITHUB_OUTPUT
+
+      - name: Upload processed content
+        uses: actions/upload-artifact@v3
+        with:
+          name: processed-content
+          path: ai-engine/output/
+          retention-days: 1
+
+  # 3. Hugo 포스트 생성 단계
+  hugo-post-generation:
+    name: Hugo Post Generation
+    runs-on: ubuntu-latest
+    needs: ai-processing
+    if: needs.ai-processing.outputs.processed-content == 'true'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Download processed content
+        uses: actions/download-artifact@v3
+        with:
+          name: processed-content
+          path: ai-engine/output/
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install jinja2 markdown python-frontmatter
+
+      - name: Generate Hugo posts
+        run: |
+          python scripts/generate_hugo_posts.py
+
+      - name: Commit generated posts
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add content/posts/
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generate posts from AI processing"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+  # 4. 빌드 및 배포 단계
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    needs: [data-collection, hugo-post-generation]
+    if: always() && (needs.data-collection.outputs.new-data == 'true' || needs.hugo-post-generation.result == 'success')
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Build with Hugo
+        env:
+          HUGO_ENVIRONMENT: production
+          HUGO_ENV: production
+        run: |
+          hugo \
+            --gc \
+            --minify \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # 5. 모니터링 및 알림 단계
+  monitoring:
+    name: Monitoring and Notification
+    runs-on: ubuntu-latest
+    needs: [data-collection, ai-processing, hugo-post-generation, build-and-deploy]
+    if: always()
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests
+
+      - name: Generate pipeline report
+        run: |
+          python scripts/generate_pipeline_report.py
+
+      - name: Send notification
+        if: failure()
+        run: |
+          python scripts/send_notification.py --status=failure --job=${{ needs.*.result }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Send success notification
+        if: success()
+        run: |
+          python scripts/send_notification.py --status=success
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
