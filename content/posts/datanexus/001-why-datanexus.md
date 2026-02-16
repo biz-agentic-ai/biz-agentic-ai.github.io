@@ -1,5 +1,5 @@
 ---
-title: "왜 DataNexus를 만드는가"
+title: "1. 왜 DataNexus를 만드는가"
 date: 2026-02-16
 draft: false
 summary: "엔터프라이즈 데이터 분석의 구조적 문제를 풀기 위해 온톨로지 기반 데이터 에이전트를 설계하기 시작한 이유."
