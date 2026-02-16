@@ -1,0 +1,274 @@
+{
+  "file_security": {
+    "sensitive_files": [],
+    "permission_issues": [],
+    "exposed_secrets": [
+      {
+        "file": "public\\404.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\about\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\categories\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\categories\\ai\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\categories\\기술\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\categories\\블로그\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\posts\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\posts\\hello-world\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\tags\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\tags\\ai\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\tags\\blog\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\tags\\github-pages\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\tags\\hugo\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\tags\\데이터-플랫폼\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "public\\tags\\자동화\\index.html",
+        "secrets": [
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b",
+          "36819bea596090d8b48cf10d9831382996197aa7",
+          "36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b"
+        ],
+        "risk_level": "high"
+      },
+      {
+        "file": "themes\\PaperMod\\README.md",
+        "secrets": [
+          "4330c8b12aa48bfdecbcad6ad66145f679a430b3",
+          "4330c8b12aa48bfdecbcad6ad66145f679a430b3"
+        ],
+        "risk_level": "high"
+      }
+    ],
+    "security_score": 40.0,
+    "issues": []
+  },
+  "config_security": {
+    "config_files": [
+      "hugo.toml"
+    ],
+    "security_headers": [
+      {
+        "setting": "baseURL",
+        "description": "HTTPS 사용 확인",
+        "status": "configured"
+      },
+      {
+        "setting": "languageCode",
+        "description": "언어 설정 확인",
+        "status": "configured"
+      },
+      {
+        "setting": "theme",
+        "description": "테마 설정 확인",
+        "status": "configured"
+      }
+    ],
+    "exposed_configs": [],
+    "security_score": 100.0,
+    "issues": []
+  },
+  "content_security": {
+    "content_files": [
+      "content\\about.md",
+      "content\\posts\\hello-world.md"
+    ],
+    "security_issues": [],
+    "xss_vulnerabilities": [],
+    "injection_risks": [],
+    "security_score": 100.0,
+    "issues": []
+  },
+  "dependency_security": {
+    "dependencies": [
+      "Hugo: hugo v0.148.2-40c3d8233d4b123eff74725e5766fc6272f0a84d+extended windows/amd64 BuildDate=2025-07-27T12:43:24Z VendorInfo=gohugoio"
+    ],
+    "security_vulnerabilities": [],
+    "outdated_packages": [],
+    "security_score": 100.0,
+    "issues": []
+  },
+  "access_control": {
+    "public_files": [
+      "404.html",
+      "index.html",
+      "index.json",
+      "index.xml",
+      "robots.txt",
+      "sitemap.xml",
+      "about\\index.html",
+      "assets\\css\\stylesheet.36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b.css",
+      "categories\\index.html",
+      "categories\\index.xml",
+      "categories\\ai\\index.html",
+      "categories\\ai\\index.xml",
+      "categories\\ai\\page\\1\\index.html",
+      "categories\\기술\\index.html",
+      "categories\\기술\\index.xml",
+      "categories\\기술\\page\\1\\index.html",
+      "categories\\블로그\\index.html",
+      "categories\\블로그\\index.xml",
+      "categories\\블로그\\page\\1\\index.html",
+      "page\\1\\index.html",
+      "posts\\index.html",
+      "posts\\index.xml",
+      "posts\\hello-world\\index.html",
+      "posts\\page\\1\\index.html",
+      "tags\\index.html",
+      "tags\\index.xml",
+      "tags\\ai\\index.html",
+      "tags\\ai\\index.xml",
+      "tags\\ai\\page\\1\\index.html",
+      "tags\\blog\\index.html",
+      "tags\\blog\\index.xml",
+      "tags\\blog\\page\\1\\index.html",
+      "tags\\github-pages\\index.html",
+      "tags\\github-pages\\index.xml",
+      "tags\\github-pages\\page\\1\\index.html",
+      "tags\\hugo\\index.html",
+      "tags\\hugo\\index.xml",
+      "tags\\hugo\\page\\1\\index.html",
+      "tags\\데이터-플랫폼\\index.html",
+      "tags\\데이터-플랫폼\\index.xml",
+      "tags\\데이터-플랫폼\\page\\1\\index.html",
+      "tags\\자동화\\index.html",
+      "tags\\자동화\\index.xml",
+      "tags\\자동화\\page\\1\\index.html"
+    ],
+    "restricted_access": [
+      {
+        "file": "robots.txt",
+        "issue": "보안 디렉토리 접근 제한: Disallow:\\s*/admin",
+        "risk_level": "low"
+      },
+      {
+        "file": "robots.txt",
+        "issue": "보안 디렉토리 접근 제한: Disallow:\\s*/private",
+        "risk_level": "low"
+      }
+    ],
+    "authentication": [],
+    "security_score": 80.0,
+    "issues": [
+      "보안 디렉토리 접근 제한 누락: Disallow:\\s*/config",
+      "보안 디렉토리 접근 제한 누락: Disallow:\\s*/\\.git"
+    ]
+  },
+  "overall_security_score": 80.0
+}
