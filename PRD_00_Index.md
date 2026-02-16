@@ -14,8 +14,7 @@
 | 04c | [PRD_04c_Ontology_Future.md](./PRD_04c_Ontology_Future.md) | §4.3.9–4.3.10 | 1,002 | **[Phase 2+/3 R&D]** 외부 데이터 자동 구축, Graphiti 시간 인식 KG, 에이전트 메모리, 컨텍스트 보존 |
 | 05 | [PRD_05_Evaluation_Quality.md](./PRD_05_Evaluation_Quality.md) | §5 | 994 | 평가 체계, 에러 핸들링 플로차트, 성능 벤치마크 |
 | 06 | [PRD_06_Requirements_Roadmap.md](./PRD_06_Requirements_Roadmap.md) | §6–10 | 334 | 아래 상세 참조 ↓ |
-| 07 | [PRD_07_UI_Design.md](./PRD_07_UI_Design.md) | §11.1–11.15 | 1,477 | UI/UX 디자인 시스템 (디자인 철학, 컴포넌트, QA 체크리스트), §11.16 상세 → PRD_07b |
-| 07b | [PRD_07b_UI_UX_Skill_Integration.md](./PRD_07b_UI_UX_Skill_Integration.md) | §11.16 | 632 | UI UX Pro Max Skill 통합 가이드 (설치, 추론 규칙, 오버라이드, Agent Teams 통합, 실행 로드맵) |
+| 07 | [PRD_07_UI_Design.md](./PRD_07_UI_Design.md) | §11.1–11.16 | 2,086 | UI/UX 디자인 시스템 (디자인 철학, 컴포넌트, QA 체크리스트), §11.15.7 Skill 기반 검증, §11.16 Skill 통합 가이드 |
 
 ### PRD_06 상세 섹션 (§6–10)
 
@@ -76,7 +75,8 @@
 | §9 | 로드맵 | PRD_06 |
 | §10 | 제외 항목 / 향후 검토 | PRD_06 |
 | §11.1–11.15 | UI/UX 디자인 시스템 | PRD_07 |
-| §11.16 | UI UX Pro Max Skill 통합 가이드 | **PRD_07b** |
+| §11.15.7 | UI UX Pro Max Skill 기반 디자인 검증 | PRD_07 |
+| §11.16 | UI UX Pro Max Skill 통합 가이드 | PRD_07 |
 
 ---
 
@@ -99,9 +99,9 @@
 | MVP 범위 | PRD_02 보강 | PRD_06 §9 |
 | 로드맵 / Phase 일정 | PRD_06 §9 | PRD_03 §4.2.1 |
 | 기대 효과 / KPI | PRD_06 §7 | PRD_05 §5 |
-| UI/UX 디자인 | PRD_07 §11 | PRD_07b §11.16 |
-| UI UX Pro Max Skill 통합 | **PRD_07b** §11.16 | PRD_07b §11.16.9-13 |
-| Design as Code 원칙 | PRD_07 §11.14.0 | PRD_07b §11.16.9 |
+| UI/UX 디자인 | PRD_07 §11 | PRD_07 §11.16 |
+| UI UX Pro Max Skill 통합 | PRD_07 §11.16 | PRD_07 §11.16.9-13 |
+| Design as Code 원칙 | PRD_07 §11.14.0 | PRD_07 §11.16.9 |
 
 ### 보강 사항 위치 (Review Report / Ecosystem Analysis 반영)
 
@@ -122,9 +122,9 @@
 | CLAUDE.md 자동 축적 | Ecosystem §2 (Boris #3) | Strategy §14 |
 | Ecosystem 통합 가이드 | Ecosystem §1–5 | Guide Part 7 |
 | 세션 내 컨텍스트 보존 전략 | OpenClaw 코드 분석 | PRD_04c §4.3.10.10, Strategy §16, CLAUDE.md agent-routing |
-| UI UX Pro Max Skill 통합 가이드 | v2.0 Skill 분석 | **PRD_07b** §11.16 |
+| UI UX Pro Max Skill 통합 가이드 | v2.0 Skill 분석 | PRD_07 §11.16 |
 | Pencil.dev 에이전틱 캔버스 | Mobiinside 사례 분석 | PRD_07 보강 §11.2.7, §11.5, §11.14 |
-| Skill 실행 계획/Design Decision Priority/KPI | 통합 실행 계획서 | **PRD_07b** §11.16.9-13 |
+| Skill 실행 계획/Design Decision Priority/KPI | 통합 실행 계획서 | PRD_07 §11.16.9-13 |
 
 ---
 
