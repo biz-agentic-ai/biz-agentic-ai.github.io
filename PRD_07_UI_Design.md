@@ -42,7 +42,7 @@ DataNexus는 사내 엔터프라이즈 플랫폼으로, 아래 환경을 공식 
 
 ### 11.1.2 B2B 데이터 포털 안티패턴 (Anti-patterns)
 
-<!-- 안티패턴 SSOT: 본 섹션(43-68행)이 정의의 원본. UI UX Pro Max Skill 교차 검증 보강은 1782-1798행 참조 -->
+<!-- 안티패턴 SSOT: 본 섹션(43-69행)이 정의의 원본. UI UX Pro Max Skill 교차 검증 보강은 1782-1798행 참조 -->
 
 DataNexus UI 구현 시 **반드시 피해야 할 패턴**을 정의합니다. B2B 엔터프라이즈 데이터 플랫폼의 신뢰성과 전문성을 저해하는 요소를 명시적으로 금지합니다.
 
@@ -1132,7 +1132,7 @@ ESLint 커스텀 규칙                    Chrome DevTools MCP
 
 ---
 
-## 11.15.7 UI UX Pro Max Skill 기반 디자인 검증
+#### 11.15.7 UI UX Pro Max Skill 기반 디자인 검증
 
 > **참고:** 본 섹션은 §11.15 QA 체크리스트의 확장으로, Skill 통합 맥락에서 참조됩니다.
 
@@ -1145,7 +1145,7 @@ UI 구현 전 및 PR 제출 시, UI UX Pro Max Skill의 디자인 시스템 생�
 | U-1 | **디자인 시스템 생성** | DataNexus용 MASTER.md 존재 및 최신 상태 | `design-system/MASTER.md` 파일 확인 |
 | U-2 | **컬러 팔레트 일치** | Deep Slate + Sapphire Blue 팔레트 사용 | `--domain color` 검색 결과와 tokens.json 교차 검증 |
 | U-3 | **타이포그래피 일치** | Outfit + Plus Jakarta Sans + JetBrains Mono 사용 | `--domain typography` 검색으로 확인 |
-| U-4 | **안티패턴 위반 0건** | AVOID 섹션의 모든 항목 미적용 확인 | `--design-system` 출력의 AVOID와 코드 비교 (안티패턴 SSOT: §11.1.2 43-68행 + 보강 1782-1798행) |
+| U-4 | **안티패턴 위반 0건** | AVOID 섹션의 모든 항목 미적용 확인 | `--design-system` 출력의 AVOID와 코드 비교 (안티패턴 SSOT: §11.1.2 43-69행 + 보강 1782-1798행) |
 | U-5 | **Pre-delivery 체크리스트** | Skill 생성 체크리스트 전 항목 통과 | `--design-system` 출력의 PRE-DELIVERY CHECKLIST |
 | U-6 | **스택 가이드라인 준수** | React + shadcn/ui + Tailwind 스택 규칙 적용 | `--stack react` 결과와 코드 비교 |
 | U-7 | **차트 유형 적합성** | §11.9 매핑과 Skill 차트 추천 일치 | `--domain chart` 검색으로 교차 확인 |
@@ -1176,13 +1176,13 @@ python3 .claude/skills/ui-ux-pro-max/scripts/search.py "form validation responsi
 
 ---
 
-## 11.16 UI UX Pro Max Skill 통합 가이드
+### 11.16 UI UX Pro Max Skill 통합 가이드
 
-### 11.16.1 개요
+#### 11.16.1 개요
 
 [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) (v2.0+)는 AI 기반 디자인 인텔리전스 스킬로, DataNexus의 UI 개발 파이프라인에 통합하여 디자인 시스템 자동 생성, 스타일 추론, 안티패턴 검증을 자동화합니다.
 
-#### Skill 역량-PRD 대응 섹션 매핑
+##### Skill 역량-PRD 대응 섹션 매핑
 
 UI UX Pro Max v2.0+의 핵심 역량과 DataNexus PRD 기존 규정의 상세 매핑입니다.
 
@@ -1196,7 +1196,7 @@ UI UX Pro Max v2.0+의 핵심 역량과 DataNexus PRD 기존 규정의 상세 �
 | UX 가이드라인 | 99개 | PRD §11.15 QA 체크리스트와 교차 참조 | §11.16.6 |
 | 차트 유형 DB | 25개 | §11.9 데이터 시각화 디자인 가이드와 교차 확인 | §11.15.7 U-7 |
 
-#### 통합 목적 상세화 (측정 지표 포함)
+##### 통합 목적 상세화 (측정 지표 포함)
 
 | 목적 | 기대 효과 | 측정 지표 |
 |------|----------|----------|
@@ -1207,7 +1207,7 @@ UI UX Pro Max v2.0+의 핵심 역량과 DataNexus PRD 기존 규정의 상세 �
 
 ---
 
-### 11.16.2 설치
+#### 11.16.2 설치
 
 **Claude Code (프로젝트 루트에서):**
 
@@ -1250,7 +1250,7 @@ datanexus/frontend/
 +-- design/                           # 기존 Pencil.dev 파일 (§11.5)
 ```
 
-#### MASTER.md 초기 생성 후 수동 검증
+##### MASTER.md 초기 생성 후 수동 검증
 
 `--design-system --persist` 명령으로 MASTER.md를 생성한 후, 아래 항목이 DataNexus PRD §11과 일치하는지 수동 검증합니다. Skill의 추론 엔진은 범용 B2B SaaS 팔레트를 추천할 가능성이 있으므로, DataNexus 커스텀 값과의 불일치를 초기에 포착하여 오버라이드하는 것이 중요합니다.
 
@@ -1264,7 +1264,7 @@ datanexus/frontend/
 
 > **핵심 원칙:** tokens.json이 Single Source of Truth이며, MASTER.md는 Skill이 생성한 "추천"이다. 불일치 시 tokens.json이 항상 우선한다. (§11.16.9 Design Decision Priority 참조)
 
-#### CLAUDE.md 규칙 파일 배치 (Context-as-Code 정렬)
+##### CLAUDE.md 규칙 파일 배치 (Context-as-Code 정렬)
 
 ```txt
 datanexus/
@@ -1293,7 +1293,7 @@ datanexus/
 
 ---
 
-### 11.16.3 DataNexus 커스텀 추론 규칙
+#### 11.16.3 DataNexus 커스텀 추론 규칙
 
 UI UX Pro Max의 100개 산업별 추론 규칙 중 DataNexus에 적용되는 핵심 규칙입니다.
 
@@ -1377,7 +1377,7 @@ python3 .claude/skills/ui-ux-pro-max/scripts/search.py \
 
 ---
 
-### 11.16.4 페이지별 오버라이드 워크플로우
+#### 11.16.4 페이지별 오버라이드 워크플로우
 
 DataNexus의 각 주요 페이지를 구현할 때, MASTER.md를 기본으로 하되 페이지별 특성에 맞는 오버라이드를 적용합니다.
 
@@ -1442,7 +1442,7 @@ design-system/pages/[페이지명].md가 존재하면 해당 규칙을 우선 �
 
 ---
 
-### 11.16.5 BI/Analytics Dashboard 스타일 매핑
+#### 11.16.5 BI/Analytics Dashboard 스타일 매핑
 
 UI UX Pro Max Skill의 10개 BI/Analytics Dashboard 스타일과 DataNexus §11.12.3 역할별 대시보드의 매핑입니다.
 
@@ -1456,7 +1456,7 @@ UI UX Pro Max Skill의 10개 BI/Analytics Dashboard 스타일과 DataNexus §11.
 
 ---
 
-### 11.16.6 UX 가이드라인 교차 참조
+#### 11.16.6 UX 가이드라인 교차 참조
 
 UI UX Pro Max Skill의 99개 UX 가이드라인 중 DataNexus PRD 기존 규정과 교차하는 항목입니다.
 
@@ -1473,7 +1473,7 @@ UI UX Pro Max Skill의 99개 UX 가이드라인 중 DataNexus PRD 기존 규정�
 
 ---
 
-### 11.16.7 Claude Code Agent Teams 통합
+#### 11.16.7 Claude Code Agent Teams 통합
 
 UI UX Pro Max Skill은 Claude Code의 Skill 모드로 자동 활성화됩니다. Agent Teams 워크플로우에서의 사용 패턴입니다.
 
@@ -1485,7 +1485,7 @@ UI UX Pro Max Skill은 Claude Code의 Skill 모드로 자동 활성화됩니다.
 | **QA Teammate** | 품질 검증 | `--domain ux` 검색으로 안티패턴 검증, Pre-delivery 체크리스트 실행 |
 | **Design Teammate** | 디자인 탐색 | `--domain style`, `--domain color`, `--domain typography` 검색으로 대안 탐색 |
 
-#### Pencil MCP 서버 기반 UI Teammate 확장 워크플로우
+##### Pencil MCP 서버 기반 UI Teammate 확장 워크플로우
 
 UI Teammate가 Pencil MCP 서버를 통해 수행하는 상세 워크플로우입니다.
 
@@ -1526,7 +1526,7 @@ Pencil.dev MCP는 외부 데이터 소스와의 연결을 지원하여, 실제 �
 | **DataNexus API** | NL2SQL 쿼리 결과를 캔버스 차트에 실시간 반영 | Phase 2 후반 |
 | **Playwright** | 캔버스 디자인과 실제 렌더링 결과 비교 검증 | Phase 2 (§11.15.6 연계) |
 
-#### CLAUDE.md 규칙 (frontend/)
+##### CLAUDE.md 규칙 (frontend/)
 
 ```markdown
 ## UI UX Pro Max Skill 규칙
@@ -1536,12 +1536,12 @@ Pencil.dev MCP는 외부 데이터 소스와의 연결을 지원하여, 실제 �
 3. 새 컴포넌트 개발 시 `--domain style` + `--domain ux` 검색 실행
 4. PR 제출 전 §11.15.7 U-1~U-7 항목 확인
 5. 안티패턴 위반 시 즉시 수정 (AI 퍼플/핑크, 네온, 이모지 아이콘 등)
-   <!-- 안티패턴 SSOT: §11.1.2 (43-68행 + 보강 1782-1798행) -->
+   <!-- 안티패턴 SSOT: §11.1.2 (43-69행 + 보강 1782-1798행) -->
 6. tokens.json이 MASTER.md보다 우선한다 (§11.16.9 Design Decision Priority)
 7. Skill 검증 결과는 .claude/execution/ui-qa-log.md에 기록
 ```
 
-#### Worktree 매핑 상세
+##### Worktree 매핑 상세
 
 Agent Teams의 Worktree 병렬 개발(Implementation Strategy §15 STEP 20)과 연계한 UI UX Pro Max Skill 활용 패턴입니다.
 
@@ -1560,19 +1560,19 @@ main
         +-- .claude/execution/ui-qa-log.md 갱신
 ```
 
-#### Guardian Hook 연동
+##### Guardian Hook 연동
 
 `.claude/execution/ui-qa-log.md`에 Skill 검증 결과를 자동 기록합니다. Context-as-Code 자동 축적 원칙(CLAUDE.md 템플릿 §축적 규칙)에 따라:
 
 | 축적 단계 | 조건 | 대상 파일 |
 |----------|------|----------|
 | 자동 기록 | Skill 검증 실행 시 | `execution/ui-qa-log.md` |
-| 안티패턴 등록 | 동일 위반 3건 누적 시 | `domains/frontend-ui.md` 안티패턴 섹션 (§11.1.2 43-68행 + 보강 1782-1798행과 동기화 필요) |
+| 안티패턴 등록 | 동일 위반 3건 누적 시 | `domains/frontend-ui.md` 안티패턴 섹션 (§11.1.2 43-69행 + 보강 1782-1798행과 동기화 필요) |
 | 불변 규칙 승격 | 10건+ 누적 시 Distill 리뷰 | `foundation/ui-design-system.md` |
 
 ---
 
-### 11.16.8 유지보수 및 업데이트
+#### 11.16.8 유지보수 및 업데이트
 
 | 항목 | 주기 | 담당 | 방법 |
 |------|------|------|------|
@@ -1584,7 +1584,7 @@ main
 
 ---
 
-### 11.16.9 Design Decision Priority (디자인 결정 우선순위)
+#### 11.16.9 Design Decision Priority (디자인 결정 우선순위)
 
 디자인 결정에서 복수의 소스 간 충돌이 발생할 경우, 아래 우선순위를 적용합니다.
 
@@ -1617,11 +1617,11 @@ main
 
 ---
 
-### 11.16.10 실행 단계 로드맵
+#### 11.16.10 실행 단계 로드맵
 
 UI UX Pro Max Skill 통합을 7일 이내에 완료하기 위한 단계별 실행 계획입니다. 각 Phase는 이전 Phase의 완료를 전제합니다.
 
-#### Phase A: 설치 및 초기 설정 (Day 1)
+##### Phase A: 설치 및 초기 설정 (Day 1)
 
 | Step | 작업 | 실행 명령 | 완료 기준 |
 |------|------|----------|----------|
@@ -1631,7 +1631,7 @@ UI UX Pro Max Skill 통합을 7일 이내에 완료하기 위한 단계별 실�
 | A-4 | 수동 검증 | §11.16.2 설치 후 검증 체크리스트 실행 (136행) | 5개 항목 전부 PASS 또는 오버라이드 완료 |
 | A-5 | CLAUDE.md 규칙 추가 | `.claude/domains/frontend-ui.md` 생성 | 7개 규칙 배치 완료 |
 
-#### Phase B: 페이지별 오버라이드 생성 (Day 2-3)
+##### Phase B: 페이지별 오버라이드 생성 (Day 2-3)
 
 | Step | 대상 페이지 | 역할 매핑 | 오버라이드 파일 |
 |------|-----------|----------|---------------|
@@ -1642,7 +1642,7 @@ UI UX Pro Max Skill 통합을 7일 이내에 완료하기 위한 단계별 실�
 | B-5 | Real-Time Monitoring | 운영자 | `pages/dashboard-realtime.md` |
 | B-6 | Admin | 관리자 | `pages/admin.md` |
 
-#### Phase C: Agent Teams 워크플로우 통합 (Day 4-5)
+##### Phase C: Agent Teams 워크플로우 통합 (Day 4-5)
 
 | Step | 작업 | 대상 | 완료 기준 |
 |------|------|------|----------|
@@ -1650,7 +1650,7 @@ UI UX Pro Max Skill 통합을 7일 이내에 완료하기 위한 단계별 실�
 | C-2 | 컨텍스트 프롬프트 표준화 | UI Teammate | §11.16.4 프롬프트 템플릿 공유 |
 | C-3 | Worktree 매핑 설정 | 전체 Teammate | Worktree별 Skill 활용 패턴 확인 |
 
-#### Phase D: 검증 파이프라인 구축 (Day 6-7)
+##### Phase D: 검증 파이프라인 구축 (Day 6-7)
 
 | Step | 작업 | 실행 방법 | 완료 기준 |
 |------|------|----------|----------|
@@ -1658,7 +1658,7 @@ UI UX Pro Max Skill 통합을 7일 이내에 완료하기 위한 단계별 실�
 | D-2 | §11.15.7 U-1~U-7 검증 | 검증 실행 스크립트 1회 실행 | 7개 항목 전부 PASS |
 | D-3 | Guardian Hook 연동 | `execution/ui-qa-log.md` 초기화 | 자동 기록 경로 확인 |
 
-#### Phase E: 유지보수 체계 수립 (지속)
+##### Phase E: 유지보수 체계 수립 (지속)
 
 기존 §11.16.8 유지보수 테이블을 준수하되, 아래 추가 관찰 지점을 Sprint 회고 시 점검합니다.
 
@@ -1670,7 +1670,7 @@ UI UX Pro Max Skill 통합을 7일 이내에 완료하기 위한 단계별 실�
 
 ---
 
-### 11.16.11 성공 기준
+#### 11.16.11 성공 기준
 
 UI UX Pro Max Skill 통합의 효과를 정량적으로 평가하기 위한 기준입니다.
 
@@ -1686,7 +1686,7 @@ UI UX Pro Max Skill 통합의 효과를 정량적으로 평가하기 위한 기�
 
 ---
 
-### 11.16.12 리스크 및 대응
+#### 11.16.12 리스크 및 대응
 
 | Level | 리스크 | 영향 | 대응 |
 |-------|--------|------|------|
@@ -1701,7 +1701,7 @@ Skill 통합 리스크는 전체 프로젝트 리스크의 하위 항목으로 �
 
 ---
 
-### 11.16.13 PRD §9 Phase별 타임라인 연계
+#### 11.16.13 PRD §9 Phase별 타임라인 연계
 
 PRD §9.1 Phase별 개발 일정과 UI UX Pro Max Skill 통합의 연계입니다.
 
@@ -1719,7 +1719,7 @@ UI UX Pro Max Skill 통합은 Phase 0.5-1.0의 "축적 루프 조기 가동" 전
 
 ---
 
-### 11.16.14 빠른 참조 명령어
+#### 11.16.14 빠른 참조 명령어
 
 ```bash
 # 마스터 디자인 시스템 생성
@@ -1759,7 +1759,7 @@ uipro versions
 
 | 보강 대상 | 원본 위치 | 최신 버전 위치 | 버전 | 상태 | 내용 요약 |
 |----------|----------|---------------|------|------|----------|
-| §11.1.2 | 43-68행 | 1782-1798행 (본 파일) | v1.4 | 원본 유지 + 보강 추가 | 안티패턴 정의 + UI UX Pro Max Skill 교차 검증 테이블 |
+| §11.1.2 | 43-69행 | 1782-1798행 (본 파일) | v1.4 | 원본 유지 + 보강 추가 | 안티패턴 정의 + UI UX Pro Max Skill 교차 검증 테이블 |
 | §11.2.7.1 | 239-253행 | 1807-1817행 (본 파일) | v1.5 | 원본 SUPERSEDED | 이원→삼원 체계(Figma + Pencil + Skill) 확장 |
 | §11.2.7.1 (MCP) | - | 1840-1940행 (본 파일) | v1.5 | 신규 | Pencil.dev MCP 에이전틱 캔버스 상세 |
 | §11.2.7.1 (워크플로우) | - | 2061-2086행 (본 파일) | v1.5 | 원본 교체 | 도구 간 워크플로우 v1.5 확장 다이어그램 |
@@ -1774,16 +1774,16 @@ uipro versions
 - **상태: "통합 완료"** → 본 파일 내 해당 행 범위 참조
 
 **유지보수 주의사항:**
-- 원본 섹션(239행, 43-68행 등) 수정 시 대응하는 보강 섹션도 함께 검토 필요
+- 원본 섹션(239행, 43-69행 등) 수정 시 대응하는 보강 섹션도 함께 검토 필요
 - 비동기 갱신 방지: 변경 사항은 네비게이션 맵에 기록
 
 ---
 
 ## §11.1.2 보강 사항: 안티패턴 교차 검증
 
-<!-- 보강 위치: 본 섹션(1782-1798행). 원본 안티패턴 정의는 43-68행 참조 -->
+<!-- 보강 위치: 본 섹션(1782-1798행). 원본 안티패턴 정의는 43-69행 참조 -->
 
-기존 §11.1.2 B2B 데이터 포털 안티패턴(43-68행)에 아래 내용을 추가합니다.
+기존 §11.1.2 B2B 데이터 포털 안티패턴(43-69행)에 아래 내용을 추가합니다.
 
 **UI UX Pro Max Skill 교차 검증:**
 
