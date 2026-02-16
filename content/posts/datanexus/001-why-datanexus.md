@@ -60,8 +60,7 @@ NL2SQL의 병목은 SQL 생성 능력이 아니다. 맥락의 부재다.
 
 처리 흐름은 이렇다:
 
-![DataNexus 질의 처리 흐름](/images/datanexus/query-flow.svg)
-<!-- Excalidraw source: https://excalidraw.com/#json=Y0yTcH3n1YQCkqWfcAzFF,-Sy-BOtS2IgnejFYbI0g1Q -->
+![DataNexus 질의 처리 흐름](/images/datanexus/query-flow.png)
 
 온톨로지 적용 전후의 차이가 어느 정도냐면, 내부 목표치가 [EX(Execution Accuracy)](https://arxiv.org/abs/2407.04255) 기준 +15~20%p 향상이다. MVP에서 EX 80% 이상, 안정화 단계에서 90% 이상. 이 수치가 현실적인지는 만들어 보면서 검증할 생각이다.
 
@@ -81,8 +80,7 @@ NL2SQL의 병목은 SQL 생성 능력이 아니다. 맥락의 부재다.
 
 DataNexus는 네 가지 기능 축으로 구성된다.
 
-![DataNexus 전체 구성도](/images/datanexus/architecture.svg)
-<!-- Excalidraw source: https://excalidraw.com/#json=WuVjr3sKoMiKuJhZfq6hW,5U1x41xy_FCfLJj_dx7VHA -->
+![DataNexus 전체 구성도](/images/datanexus/architecture.png)
 
 - **메타데이터 카탈로그** — 비즈니스 용어 정의, 테이블 메타, 데이터 계보를 한 곳에서 관리한다. 온톨로지의 원천(Source of Truth).
 - **NL2SQL 엔진** — 자연어를 SQL로 변환하되, 온톨로지에서 가져온 맥락을 프롬프트에 주입해서 정확도를 높인다.
