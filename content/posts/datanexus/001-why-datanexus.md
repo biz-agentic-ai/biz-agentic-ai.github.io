@@ -78,7 +78,7 @@ NL2SQL의 병목은 SQL 생성 능력이 아니다. 맥락의 부재다.
 
 ## DataNexus가 하려는 것
 
-DataNexus는 네 가지 기능 축으로 구성된다.
+DataNexus는 네 가지 컴포넌트로 구성된다.
 
 ![DataNexus 전체 구성도](/images/datanexus/architecture.png)
 
