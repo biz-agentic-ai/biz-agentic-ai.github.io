@@ -2,6 +2,7 @@ baseURL = "https://biz-agentic-ai.github.io/"
 languageCode = "ko"
 title = "Junho Lee | DataNexus 구축 과정"
 theme = "PaperMod"
+googleAnalytics = "G-Q0RS9ZG67P"
 
 [params]
   author = "Junho Lee"
