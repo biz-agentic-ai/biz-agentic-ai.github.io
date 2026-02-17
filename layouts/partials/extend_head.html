@@ -81,20 +81,24 @@
   --sidebar-active-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* Font size adjustments */
-html { font-size: 16px; }
-.post-title { font-size: 32px; }
-.post-single .post-title { font-size: 32px; }
-.post-content h1 { font-size: 32px; }
-.post-content h2 { font-size: 26px; }
-.post-content h3 { font-size: 20px; }
-.entry-header h2 { font-size: 22px; }
-.home-info .entry-content { font-size: 14px; }
+/* Font size adjustments — unified scale */
+html { font-size: 15px; }
+/* Home */
 .first-entry { min-height: 240px; }
-.first-entry .entry-header h1 { font-size: 26px; }
+.first-entry .entry-header h1 { font-size: 24px; }
 .first-entry .entry-content { font-size: 14px; }
+.home-info .entry-content { font-size: 14px; }
 .entry-header h2 { font-size: 20px; }
 .entry-content { font-size: 13px; }
+/* Post single */
+.post-title, .post-single .post-title { font-size: 26px; }
+.post-content { font-size: 15px; line-height: 1.75; }
+.post-content h1 { font-size: 24px; }
+.post-content h2 { font-size: 21px; }
+.post-content h3 { font-size: 18px; }
+.post-content h4 { font-size: 16px; }
+.post-meta { font-size: 13px; }
+.toc a { font-size: 13px; }
 
 /* Hide top header (replaced by sidebar) */
 .header { display: none; }
