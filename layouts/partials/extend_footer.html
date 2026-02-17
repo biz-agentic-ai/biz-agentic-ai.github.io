@@ -1,14 +1,19 @@
 {{- /* Busuanzi 방문자 카운터 */ -}}
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div class="busuanzi-counter">
-  <span id="busuanzi_container_site_pv" style="display:none;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-    <span id="busuanzi_value_site_pv"></span>
+  <span class="busuanzi-item busuanzi-pv" id="busuanzi_container_site_pv" style="display:none;">
+    <span class="busuanzi-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+    </span>
+    <span class="busuanzi-label">Views</span>
+    <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
   </span>
-  <span class="busuanzi-divider"></span>
-  <span id="busuanzi_container_site_uv" style="display:none;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-    <span id="busuanzi_value_site_uv"></span>
+  <span class="busuanzi-item busuanzi-uv" id="busuanzi_container_site_uv" style="display:none;">
+    <span class="busuanzi-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+    </span>
+    <span class="busuanzi-label">Visitors</span>
+    <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
   </span>
 </div>
 <style>
@@ -16,25 +21,42 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  padding: 10px 0 4px;
+  gap: 16px;
+  padding: 14px 0 6px;
   font-size: 0.8rem;
-  color: var(--secondary);
-  opacity: 0.7;
-  transition: opacity 0.2s;
 }
-.busuanzi-counter:hover {
-  opacity: 1;
-}
-.busuanzi-counter span {
+.busuanzi-item {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.busuanzi-divider {
-  width: 1px;
-  height: 12px;
-  background: var(--secondary);
-  opacity: 0.3;
+.busuanzi-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.busuanzi-pv {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+.busuanzi-uv {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: #fff;
+}
+.busuanzi-icon {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.9;
+}
+.busuanzi-label {
+  font-weight: 500;
+  opacity: 0.9;
+  font-size: 0.75rem;
+}
+.busuanzi-value {
+  font-weight: 700;
+  font-size: 0.85rem;
 }
 </style>
