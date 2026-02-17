@@ -1,5 +1,5 @@
 {{- $currentPage := . -}}
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script data-goatcounter="https://biz-agentic-ai.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-inner">
     {{- /* Logo / Site Title */ -}}
@@ -43,19 +43,37 @@
     </div>
     {{- end }}
 
-    {{- /* Visitor Stats */ -}}
+    {{- /* Visitor Stats (GoatCounter) */ -}}
     <div class="sidebar-stats">
-      <div class="sidebar-stat-pill" id="busuanzi_container_page_pv" style="display:none;">
+      <div class="sidebar-stat-pill" id="gc-container-pv" style="display:none;">
         <span class="stat-dot stat-dot--pv"></span>
-        <span class="sidebar-stat-value" id="busuanzi_value_page_pv"></span>
+        <span class="sidebar-stat-value" id="gc-value-pv">-</span>
         <span class="sidebar-stat-label">views</span>
       </div>
-      <div class="sidebar-stat-pill" id="busuanzi_container_site_uv" style="display:none;">
+      <div class="sidebar-stat-pill" id="gc-container-uv" style="display:none;">
         <span class="stat-dot stat-dot--uv"></span>
-        <span class="sidebar-stat-value" id="busuanzi_value_site_uv"></span>
+        <span class="sidebar-stat-value" id="gc-value-uv">-</span>
         <span class="sidebar-stat-label">visitors</span>
       </div>
     </div>
+    <script>
+    (function() {
+      var p = encodeURIComponent(location.pathname);
+      fetch('https://biz-agentic-ai.goatcounter.com/counter/' + p + '.json')
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d.count) {
+            document.getElementById('gc-value-pv').textContent = d.count;
+            document.getElementById('gc-container-pv').style.display = '';
+          }
+          if (d.count_unique) {
+            document.getElementById('gc-value-uv').textContent = d.count_unique;
+            document.getElementById('gc-container-uv').style.display = '';
+          }
+        })
+        .catch(function() {});
+    })();
+    </script>
 
     {{- /* Theme Toggle */ -}}
     {{- if (not site.Params.disableThemeToggle) }}
