@@ -1,6 +1,6 @@
 baseURL = "https://biz-agentic-ai.github.io/"
 languageCode = "ko"
-title = "Junho Lee | DataNexus 빌딩 로그"
+title = "Junho Lee | DataNexus 구축 과정"
 theme = "PaperMod"
 
 [params]
@@ -15,7 +15,7 @@ theme = "PaperMod"
   TocOpen = false
 
   [params.homeInfoParams]
-    Title = "DataNexus 빌딩 로그"
+    Title = "DataNexus 구축 과정"
     Content = "엔터프라이즈 데이터를 자연어로 탐색하는 AI 에이전트, DataNexus를 만드는 과정을 기록합니다."
 
   [[params.socialIcons]]
