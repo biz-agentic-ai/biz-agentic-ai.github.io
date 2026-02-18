@@ -123,7 +123,7 @@ DataHub에서 Glossary Term이 변경되면 Kafka MCL 이벤트가 발행된다.
 
 ## 다음 글
 
-DataHub의 Business Glossary를 온톨로지로 쓸 때의 한계와 우회를 다룬다.
+[DataHub의 Business Glossary를 온톨로지로 쓸 때의 한계와 우회를 다룬다.](/posts/datanexus/003-datahub-glossary-as-ontology/)
 
 ---
 
