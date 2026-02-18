@@ -38,14 +38,12 @@ DataHub Glossary에서 이 두 관계를 표현하면? 둘 다 `RelatedTo`. "공
 
 이게 왜 치명적이냐면, DataNexus의 NL2SQL 엔진이 온톨로지를 보고 SQL을 만들기 때문이다. "A 공장에서 생산된 제품 목록 보여줘"라는 질문이 들어오면, 엔진은 공장-제품 관계를 찾고 거기에 해당하는 테이블과 JOIN 경로를 결정한다.
 
-```
-사용자 질문: "A 공장에서 생산된 제품은?"
-
-온톨로지 조회: 공장 → RelatedTo → 제품  (생산? 재고? 알 수 없음)
-
-→ LLM이 production 테이블 대신 inventory 테이블을 JOIN할 수 있음
-→ 잘못된 결과 반환
-```
+> **사용자 질문**: <span style="color: #3498db">"A 공장에서 생산된 제품은?"</span>
+>
+> **온톨로지 조회**: 공장 → <span style="color: #e67e22">**RelatedTo**</span> → 제품 (생산? 재고? 알 수 없음)
+>
+> → LLM이 production 테이블 대신 inventory 테이블을 JOIN할 수 있음
+> → <span style="color: #e74c3c">**잘못된 결과 반환**</span>
 
 관계 유형이 `RelatedTo` 하나뿐이니, 엔진한테는 판단 근거가 없다. 잘못된 JOIN 경로를 타면 사용자에게 엉뚱한 데이터가 나간다.
 
