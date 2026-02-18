@@ -27,12 +27,17 @@
 
     {{- /* DataNexus Series */ -}}
     {{- $series := where site.RegularPages "Section" "posts" }}
-    {{- $dnPages := where $series ".File.Dir" "posts/datanexus/" }}
+    {{- $dnPages := slice }}
+    {{- range $series }}
+    {{- if eq (replace .File.Dir "\\" "/") "posts/datanexus/" }}
+    {{- $dnPages = $dnPages | append . }}
+    {{- end }}
+    {{- end }}
     {{- if $dnPages }}
     <div class="sidebar-section">
       <h3 class="sidebar-section-title">DataNexus Series</h3>
       <ul>
-        {{- range $dnPages.ByDate.Reverse }}
+        {{- range sort $dnPages "Date" "desc" }}
         <li>
           <a href="{{ .Permalink }}" {{ if eq .Permalink $currentPage.Permalink }} class="active" {{ end }}>
             {{ .Title }}
