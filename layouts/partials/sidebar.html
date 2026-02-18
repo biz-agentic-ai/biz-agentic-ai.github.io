@@ -75,6 +75,29 @@
     })();
     </script>
 
+    {{- /* Dashboard Links (admin only) */ -}}
+    <div class="sidebar-dashboard-links" id="dashboard-links">
+      <a href="https://biz-agentic-ai.goatcounter.com/" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        GoatCounter
+      </a>
+      <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+        GA4 Dashboard
+      </a>
+    </div>
+    <script>
+    (function() {
+      var el = document.getElementById('dashboard-links');
+      if (localStorage.getItem('dn-admin')) el.classList.add('visible');
+      document.querySelector('.sidebar-logo').addEventListener('dblclick', function() {
+        var on = localStorage.getItem('dn-admin');
+        if (on) { localStorage.removeItem('dn-admin'); el.classList.remove('visible'); }
+        else { localStorage.setItem('dn-admin', '1'); el.classList.add('visible'); }
+      });
+    })();
+    </script>
+
     {{- /* Theme Toggle */ -}}
     {{- if (not site.Params.disableThemeToggle) }}
     <div class="sidebar-footer">
