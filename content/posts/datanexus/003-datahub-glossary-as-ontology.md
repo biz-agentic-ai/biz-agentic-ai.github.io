@@ -30,7 +30,7 @@ DataHub 세팅하고 제일 먼저 한 게 Glossary Term 등록이었다. "순�
 
 ## 관계 4종의 한계: "공장과 제품"
 
-실제 업무 데이터를 모델링하면서 벽에 부딪혔다. 구체적으로 말하겠다.
+실제 업무 데이터를 모델링하면서 벽에 부딪혔다.
 
 "A 공장에서 **생산된** B 제품"과 "A 공장에 **재고가 있는** B 제품". 둘 다 공장과 제품 사이의 관계다. 하나는 생산(Manufactures), 하나는 재고(Stocks). 의미가 완전히 다르다.
 
@@ -95,7 +95,7 @@ L사 차세대 정보계 프로젝트(54억, 13개월짜리) 할 때 비슷한 �
 | GraphQL API로 프로그래밍 접근 | 복잡한 그래프 탐색 UI |
 | Kafka MCL 이벤트 스트림 | 재배포 없는 실시간 관계 유형 확장 |
 
-DataHub Glossary는 용어 사전으로서는 훌륭하다. 온톨로지 저장소로는 표현력이 모자랐다.
+DataHub Glossary는 용어 사전으로서는 훌륭하지만, 온톨로지 저장소로는 표현력이 모자랐다.
 
 ## 역할을 나눴다: DataHub + DozerDB
 
@@ -108,25 +108,7 @@ Glossary를 완전히 버리는 건 답이 아니었다. 용어 정의의 원천
 
 DozerDB를 고른 이유는 Cypher 쿼리를 쓸 수 있는 그래프 DB이기 때문이다. 관계(엣지)에 속성을 자유롭게 붙이고, 관계 유형을 추가할 때 스키마 변경도 재배포도 필요 없다.
 
-```mermaid
-graph TD
-    subgraph DataHub ["DataHub Glossary (원천)"]
-        A1["용어 정의<br/>name, definition, synonyms"]
-        A2["기본 관계<br/>IsA, HasA, RelatedTo"]
-    end
-
-    DataHub -- "Kafka MCL Event<br/>용어 변경 시 자동 발행" --> Sync
-
-    Sync["동기화 파이프라인<br/>MCL Consumer"]
-
-    Sync --> DozerDB
-
-    subgraph DozerDB ["DozerDB (확장)"]
-        B1["세분화된 관계<br/>MANUFACTURES, STOCKS, SUPPLIES, ..."]
-        B2["관계 속성<br/>confidence, temporal, cardinality"]
-        B3["그래프 추론<br/>Transitive Closure, Inverse Relations"]
-    end
-```
+![DataHub + DozerDB 역할 분리](/images/datanexus/datahub-dozerdb-sync.png)
 
 동기화 흐름은 간단하다. DataHub에서 Glossary Term이 바뀌면 Kafka MCL 이벤트가 나간다. 이벤트를 구독하는 Consumer가 DozerDB 온톨로지 그래프에 반영한다. 이름, 정의 같은 기본 정보는 DataHub가 쥐고 있고, DozerDB는 그 위에 세분화된 관계와 속성을 얹는 구조다.
 
