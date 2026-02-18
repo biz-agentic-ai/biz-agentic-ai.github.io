@@ -164,6 +164,8 @@ DataHub Glossary 모델은 DataHub만의 구조다. 업계에는 FIBO(금융), S
 
 다음 글에서 SKOS 호환 레이어를 왜 넣었는지 다룬다.
 
+{{< colab "https://colab.research.google.com/drive/189uFJVzYT1al-5o8NWp8YD_YiT0msPd7" >}}
+
 ---
 
 *DataNexus를 설계하고 구축하는 과정을 기록합니다. [GitHub](https://github.com/biz-agentic-ai) | [LinkedIn](https://www.linkedin.com/in/leejuno/)*
