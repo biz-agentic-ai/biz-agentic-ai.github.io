@@ -39,7 +39,7 @@
       <ul>
         {{- range sort $dnPages "Date" "desc" }}
         <li>
-          <a href="{{ .Permalink }}" {{ if eq .Permalink $currentPage.Permalink }} class="active" {{ end }}>
+          <a href="{{ .Permalink }}" title="{{ .Title }}" {{ if eq .Permalink $currentPage.Permalink }} class="active" {{ end }}>
             {{ .Title }}
           </a>
         </li>

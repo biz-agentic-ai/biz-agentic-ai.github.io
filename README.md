@@ -1,4 +1,4 @@
-# Junho Lee | DataNexus 빌딩 로그
+# Junho Lee | DataNexus 구축 과정
 
 엔터프라이즈 데이터를 자연어로 탐색하는 AI 에이전트, [DataNexus](https://github.com/biz-agentic-ai)를 만드는 과정을 기록하는 블로그입니다.
 
