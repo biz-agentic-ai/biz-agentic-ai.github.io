@@ -114,7 +114,7 @@ DozerDB를 고른 이유는 Cypher 쿼리를 쓸 수 있는 그래프 DB이기 �
 
 아까 문제됐던 "공장-제품" 관계. DozerDB에서는 이렇게 풀린다.
 
-```cypher
+```sql
 // 엔티티 생성 (DataHub에서 동기화된 용어)
 CREATE (factory:Entity {name: 'A공장', type: 'Factory'})
 CREATE (product:Entity {name: 'B제품', type: 'Product'})
@@ -140,7 +140,7 @@ CREATE (factory)-[:STOCKS {
 
 이번에는 `CALCULATED_FROM` 관계로 계산식 자체를 그래프에 넣었다.
 
-```cypher
+```sql
 // 순매출의 계산 구조를 관계로 표현
 MATCH (net:Entity {name: '순매출'})
 MATCH (gross:Entity {name: '총매출'})
