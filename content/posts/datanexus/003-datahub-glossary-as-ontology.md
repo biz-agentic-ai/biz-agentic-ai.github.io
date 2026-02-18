@@ -10,6 +10,8 @@ series_order: 3
 ShowToc: true
 ---
 
+{{< colab "https://colab.research.google.com/drive/189uFJVzYT1al-5o8NWp8YD_YiT0msPd7" >}}
+
 ## 왜 Glossary를 온톨로지로 쓰려 했나
 
 DataNexus의 핵심 아이디어는 단순하다. 비즈니스 용어 사이의 관계를 그래프로 정의해두면, NL2SQL 엔진이 그 그래프를 참조해서 자연어를 SQL로 바꿀 수 있다. 이 그래프가 온톨로지다.
