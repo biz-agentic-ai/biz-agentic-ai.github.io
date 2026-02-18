@@ -29,4 +29,13 @@
     margin-right: 15px;
     /* Space between logo and text */
     display: block;
+    mix-blend-mode: multiply;
+    /* Make white background transparent */
+}
+
+.dark .home-logo-img {
+    filter: invert(1);
+    /* Invert colors for dark mode (Black->White, White->Black) */
+    mix-blend-mode: screen;
+    /* Make black background transparent */
 }
