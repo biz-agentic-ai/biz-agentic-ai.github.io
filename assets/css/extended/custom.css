@@ -48,3 +48,8 @@
 .paginav .title {
     font-size: 0.75em;
 }
+
+/* 헤더 로고 텍스트 크기 */
+.logo a {
+    font-size: 28px;
+}
