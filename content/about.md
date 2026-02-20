@@ -38,7 +38,7 @@ DataNexus는 온톨로지 기반 NL2SQL 엔진, GraphRAG, Data Catalog를 결합
 
 ### 기술 영역
 
-- **AI/ML** — 온톨로지 LLM RAG, NL2SQL, Vanna, Langchain, MCP, 멀티에이전트 시스템 설계
+- **AI/ML** — 온톨로지 LLM RAG, NL2SQL, Langchain, MCP, 멀티에이전트 시스템 설계
 - **DW/Data Platform** — Azure Synapse, BigQuery, Redshift, PostgreSQL, Oracle, Yellowbrick, Palantir Foundry
 - **BI** — Power BI, Tableau, MicroStrategy, Qlik Sense, Looker, Superset
 - **ETL/ELT** — ADF, SAP Data Services, IBM DataStage, Informatica, Databricks, SSIS
