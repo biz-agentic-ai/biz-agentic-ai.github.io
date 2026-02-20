@@ -75,6 +75,10 @@ googleAnalytics = "G-Q0RS9ZG67P"
 # 마크업 설정
 [markup]
   [markup.goldmark]
+    [markup.goldmark.extensions.cjk]
+      enable = true
+      eastAsianLineBreaks = true
+      escapedSpace = true
     [markup.goldmark.renderer]
       unsafe = true
   [markup.highlight]
