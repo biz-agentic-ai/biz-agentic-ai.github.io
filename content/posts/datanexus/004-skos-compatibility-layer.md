@@ -152,7 +152,7 @@ OWL 수준의 추론도 SKOS 범위 밖이다. "A가 B의 하위이고, B가 C�
 
 ## 다음 글
 
-온톨로지를 만들었는데, 이게 제대로 된 건지 어떻게 알까. [다음 글에서는 CQ(Competency Questions)로 온톨로지를 사전 검증하는 방법을 다룬다.](/posts/datanexus/005-competency-questions/)
+온톨로지를 만들었는데, 이게 제대로 된 건지 어떻게 알까. 다음 글에서는 CQ(Competency Questions)로 온톨로지를 사전 검증하는 방법을 다룬다.
 
 ---
 

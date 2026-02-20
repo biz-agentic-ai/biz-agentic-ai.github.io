@@ -164,7 +164,7 @@ DataHub Glossary 모델은 DataHub만의 구조다. 업계에는 FIBO(금융), S
 
 외부 상호운용성 없는 온톨로지는 쓰임이 제한된다.
 
-다음 글에서 SKOS 호환 레이어를 왜 넣었는지 다룬다.
+[다음 글에서 SKOS 호환 레이어를 왜 넣었는지 다룬다.](/posts/datanexus/004-skos-compatibility-layer/)
 
 {{< colab "https://colab.research.google.com/drive/189uFJVzYT1al-5o8NWp8YD_YiT0msPd7" >}}
 
