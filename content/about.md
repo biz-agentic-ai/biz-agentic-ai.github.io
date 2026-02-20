@@ -8,53 +8,42 @@ ShowToc: false
 
 ## Junho Lee (이준호)
 
-Data & AI Platform Architect.
+Data & AI Platform Architect | PM
 
-Web/ERP 개발자로 시작해서 DW/BI 엔지니어, Technical Lead, 컨설팅 본부장을 거쳤고,
-지금은 AI 기반 데이터 플랫폼을 설계하고 만들고 있다.
+20년 넘게 DW/BI 현장에서 대규모 DW 클라우드 전환부터 차세대 정보계 구축까지 직접 설계하고 리드해왔다. Web/ERP 개발자로 시작해서 DW/BI 엔지니어, Technical Lead, 컨설팅 본부장을 거쳤고, 지금은 온톨로지 기반 AI 데이터 플랫폼을 만들고 있다.
 
 ---
 
-### 해온 일
+### 경력 요약
 
-커리어 전반부는 대규모 DW/BI 구축과 클라우드 마이그레이션에 집중했다.
-수십TB급 DW의 클라우드 전환을 Tech Leader로 수행했고,
-대형 차세대 정보계 구축 프로젝트를 멀티벤더 PMO로 리드했다.
+커리어 전반부는 엔터프라이즈 DW/BI에 집중했다. 대용량 DW의 클라우드 전환을 Tech Leader로 수행했고, 차세대 정보계 프로젝트를 멀티벤더 PMO로 운영했다. 소매·통신·제조·건설 등 산업 도메인을 가리지 않고 프로젝트를 수행해왔다.
 
-컨설팅 본부를 직접 빌딩한 경험도 있다.
-채용, 교육, 기술 조직 운영, Presales, C레벨 대상 세미나까지.
-기술만 하는 사람은 아니다.
+컨설팅 조직을 직접 빌딩한 경험도 있다. 2명으로 시작한 팀을 20명까지 키우고, 연 매출을 7배 이상 성장시켰다. 채용, 교육, 기술 조직 운영, Presales, C레벨 대상 세미나까지 — 기술만 하는 사람은 아니다.
 
-최근에는 데이터와 AI의 접점에서 일하고 있다.
-LLM 기반 BI Agent 구축, NL2SQL 솔루션 설계를 거쳐
-지금은 DataNexus라는 온톨로지 기반 통합 데이터 에이전트 플랫폼을 설계/구축하고 있다.
+최근에는 데이터와 AI의 접점에서 일하고 있다. LLM 기반 BI Agent를 구축하면서 NL2SQL의 실환경 한계를 직접 경험했고, 그 과정에서 온톨로지 기반 접근의 필요성을 확신하게 됐다. 지금은 DataNexus라는 통합 데이터 에이전트 플랫폼을 설계/구축 중이다.
 
 ---
 
 ### DataNexus
 
-"Everyone is an Analyst."
+> *"Everyone is an Analyst."*
 
-자연어로 사내 데이터를 탐색하고 분석하는 AI 에이전트 플랫폼.
-온톨로지 기반 NL2SQL, GraphRAG, Data Catalog를 결합해서
-비정형 문서와 정형 DB를 하나의 인터페이스로 다루는 구조다.
+엔터프라이즈 데이터 분석의 구조적 문제를 풀기 위한 플랫폼이다. 자연어로 사내 데이터를 탐색하고 분석하는 AI 에이전트 — 말은 쉬운데, 실환경에서는 테이블명이 `T_CUST_MST` 같은 약어 투성이고, "순매출"이라는 단어 하나에도 부서마다 계산 로직이 다르다. DDL만으로는 LLM이 비즈니스 맥락을 이해할 수 없다.
 
-이 블로그는 DataNexus를 만들어가는 과정을 기록한다.
-아키텍처 결정, 기술 선택의 이유, 삽질과 해결 과정을 있는 그대로 남긴다.
+DataNexus는 온톨로지 기반 NL2SQL 엔진, GraphRAG, Data Catalog를 결합해서 이 간극을 메운다. 오픈소스를 조합한 아키텍처로, 비정형 문서와 정형 DB를 하나의 인터페이스로 다루는 구조다.
+
+이 블로그는 DataNexus를 만들어가는 과정을 기록한다. 아키텍처 결정, 기술 선택의 이유, 삽질과 해결 과정을 있는 그대로 남긴다.
 
 ---
 
-### 기술 스택
+### 기술 영역
 
-**현재 집중:** 온톨로지 LLM RAG, NL2SQL, Vanna, Langchain, Neo4j(DozerDB), DataHub, MCP
-
-**DW/Data Lake:** Azure Synapse, BigQuery, Redshift, PostgreSQL, Oracle, Yellowbrick
-
-**BI/시각화:** Power BI, Tableau, MicroStrategy, Qlik Sense, Looker, Superset
-
-**ETL/ELT:** SSIS, ADF, SAP Data Services, IBM DataStage, Informatica, Databricks
-
-**Cloud:** Azure, AWS, GCP
+**AI/ML** — 온톨로지 LLM RAG, NL2SQL, Vanna, Langchain, MCP, 멀티에이전트 시스템 설계
+**DW/Data Platform** — Azure Synapse, BigQuery, Redshift, PostgreSQL, Oracle, Yellowbrick, Palantir Foundry
+**BI** — Power BI, Tableau, MicroStrategy, Qlik Sense, Looker, Superset
+**ETL/ELT** — ADF, SAP Data Services, IBM DataStage, Informatica, Databricks, SSIS
+**Cloud** — Azure (Synapse, ADF, ML), AWS (Redshift, S3, Glue), GCP (BigQuery, Gemini)
+**Graph/Catalog** — DataHub, Neo4j(DozerDB), ApeRAG
 
 ---
 
