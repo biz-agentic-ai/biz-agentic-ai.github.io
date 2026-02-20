@@ -50,7 +50,7 @@
     {{- end }}
 
     {{- /* Visitor Stats (GoatCounter) */ -}}
-    <div class="sidebar-stats">
+    <div class="sidebar-stats" id="sidebar-stats">
       <div class="sidebar-stat-pill" id="gc-container-pv" style="display:none;">
         <span class="stat-dot stat-dot--pv"></span>
         <span class="sidebar-stat-value" id="gc-value-pv">-</span>
@@ -104,11 +104,22 @@
     <script>
       (function () {
         var el = document.getElementById('dashboard-links');
-        if (localStorage.getItem('dn-admin')) el.classList.add('visible');
+        var stats = document.getElementById('sidebar-stats');
+        if (localStorage.getItem('dn-admin')) {
+          el.classList.add('visible');
+          stats.classList.add('visible');
+        }
         document.querySelector('.sidebar-logo').addEventListener('dblclick', function () {
           var on = localStorage.getItem('dn-admin');
-          if (on) { localStorage.removeItem('dn-admin'); el.classList.remove('visible'); }
-          else { localStorage.setItem('dn-admin', '1'); el.classList.add('visible'); }
+          if (on) {
+            localStorage.removeItem('dn-admin');
+            el.classList.remove('visible');
+            stats.classList.remove('visible');
+          } else {
+            localStorage.setItem('dn-admin', '1');
+            el.classList.add('visible');
+            stats.classList.add('visible');
+          }
         });
       })();
     </script>
