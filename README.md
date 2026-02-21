@@ -4,21 +4,13 @@
 
 ## Site
 
-https://biz-agentic-ai.github.io
+<https://biz-agentic-ai.github.io>
 
 ## Tech Stack
 
 - **Static Site Generator**: Hugo + PaperMod
 - **Hosting**: GitHub Pages
 - **CI/CD**: GitHub Actions
-
-## Local Development
-
-```bash
-git clone https://github.com/biz-agentic-ai/biz-agentic-ai.github.io.git
-cd biz-agentic-ai.github.io
-hugo server -D
-```
 
 ## Contact
 
