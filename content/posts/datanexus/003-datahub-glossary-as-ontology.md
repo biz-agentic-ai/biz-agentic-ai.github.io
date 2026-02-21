@@ -156,6 +156,25 @@ CREATE (net)-[:CALCULATED_FROM {operator: 'subtract'}]->(discounts)
 
 계산식이 바뀌면 관계를 수정한다. 변경 이력은 그래프 DB가 추적한다. Excel 시트 어딘가에 묻혀서 누가 언제 고쳤는지 모르는 것보다 낫다.
 
+### Source of Truth가 깨진 건 아닌가
+
+여기서 한 가지 짚고 넘어갈 게 있다.
+
+1편에서 메타데이터 카탈로그를 "온톨로지의 원천(Source of Truth)"이라고 썼다. 2편에서도 DataHub Glossary의 관계 4종이면 충분하다고 봤다. 그런데 3편에 와서 DozerDB를 추가했다. "그러면 Source of Truth가 두 개가 된 거 아닌가?" 당연한 질문이다.
+
+답부터 말하면, SoT의 대상이 달라진 거다.
+
+SoT라는 개념은 "모든 것을 하나의 시스템에 넣는다"가 아니다. "특정 데이터 카테고리에 대해 어디가 최종 권위를 가지느냐"를 정하는 거다. DataHub와 DozerDB는 서로 다른 질문에 답한다.
+
+- **"순매출이 뭐야?"** → DataHub가 답한다. 이름, 정의, 동의어, 소유 부서. 용어의 정체성에 관한 건 DataHub가 최종 권위다.
+- **"순매출이 어떤 테이블과 어떤 경로로 연결되어 있어?"** → DozerDB가 답한다. `CALCULATED_FROM`, `MANUFACTURES` 같은 세분화된 관계, 신뢰도, 유효 기간. 용어 간 연결의 의미론은 DozerDB가 쥐고 있다.
+
+둘 사이에 충돌이 생기면? DataHub가 이긴다. DozerDB의 노드 이름이나 정의가 DataHub Glossary와 다르면 DataHub 쪽이 정답이다. Kafka MCL 이벤트가 이 방향으로만 흐른다 — DataHub → DozerDB. 역방향 동기화는 없다.
+
+처음부터 이 구분을 명확히 했어야 한다. 1편에서 "온톨로지의 원천"이라고 쓸 때, 실제로는 "용어 정의의 원천"이라고 써야 했다. 용어 정의와 관계 의미론을 하나의 시스템이 전부 감당할 수 있을 거라는 초기 가정이 틀렸다. 3편에서 그게 드러난 거고, DataHub + DozerDB 이중 구조는 그 결과다.
+
+SoT가 깨진 게 아니라 SoT의 범위가 좁아진 것이다.
+
 ## 남은 문제: 표준 호환
 
 DataHub Glossary 모델은 DataHub만의 구조다. 업계에는 FIBO(금융), Schema.org(범용) 같은 표준 온톨로지가 있다. 산업 표준을 가져오거나 DataNexus 온톨로지를 밖으로 내보내려면 표준 포맷을 지원해야 하는데, 지금 구조로는 DataNexus 안에서만 통하는 독자 체계다.

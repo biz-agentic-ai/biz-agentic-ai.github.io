@@ -10,6 +10,23 @@ series_order: 4
 ShowToc: true
 ---
 
+## 왜 갑자기 외부 호환을 이야기하나
+
+3편까지는 하나의 관점으로만 글을 썼다. NL2SQL 정확도. "LLM에게 비즈니스 맥락을 얼마나 잘 주입할 수 있느냐"가 모든 의사결정의 기준이었다.
+
+여기서부터 관점이 하나 더 추가된다. 플랫폼이다.
+
+DataNexus가 한 고객사 안에서만 돌아가는 NL2SQL 도구로 끝난다면, 외부 호환은 필요 없다. DozerDB 그래프가 잘 돌아가면 그만이다. 문제는 1편에서 이미 그보다 큰 그림을 그려놨다는 거다 — 그룹사별 멀티테넌시, Data Moat, 시간축 지식그래프. 이 단어들은 전부 "DataNexus가 단일 시스템이 아니라 여러 조직이 온톨로지를 교환하는 플랫폼이 되어야 한다"는 전제 위에 있다.
+
+유통 그룹이 백화점·마트·온라인몰을 갖고 있는데, 관계사마다 "매출"의 정의가 다르다. 이걸 통합하려면 각 관계사의 온톨로지를 공통 포맷으로 내보내서 매핑해야 한다. DataNexus만의 독자 포맷으로는 이 작업이 안 된다.
+
+SKOS 호환 레이어가 NL2SQL 정확도를 직접 올려주진 않는다. 대신 다른 경로로 기여한다.
+
+- 금융 도메인의 FIBO나 유통의 GPC 같은 산업 표준 온톨로지를 가져오면, 밑바닥부터 용어를 정의하는 시간이 줄어든다. 온톨로지 구축이 빨라지면 NL2SQL 엔진에 맥락이 주입되는 시점이 앞당겨진다. 1편에서 "범용 모델의 일반화 속도를 DataNexus의 데이터 축적 속도가 앞서야 한다"고 썼는데, 축적 속도를 올리는 방법 중 하나가 표준을 가져다 쓰는 것이다.
+- 고객사가 이미 Collibra나 Alation을 쓰고 있는 경우, DataNexus 온톨로지를 표준 포맷으로 내보낼 수 없으면 도입 자체가 막힌다. 아무리 NL2SQL 정확도가 높아도 기존 인프라와 공존 못 하면 현장에서 안 쓴다. 이건 유통사 프로젝트에서 겪은 교훈이다 — 기술보다 현장 적합성이 도입을 결정한다.
+
+4편은 NL2SQL 엔진의 내부 성능 이야기가 아니다. DataNexus가 플랫폼으로 기능하기 위한 인터페이스 설계 이야기다. 관점이 다르니까 풀어야 할 문제도 다르다.
+
 ## 외부와 말이 안 통했다
 
 [이전 글](/posts/datanexus/003-datahub-glossary-as-ontology/)에서 DataHub + DozerDB 이중 구조로 내부 온톨로지 문제를 풀었다. 내부 시스템에서만 쓰기에는 충분했다.
@@ -147,6 +164,44 @@ SKOS에는 레이블 자체에 메타데이터를 붙이는 확장(SKOS-XL)이 �
 OWL 수준의 추론도 SKOS 범위 밖이다. "A가 B의 하위이고, B가 C의 하위이면, A는 C의 하위다" 같은 자동 추론. 온톨로지 규모가 작을 땐 없어도 되는데, 수천 개 용어가 쌓이면 얘기가 달라질 수 있다.
 
 가장 아쉬운 건 커스텀 관계 Export다. DozerDB의 `SELLS`, `STOCKS`, `SUPPLIED_BY` 같은 유통 도메인 특화 관계는 SKOS 표준에 대응하는 게 없다. "A매장이 B상품을 판매한다"는 방향이 있는 관계인데, `skos:related`로 뭉뚱그리면 방향과 의미가 사라진다. `dnx:sells` 같은 커스텀 네임스페이스로 확장하면 정보는 보존되는데, 받는 쪽이 이 커스텀 관계를 이해할 수 있어야 한다. 정보 손실 vs 호환성 — 트레이드오프다.
+
+### 커스텀 관계를 내보내는 구체적인 방법
+
+`skos:related`로 뭉뚱그리면 의미가 사라진다고 했다. 그래서 어떻게 하느냐.
+
+DataNexus 전용 네임스페이스를 정의한다.
+
+```turtle
+@prefix dnx: <http://datanexus.ai/ontology/relation/> .
+
+dnx:atv-store a skos:Concept ;
+  skos:prefLabel "객단가-매장 관계"@ko ;
+  dnx:relationshipType "SoldBy" ;
+  dnx:direction "outgoing" ;
+  dnx:confidence 0.95 ;
+  dnx:validFrom "2024-01-01" .
+```
+
+`dnx:relationshipType`, `dnx:direction`, `dnx:confidence` 같은 커스텀 속성으로 DozerDB의 `SELLS` 관계가 가진 방향성과 메타데이터를 보존한다. 받는 쪽 시스템이 `dnx:` 네임스페이스를 이해하면 정보 손실 없이 복원할 수 있고, 이해 못 하면 `skos:related`로 폴백한다. 정보가 사라지는 게 아니라 읽을 수 있는 시스템에서만 보이는 거다.
+
+현실적으로는 이렇게 운영한다.
+
+| Export 대상 | 방식 | 정보 보존율 |
+| --- | --- | --- |
+| SKOS 네이티브 시스템 (Collibra, TopBraid) | `skos:` 표준 속성만 포함 | ~80% (방향, 속성 손실) |
+| DataNexus 간 교환 (그룹사 ↔ 그룹사) | `dnx:` 커스텀 네임스페이스 포함 | ~95% (거의 완전 보존) |
+| 규제 보고용 | `skos:` + `skos:note`에 커스텀 관계 텍스트 기록 | ~85% (사람이 읽을 수 있는 수준) |
+
+DataHub 쪽에서는 Export 시점에 미매핑 속성을 처리하는 규칙도 정해 뒀다.
+
+| DozerDB 속성 | SKOS Export 시 처리 |
+| --- | --- |
+| `confidence` | `dnx:confidence` (커스텀) 또는 `skos:note`에 텍스트로 기록 |
+| `since` / `valid_until` | `dnx:validFrom` / `dnx:validUntil` 또는 `skos:historyNote` |
+| `cardinality` | `dnx:cardinality` (커스텀 전용, SKOS에 대응 없음) |
+| `operator` (CALCULATED_FROM) | `dnx:calculationOperator` |
+
+완벽하진 않다. `dnx:` 네임스페이스는 DataNexus 생태계 안에서만 의미가 있고, 외부 시스템이 이걸 해석하리라는 보장은 없다. 표준의 한계를 커스텀 확장으로 메꾸면 결국 새로운 비표준을 만드는 셈이다. 이 지점에서 더 나아가려면 SKOS-XL이나 별도의 Application Profile을 정의해야 하는데, 지금은 과하다. 필요해지면 그때 넣는다.
 
 80%는 SKOS 표준으로 커버하고, 20%는 DozerDB 커스텀 관계로 보완한다. 표준이 못 담는 부분은 내부 확장으로 채우되, 무리해서 표준 안에 구겨넣지 않는다.
 
