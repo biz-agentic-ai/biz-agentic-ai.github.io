@@ -54,13 +54,13 @@ GraphQL API도 한몫했다. 메타데이터를 프로그래밍 방식으로 읽
 
 그때 Vanna가 2.0으로 올라왔다.
 
-1.x는 단순했다. Python 클래스 하나 상속받아서 `train()`, `ask()` 호출하는 구조. 프로토타이핑엔 괜찮은데 프로덕션에 넣기엔 부족했다. 사용자별 컨텍스트 분리도 안 되고 보안 기능도 없었다.
+1.x는 단순했다. Python 클래스 하나 상속받아서 `train()`, `ask()` 호출하는 방식. 프로토타이핑엔 괜찮은데 프로덕션에 넣기엔 부족했다. 사용자별 컨텍스트 분리도 안 되고 보안 기능도 없었다.
 
 2.0은 다른 물건이다. Agent 기반 아키텍처로 바뀌면서 독립적인 구성 요소를 조합하는 방식이 됐고, 모든 컴포넌트에 사용자 ID가 자동 전파되는 User-Aware 구조가 들어갔다. Row-level Security가 프레임워크 수준에서 지원된다. 성공한 쿼리를 자동 학습하는 Tool Memory도 내장. 테이블이나 차트 같은 Rich UI Component를 실시간 전송하는 Streaming까지 갖췄다.
 
-User-Aware와 Row-level Security가 결정적이었다. DataNexus는 그룹사별로 데이터를 격리해야 하는데 NL2SQL 엔진 레벨에서 이걸 지원한다는 건 직접 구현할 코드가 대폭 줄어든다는 뜻이다.
+User-Aware와 Row-level Security가 가장 중요했다. DataNexus는 그룹사별로 데이터를 격리해야 하는데 NL2SQL 엔진 레벨에서 이걸 지원한다는 건 직접 구현할 코드가 대폭 줄어든다는 뜻이다.
 
-Tool Memory도 컸다. NL2SQL 정확도를 올리는 가장 확실한 방법 중 하나가 성공 쿼리를 축적해서 유사 질문에 재활용하는 건데 이게 프레임워크에 내장돼 있다. 직접 구현하면 쿼리 저장, 유사도 매칭, 버전 관리까지 만져야 하는데 그 공수가 통째로 빠진다.
+Tool Memory도 컸다. NL2SQL 정확도를 올리는 가장 확실한 방법 중 하나가 성공 쿼리를 축적해서 유사 질문에 재활용하는 건데 이게 프레임워크에 내장돼 있다. 별도로 만들면 쿼리 저장, 유사도 매칭, 버전 관리까지 만져야 하는데 그 공수가 통째로 빠진다.
 
 ## 문서 지식엔진
 
@@ -70,7 +70,7 @@ Tool Memory도 컸다. NL2SQL 정확도를 올리는 가장 확실한 방법 중
 
 ApeRAG는 세 가지 검색을 조합해서 이 문제를 푼다. 임베딩 기반 의미 검색인 Vector Search, 고유명사나 코드명처럼 문자열 자체가 중요한 Full-text Search, 문서에서 추출한 엔티티 간 관계를 그래프로 탐색하는 GraphRAG. 이 셋을 동시에 돌린다.
 
-이 하이브리드가 DataNexus와 특히 잘 맞는 이유가 있다. DataHub의 Glossary Term을 ApeRAG Entity Extraction의 Taxonomy로 주입하면 문서에서 추출된 엔티티가 자동으로 비즈니스 용어와 연결된다. Exact Match → Synonym Match → Fuzzy Match(임계값 0.85) → Context Match, 4단계 Entity Resolution을 거치는 구조다.
+이 하이브리드가 DataNexus와 특히 잘 맞는 이유가 있다. DataHub의 Glossary Term을 ApeRAG Entity Extraction의 Taxonomy로 주입하면 문서에서 추출된 엔티티가 자동으로 비즈니스 용어와 연결된다. Exact Match → Synonym Match → Fuzzy Match(임계값 0.85) → Context Match, 4단계 Entity Resolution을 거친다.
 
 MinerU 통합도 빠뜨릴 수 없다. 엔터프라이즈 문서에는 복잡한 테이블, 수식, 다단 레이아웃이 흔한데 일반 PDF 파서로는 테이블 행/열이 깨진다. 특히 사업보고서처럼 테이블 안에 병합 셀이 난무하는 문서는 파싱 결과가 처참하다. MinerU는 문서 구조를 보존하면서 파싱하기 때문에 이 문제를 정면으로 해결한다.
 
@@ -98,7 +98,7 @@ DozerDB의 한계도 안다. Fabric — 크로스 DB 쿼리 — 은 아직 미�
 
 DataHub에서 Glossary Term이 바뀌면 Kafka MCL 이벤트가 발행된다. 이 이벤트가 DozerDB 온톨로지 그래프에 실시간 반영되고, 동시에 Vanna의 RAG Store에도 들어간다. NL2SQL 프롬프트에 주입되는 맥락이 자동 갱신되는 셈이다. ApeRAG의 Entity Extraction은 DataHub Glossary를 Taxonomy로 참조하니까 문서 검색 결과도 최신 용어 체계에 연결된다.
 
-한 곳에서 용어를 고치면 네 군데가 동시에 바뀐다. 메타데이터 변경을 수동으로 전파하는 구조는 규모가 커질수록 반드시 어딘가 누락된다. 이 파이프라인이 그 문제를 막는다.
+한 곳에서 용어를 고치면 네 군데가 동시에 바뀐다. 메타데이터 변경을 수동으로 전파하는 방식은 규모가 커질수록 반드시 어딘가 누락된다. 이 파이프라인이 그 문제를 막는다.
 
 ## 다음 글
 

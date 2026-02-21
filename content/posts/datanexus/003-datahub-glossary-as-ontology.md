@@ -18,7 +18,7 @@ DataNexus의 핵심 아이디어는 단순하다. 비즈니스 용어 사이의 
 
 온톨로지라고 하면 학술 논문에나 나올 것 같은데, 실체는 별거 없다. "순매출은 매출의 한 종류다(IsA)", "매출은 총매출, 반품, 에누리를 포함한다(HasA)". 사람 머릿속에 있는 업무 지식을 기계가 읽을 수 있게 옮긴 것뿐이다.
 
-이걸 어디에 저장할지가 고민이었다. 온톨로지 전용 시스템을 하나 더 띄우면 관리 포인트가 늘어난다. 이미 DataHub를 메타데이터 플랫폼으로 쓰고 있었고, 거기 **Business Glossary**가 딸려 있었다. 용어 등록, 관계 설정 다 된다. [이전 글](/posts/datanexus/002-architecture-decisions/)에서 Glossary의 관계 4종(IsA, HasA, RelatedTo, Values)이면 비즈니스 용어 계층구조를 충분히 표현할 수 있다고 봤었다.
+이걸 어디에 저장할지가 고민이었다. 온톨로지 전용 시스템을 하나 더 띄우면 관리 포인트가 늘어난다. 이미 DataHub를 메타데이터 플랫폼으로 쓰고 있었고, 거기 **Business Glossary** 가 딸려 있었다. 용어 등록, 관계 설정 다 된다. [이전 글](/posts/datanexus/002-architecture-decisions/)에서 Glossary의 관계 4종(IsA, HasA, RelatedTo, Values)이면 비즈니스 용어 계층구조를 충분히 표현할 수 있다고 봤었다.
 
 시스템 하나를 줄일 수 있다는 게 매력적이었다. GraphQL API로 프로그래밍 접근도 되고, 용어가 변경되면 Kafka MCL(Metadata Change Log) 이벤트가 자동으로 나간다. 나쁘지 않은 출발점이었다.
 
@@ -88,7 +88,7 @@ DataHub Glossary에서 "A RelatedTo B"를 설정하면 그 관계에 아무것�
 ### 정리: 되는 것과 안 되는 것
 
 | 되는 것 | 안 되는 것 |
-|---------|-----------|
+| --------- | ----------- |
 | 용어 정의 (name, definition) | 세분화된 관계 유형 (MANUFACTURES, STOCKS 등) |
 | 동의어 등록 (커스텀 필드) | 동의어 중복/충돌 자동 감지 |
 | 4종 관계 (IsA, HasA, RelatedTo, Values) | 관계에 속성 부여 (신뢰도, 유효 기간) |

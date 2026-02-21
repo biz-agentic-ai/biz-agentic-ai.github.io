@@ -59,7 +59,7 @@ DataNexus가 하려는 건 추론이 아니다. "객단가가 뭔지, 어떤 테
 SKOS 개념이 DataNexus 구조에 어떻게 대응되는지 정리하면:
 
 | SKOS | DataNexus (DataHub + DozerDB) | 쉽게 말하면 |
-|------|-------------------------------|-------------|
+| ------ | ------------------------------- | ------------- |
 | skos:Concept | Glossary Term / Entity 노드 | 용어 하나 |
 | skos:broader | IsA 관계 (상위 개념) | "객단가는 매출지표의 일종" |
 | skos:narrower | IsA 역방향 (하위 개념) | "매출지표의 하위에 객단가" |
