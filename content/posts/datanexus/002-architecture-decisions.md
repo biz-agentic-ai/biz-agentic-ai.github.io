@@ -1,5 +1,5 @@
 ---
-title: "2. 4개의 오픈소스를 이 조합으로 결정하기까지"
+title: "[DataNexus] 2. 4개의 오픈소스를 이 조합으로 결정하기까지"
 date: 2026-02-17
 draft: false
 summary: "DataNexus의 기술 스택을 DataHub + Vanna + ApeRAG + DozerDB로 결정한 과정. 후보군에서 탈락한 것들과 그 이유."

@@ -15,6 +15,7 @@ googleAnalytics = "G-Q0RS9ZG67P"
   ShowToc = true
   TocOpen = false
   comments = true
+  mainSections = ["posts", "guides"]
 
   [params.homeInfoParams]
     Title = "DataNexus 구축 과정"

@@ -1,5 +1,5 @@
 ---
-title: "클라우드 DW에서 Kimball은 여전히 유효한가"
+title: "[DW] 클라우드 DW에서 Kimball은 여전히 유효한가"
 date: 2026-02-22
 draft: false
 summary: "Synapse, BigQuery, Redshift로 오면서 DW 모델링 관점이 어떻게 달라졌는지. Kimball, Data Vault, One Big Table — 현장에서의 판단 기준."
@@ -17,7 +17,7 @@ ShowToc: true
 
 온프레미스에서 수년간 운영하던 DW를 BigQuery나 Azure Synapse로 옮기는 자리. 누군가가 묻는다. "거기는 Columnar Storage(컬럼기반 저장소)라 조인 비용이 다르다는데, 그러면 스타스키마 안 해도 되는 거 아닌가요?"
 
-답을 먼저 말하면 — 상황에 따라 다르다. 그런데 이 "상황에 따라 다르다"가 구체적으로 뭘 따져야 하는 건지를 아는 사람은 많지 않다.
+답을 먼저 말하면 - 상황에 따라 다르다. 그런데 이 "상황에 따라 다르다"가 구체적으로 뭘 따져야 하는 건지를 아는 사람은 많지 않다.
 
 ## 온프레미스 시절의 공식
 

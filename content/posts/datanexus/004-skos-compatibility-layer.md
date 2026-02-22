@@ -1,5 +1,5 @@
 ---
-title: "4. SKOS 호환 레이어를 왜 넣었는가"
+title: "[DataNexus] 4. SKOS 호환 레이어를 왜 넣었는가"
 date: 2026-02-20
 draft: false
 summary: "DataNexus 온톨로지를 외부와 연결하기 위해 SKOS를 선택한 이유. LPG와 RDF, 두 그래프 모델을 잇는 호환 레이어 설계."
