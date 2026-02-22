@@ -2,82 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://biz-agentic-ai.github.io/guides/dw-modeling/004-de-trends-2026/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/ai/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/categories/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/data-engineering/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/categories/dw-modeling/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/guides/dw-modeling/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/dw-modeling/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/series/dw-modeling-guide/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/semantic-layer/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/series/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/trends/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/guides/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://biz-agentic-ai.github.io/guides/dw-modeling/003-erd-notation/</loc>
     <lastmod>2026-02-21T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://biz-agentic-ai.github.io/categories/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://biz-agentic-ai.github.io/tags/crows-foot/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/categories/dw-modeling/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/guides/dw-modeling/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/dw-modeling/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/series/dw-modeling-guide/</loc>
     <lastmod>2026-02-21T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -92,7 +47,27 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://biz-agentic-ai.github.io/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://biz-agentic-ai.github.io/tags/notation/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/series/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/guides/</loc>
     <lastmod>2026-02-21T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
