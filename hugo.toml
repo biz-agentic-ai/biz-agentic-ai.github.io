@@ -29,6 +29,10 @@ googleAnalytics = "G-Q0RS9ZG67P"
     name = "linkedin"
     url = "https://www.linkedin.com/in/leejuno/"
 
+  [[params.socialIcons]]
+    name = "rss"
+    url = "/index.xml"
+
   [params.schema]
     publisherType = "Person"
     sameAs = [
