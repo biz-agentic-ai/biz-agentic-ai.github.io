@@ -2,17 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://biz-agentic-ai.github.io/guides/dw-modeling/002-oltp-vs-dw-model/</loc>
+    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://biz-agentic-ai.github.io/categories/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/cloud-dw/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/data-vault/</loc>
     <lastmod>2026-02-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -47,17 +42,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/kimball/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://biz-agentic-ai.github.io/tags/oltp/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/guides/dw-modeling/002-oltp-vs-dw-model/</loc>
     <lastmod>2026-02-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -83,7 +68,22 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/cloud-dw/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/data-vault/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/kimball/</loc>
+    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>

@@ -9,7 +9,7 @@
     <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://biz-agentic-ai.github.io/tags/data-warehouse/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>OLTP vs DW 모델 - 목적이 다르면 설계도 다르다</title>
+      <title>2. OLTP vs DW 모델 - 목적이 다르면 설계도 다르다</title>
       <link>https://biz-agentic-ai.github.io/guides/dw-modeling/002-oltp-vs-dw-model/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/guides/dw-modeling/002-oltp-vs-dw-model/</guid>
