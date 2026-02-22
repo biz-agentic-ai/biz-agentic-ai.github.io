@@ -7,6 +7,7 @@ categories: ["ETL 설계"]
 tags: ["etl", "medallion-architecture", "duckdb", "dbt", "elt"]
 series: ["etl-design-guide"]
 series_order: 1
+weight: 3
 author: "Junho Lee"
 ShowToc: true
 ---

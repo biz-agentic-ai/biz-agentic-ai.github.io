@@ -7,6 +7,7 @@ categories: ["ETL 설계"]
 tags: ["etl", "silver", "dbt", "duckdb", "data-cleaning"]
 series: ["etl-design-guide"]
 series_order: 3
+weight: 1
 author: "Junho Lee"
 ShowToc: true
 ---

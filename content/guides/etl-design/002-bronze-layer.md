@@ -7,6 +7,7 @@ categories: ["ETL 설계"]
 tags: ["etl", "bronze", "full-load", "incremental-load", "duckdb", "cdc"]
 series: ["etl-design-guide"]
 series_order: 2
+weight: 2
 author: "Junho Lee"
 ShowToc: true
 ---
