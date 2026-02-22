@@ -7,7 +7,7 @@ categories: ["ETL 설계"]
 tags: ["etl", "medallion-architecture", "elt"]
 series: ["etl-design-guide"]
 series_order: 1
-weight: 3
+weight: 4
 author: "Junho Lee"
 ShowToc: true
 ---

@@ -7,7 +7,7 @@ categories: ["ETL 설계"]
 tags: ["etl", "bronze", "cdc"]
 series: ["etl-design-guide"]
 series_order: 2
-weight: 2
+weight: 3
 author: "Junho Lee"
 ShowToc: true
 ---

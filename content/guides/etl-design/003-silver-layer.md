@@ -7,7 +7,7 @@ categories: ["ETL 설계"]
 tags: ["etl", "silver", "data-cleaning"]
 series: ["etl-design-guide"]
 series_order: 3
-weight: 1
+weight: 2
 author: "Junho Lee"
 ShowToc: true
 ---
