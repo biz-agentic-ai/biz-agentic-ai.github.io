@@ -9,6 +9,20 @@
     <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://biz-agentic-ai.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Bronze</title>
+      <link>https://biz-agentic-ai.github.io/tags/bronze/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/bronze/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cdc</title>
+      <link>https://biz-agentic-ai.github.io/tags/cdc/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/cdc/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Dbt</title>
       <link>https://biz-agentic-ai.github.io/tags/dbt/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
@@ -55,6 +69,20 @@
       <link>https://biz-agentic-ai.github.io/tags/etl/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/tags/etl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Full-Load</title>
+      <link>https://biz-agentic-ai.github.io/tags/full-load/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/full-load/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Incremental-Load</title>
+      <link>https://biz-agentic-ai.github.io/tags/incremental-load/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/incremental-load/</guid>
       <description></description>
     </item>
     <item>
