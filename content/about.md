@@ -28,7 +28,7 @@ DW/BI 현장에서 대규모 DW 클라우드 전환부터 차세대 정보계 �
 
 > *"Everyone is an Analyst."*
 
-엔터프라이즈 데이터 분석의 구조적 문제를 풀기 위한 플랫폼입니다. 자연어로 사내 데이터를 탐색하고 분석하는 AI 에이전트 — 말은 쉬운데, 실환경에서는 테이블명이 `T_CUST_MST` 같은 약어 투성이고, "순매출"이라는 단어 하나에도 부서마다 계산 로직이 다릅니다. DDL만으로는 LLM이 비즈니스 맥락을 이해할 수 없습니다.
+엔터프라이즈 데이터 분석의 구조적 문제를 풀기 위한 플랫폼입니다. 자연어로 사내 데이터를 탐색하고 분석하는 AI 에이전트 -말은 쉬운데, 실환경에서는 테이블명이 `T_CUST_MST` 같은 약어 투성이고, "순매출"이라는 단어 하나에도 부서마다 계산 로직이 다릅니다. DDL만으로는 LLM이 비즈니스 맥락을 이해할 수 없습니다.
 
 DataNexus는 온톨로지 기반 NL2SQL 엔진, GraphRAG, Data Catalog를 결합해서 이 문제를 풀어갑니다. 오픈소스를 조합한 아키텍처로, 비정형 문서와 정형 DB를 하나의 인터페이스로 다루는 구조입니다.
 
@@ -38,12 +38,12 @@ DataNexus는 온톨로지 기반 NL2SQL 엔진, GraphRAG, Data Catalog를 결합
 
 ### 기술 영역
 
-- **AI/ML** — 온톨로지 LLM RAG, NL2SQL, Langchain, MCP, 멀티에이전트 시스템 설계
-- **DW/Data Platform** — Azure Synapse, BigQuery, Redshift, PostgreSQL, Oracle, Yellowbrick, Palantir Foundry
-- **BI** — Power BI, Tableau, MicroStrategy, Qlik Sense, Looker, Superset
-- **ETL/ELT** — ADF, SAP Data Services, IBM DataStage, Informatica, Databricks, SSIS
-- **Cloud** — Azure (Synapse, ADF, ML), AWS (Redshift, S3, Glue), GCP (BigQuery, Gemini)
-- **Graph/Catalog** — DataHub, Neo4j(DozerDB), ApeRAG
+- **AI/ML** -온톨로지 LLM RAG, NL2SQL, Langchain, MCP, 멀티에이전트 시스템 설계
+- **DW/Data Platform** -Azure Synapse, BigQuery, Redshift, PostgreSQL, Oracle, Yellowbrick, Palantir Foundry
+- **BI** -Power BI, Tableau, MicroStrategy, Qlik Sense, Looker, Superset
+- **ETL/ELT** -ADF, SAP Data Services, IBM DataStage, Informatica, Databricks, SSIS
+- **Cloud** -Azure (Synapse, ADF, ML), AWS (Redshift, S3, Glue), GCP (BigQuery, Gemini)
+- **Graph/Catalog** -DataHub, Neo4j(DozerDB), ApeRAG
 
 ---
 
