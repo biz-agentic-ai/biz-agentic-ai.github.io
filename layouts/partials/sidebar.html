@@ -34,6 +34,51 @@
     </div>
     {{- end }}
 
+    {{- /* DW 모델링 Guide */ -}}
+    {{- $guidePages := where site.RegularPages "Section" "guides" }}
+    {{- $dwPages := slice }}
+    {{- range $guidePages }}
+    {{- if eq (replace .File.Dir "\\" "/") "guides/dw-modeling/" }}
+    {{- $dwPages = $dwPages | append . }}
+    {{- end }}
+    {{- end }}
+    {{- if $dwPages }}
+    <div class="sidebar-section">
+      <h3 class="sidebar-section-title">DW 모델링 Guide</h3>
+      <ul>
+        {{- range sort $dwPages "Date" "desc" }}
+        <li>
+          <a href="{{ .Permalink }}" title="{{ .Title }}" {{ if eq .Permalink $currentPage.Permalink }} class="active" {{ end }}>
+            {{ .Title }}
+          </a>
+        </li>
+        {{- end }}
+      </ul>
+    </div>
+    {{- end }}
+
+    {{- /* ETL 설계 Guide */ -}}
+    {{- $etlPages := slice }}
+    {{- range $guidePages }}
+    {{- if eq (replace .File.Dir "\\" "/") "guides/etl-design/" }}
+    {{- $etlPages = $etlPages | append . }}
+    {{- end }}
+    {{- end }}
+    {{- if $etlPages }}
+    <div class="sidebar-section">
+      <h3 class="sidebar-section-title">ETL 설계 Guide</h3>
+      <ul>
+        {{- range sort $etlPages "Date" "desc" }}
+        <li>
+          <a href="{{ .Permalink }}" title="{{ .Title }}" {{ if eq .Permalink $currentPage.Permalink }} class="active" {{ end }}>
+            {{ .Title }}
+          </a>
+        </li>
+        {{- end }}
+      </ul>
+    </div>
+    {{- end }}
+
     {{- /* Visitor Stats (GoatCounter) */ -}}
     <div class="sidebar-stats" id="sidebar-stats">
       <div class="sidebar-stat-pill" id="gc-container-pv" style="display:none;">
