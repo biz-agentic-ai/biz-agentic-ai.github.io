@@ -79,3 +79,13 @@
 .post-content pre code {
     font-size: 1.05em;
 }
+
+/* 상단 헤더 고정 */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(var(--theme), 0.85);
+}
