@@ -259,6 +259,30 @@
     padding: 8px 20px;
     margin: 0;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .sidebar-section-title::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .sidebar-section-title--datanexus::before {
+    background: #4fc3f7;
+  }
+
+  .sidebar-section-title--dw::before {
+    background: #ab47bc;
+  }
+
+  .sidebar-section-title--etl::before {
+    background: #66bb6a;
   }
 
   .sidebar-section li a {

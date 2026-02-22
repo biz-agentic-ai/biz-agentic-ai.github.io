@@ -21,7 +21,7 @@
     {{- end }}
     {{- if $dnPages }}
     <div class="sidebar-section">
-      <h3 class="sidebar-section-title">DataNexus Series</h3>
+      <h3 class="sidebar-section-title sidebar-section-title--datanexus">DataNexus Series</h3>
       <ul>
         {{- range sort $dnPages "Date" "desc" }}
         <li>
@@ -44,7 +44,7 @@
     {{- end }}
     {{- if $dwPages }}
     <div class="sidebar-section">
-      <h3 class="sidebar-section-title">DW 모델링 Guide</h3>
+      <h3 class="sidebar-section-title sidebar-section-title--dw">DW 모델링 Guide</h3>
       <ul>
         {{- range sort $dwPages "Date" "desc" }}
         <li>
@@ -66,7 +66,7 @@
     {{- end }}
     {{- if $etlPages }}
     <div class="sidebar-section">
-      <h3 class="sidebar-section-title">ETL 설계 Guide</h3>
+      <h3 class="sidebar-section-title sidebar-section-title--etl">ETL 설계 Guide</h3>
       <ul>
         {{- range sort $etlPages "Date" "desc" }}
         <li>

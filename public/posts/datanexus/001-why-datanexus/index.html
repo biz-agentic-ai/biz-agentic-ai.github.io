@@ -277,6 +277,30 @@
     padding: 8px 20px;
     margin: 0;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .sidebar-section-title::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .sidebar-section-title--datanexus::before {
+    background: #4fc3f7;
+  }
+
+  .sidebar-section-title--dw::before {
+    background: #ab47bc;
+  }
+
+  .sidebar-section-title--etl::before {
+    background: #66bb6a;
   }
 
   .sidebar-section li a {
@@ -533,7 +557,7 @@
       <span class="sidebar-subtitle">구축 과정</span>
     </div>
     <div class="sidebar-section">
-      <h3 class="sidebar-section-title">DataNexus Series</h3>
+      <h3 class="sidebar-section-title sidebar-section-title--datanexus">DataNexus Series</h3>
       <ul>
         <li>
           <a href="https://biz-agentic-ai.github.io/posts/datanexus/004-skos-compatibility-layer/" title="4. SKOS 호환 레이어를 왜 넣었는가" >
@@ -558,7 +582,7 @@
       </ul>
     </div>
     <div class="sidebar-section">
-      <h3 class="sidebar-section-title">DW 모델링 Guide</h3>
+      <h3 class="sidebar-section-title sidebar-section-title--dw">DW 모델링 Guide</h3>
       <ul>
         <li>
           <a href="https://biz-agentic-ai.github.io/guides/dw-modeling/004-super-sub-type/" title="4. 수퍼-서브 타입 - 고객이 개인이면서 법인일 수 있는가" >
@@ -583,7 +607,7 @@
       </ul>
     </div>
     <div class="sidebar-section">
-      <h3 class="sidebar-section-title">ETL 설계 Guide</h3>
+      <h3 class="sidebar-section-title sidebar-section-title--etl">ETL 설계 Guide</h3>
       <ul>
         <li>
           <a href="https://biz-agentic-ai.github.io/guides/etl-design/004-scd/" title="4. SCD - 고객 주소가 바뀌면 과거 주문은 어디로 배송된 걸로 남는가" >
