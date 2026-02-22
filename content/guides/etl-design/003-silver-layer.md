@@ -246,11 +246,11 @@ select * from cleaned
 
 `row_number()`로 같은 `id`가 여러 개 있으면 가장 최근에 적재된 것만 남긴다. [2편]({{< ref "002-bronze-layer" >}})에서 추가한 `_loaded_at` 메타데이터 컬럼이 여기서 쓰인다.
 
-## Silver는 계약이다
+## Silver를 함부로 바꾸면 Gold가 깨진다
 
-Silver 레이어의 스키마는 Gold 레이어와의 계약이다. Gold 모델은 Silver 테이블의 컬럼명, 타입, 단위를 믿고 쓴다. Silver에서 컬럼명을 바꾸면 Gold가 깨진다.
+Gold 모델은 Silver 테이블의 컬럼명, 타입, 단위를 믿고 쓴다. `stg_orders`의 `order_date`가 DATE라는 전제로 Gold에서 날짜 함수를 쓰고 있는데, 누군가 Silver에서 컬럼명을 `ordered_at`으로 바꾸면 Gold 모델이 전부 에러를 뱉는다.
 
-그래서 Silver 모델을 수정할 때는 주의가 필요하다. 컬럼을 추가하는 건 괜찮지만, 기존 컬럼의 이름이나 타입을 바꾸는 건 하위 모델에 영향을 준다. dbt의 `ref()` 함수가 의존 관계를 추적하니까 어디가 영향 받는지는 확인할 수 있다.
+컬럼을 추가하는 건 괜찮다. 기존 컬럼의 이름이나 타입을 바꾸는 게 위험하다. dbt의 `ref()` 함수가 의존 관계를 추적하니까 어디가 영향 받는지는 확인할 수 있다.
 
 다음 글에서는 SCD(Slowly Changing Dimension)를 다룬다. 고객의 주소가 바뀌었을 때 과거 주소를 어떻게 보존하는가. Type 1, 2, 3의 차이와 선택 기준.
 
