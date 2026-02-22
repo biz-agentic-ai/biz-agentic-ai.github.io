@@ -6,12 +6,12 @@
     <description>Recent content in Data-Warehouse on Junho Lee | DataNexus 구축 과정</description>
     <generator>Hugo -- 0.155.3</generator>
     <language>ko</language>
-    <lastBuildDate>Sat, 21 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://biz-agentic-ai.github.io/tags/data-warehouse/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>2. OLTP vs DW 모델 - 목적이 다르면 설계도 다르다</title>
       <link>https://biz-agentic-ai.github.io/guides/dw-modeling/002-oltp-vs-dw-model/</link>
-      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/guides/dw-modeling/002-oltp-vs-dw-model/</guid>
       <description>ERD가 같아 보여도 설계 철학은 완전히 다르다. OLTP는 트랜잭션 정합성, DW는 분석 접근 경로. 그 차이가 Unknown 레코드와 시점 데이터 같은 낯선 것들을 만든다.</description>
     </item>

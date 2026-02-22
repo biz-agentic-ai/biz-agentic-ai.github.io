@@ -1,6 +1,6 @@
 ---
 title: "3. ERD 표기법 - 같은 그림, 다른 해석"
-date: 2026-02-22
+date: 2026-02-21
 draft: false
 summary: "Crow's Foot, Barker, IDEF1X - 표기법이 다르면 같은 관계도 다르게 읽힌다. 프로젝트에서 ERD를 공통 언어로 쓰려면 표기법부터 맞춰야 한다."
 categories: ["DW Modeling"]

@@ -9,10 +9,17 @@
     <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://biz-agentic-ai.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Crows-Foot</title>
-      <link>https://biz-agentic-ai.github.io/tags/crows-foot/</link>
+      <title>Ai</title>
+      <link>https://biz-agentic-ai.github.io/tags/ai/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/crows-foot/</guid>
+      <guid>https://biz-agentic-ai.github.io/tags/ai/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Data-Engineering</title>
+      <link>https://biz-agentic-ai.github.io/tags/data-engineering/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/data-engineering/</guid>
       <description></description>
     </item>
     <item>
@@ -23,59 +30,52 @@
       <description></description>
     </item>
     <item>
+      <title>Semantic-Layer</title>
+      <link>https://biz-agentic-ai.github.io/tags/semantic-layer/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/semantic-layer/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Trends</title>
+      <link>https://biz-agentic-ai.github.io/tags/trends/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/trends/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Crows-Foot</title>
+      <link>https://biz-agentic-ai.github.io/tags/crows-foot/</link>
+      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/crows-foot/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Erd</title>
       <link>https://biz-agentic-ai.github.io/tags/erd/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/tags/erd/</guid>
       <description></description>
     </item>
     <item>
       <title>Idef1x</title>
       <link>https://biz-agentic-ai.github.io/tags/idef1x/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/tags/idef1x/</guid>
       <description></description>
     </item>
     <item>
       <title>Notation</title>
       <link>https://biz-agentic-ai.github.io/tags/notation/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/tags/notation/</guid>
       <description></description>
     </item>
     <item>
       <title>Data-Warehouse</title>
       <link>https://biz-agentic-ai.github.io/tags/data-warehouse/</link>
-      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/tags/data-warehouse/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Oltp</title>
-      <link>https://biz-agentic-ai.github.io/tags/oltp/</link>
-      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/oltp/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Star-Schema</title>
-      <link>https://biz-agentic-ai.github.io/tags/star-schema/</link>
-      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/star-schema/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Cloud-Dw</title>
-      <link>https://biz-agentic-ai.github.io/tags/cloud-dw/</link>
-      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/cloud-dw/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Data-Vault</title>
-      <link>https://biz-agentic-ai.github.io/tags/data-vault/</link>
-      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/data-vault/</guid>
       <description></description>
     </item>
     <item>
@@ -93,17 +93,17 @@
       <description></description>
     </item>
     <item>
-      <title>Kimball</title>
-      <link>https://biz-agentic-ai.github.io/tags/kimball/</link>
-      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/kimball/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Lpg</title>
       <link>https://biz-agentic-ai.github.io/tags/lpg/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/tags/lpg/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Oltp</title>
+      <link>https://biz-agentic-ai.github.io/tags/oltp/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/oltp/</guid>
       <description></description>
     </item>
     <item>
@@ -118,6 +118,34 @@
       <link>https://biz-agentic-ai.github.io/tags/skos/</link>
       <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/tags/skos/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Star-Schema</title>
+      <link>https://biz-agentic-ai.github.io/tags/star-schema/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/star-schema/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cloud-Dw</title>
+      <link>https://biz-agentic-ai.github.io/tags/cloud-dw/</link>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/cloud-dw/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Data-Vault</title>
+      <link>https://biz-agentic-ai.github.io/tags/data-vault/</link>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/data-vault/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Kimball</title>
+      <link>https://biz-agentic-ai.github.io/tags/kimball/</link>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/kimball/</guid>
       <description></description>
     </item>
     <item>

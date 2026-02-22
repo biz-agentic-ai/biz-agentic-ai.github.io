@@ -82,8 +82,8 @@
         "url": "https:\/\/biz-agentic-ai.github.io\/favicon.svg"
       }
     },
-    "datePublished": "2026-02-22T00:00:00Z",
-    "dateModified": "2026-02-22T00:00:00Z",
+    "datePublished": "2026-02-21T00:00:00Z",
+    "dateModified": "2026-02-21T00:00:00Z",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/biz-agentic-ai.github.io\/guides\/dw-modeling\/003-erd-notation\/"
@@ -525,13 +525,14 @@
   <meta property="og:locale" content="ko">
   <meta property="og:type" content="article">
     <meta property="article:section" content="guides">
-    <meta property="article:published_time" content="2026-02-22T00:00:00+00:00">
-    <meta property="article:modified_time" content="2026-02-22T00:00:00+00:00">
+    <meta property="article:published_time" content="2026-02-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-02-21T00:00:00+00:00">
     <meta property="article:tag" content="Dw-Modeling">
     <meta property="article:tag" content="Erd">
     <meta property="article:tag" content="Notation">
     <meta property="article:tag" content="Crows-Foot">
     <meta property="article:tag" content="Idef1x">
+      <meta property="og:see_also" content="https://biz-agentic-ai.github.io/guides/dw-modeling/004-de-trends-2026/">
       <meta property="og:see_also" content="https://biz-agentic-ai.github.io/guides/dw-modeling/002-oltp-vs-dw-model/">
       <meta property="og:see_also" content="https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/">
 <meta name="twitter:card" content="summary">
@@ -578,8 +579,8 @@
   "articleBody": "“이 점선은 뭔가요?” 프로젝트 초반 모델 리뷰에서 자주 벌어지는 일이다. 기간계 모델러가 ERD를 그려왔는데, 옆에 앉은 모델러가 관계선을 보고 묻는다. “이 점선은 비식별 관계 맞죠?” 원래 모델러가 고개를 갸웃한다. “아뇨, 이건 선택적 관계인데요.”\n둘 다 맞다. 다른 표기법을 쓰고 있을 뿐이다.\nERD는 모델러와 개발자, 현업이 같은 의미로 이해해야 하는 약속된 언어다. 문제는 그 약속이 하나가 아니라는 점이다. 같은 까마귀발(Crow’s Foot) 표기법이라도 IE 방식이냐 Barker 방식이냐에 따라 점선의 의미가 달라진다. IDEF1X는 아예 표현 체계가 다르다.\n도구를 바꿀 때마다, 프로젝트를 옮길 때마다 이 차이에 부딪힌다. 표기법을 모르면 같은 모델을 보고 다른 이야기를 하게 된다.\nCrow’s Foot - IE 방식 가장 널리 쓰이는 표기법이다. 1980년대 James Martin과 Clive Finkelstein이 개발한 IE(Information Engineering) 방식에서 사용한다. 관계선 끝에 세 가지 기호를 조합해서 카디널리티를 표현한다.\n──| 대시: 정확히 1 ──○ 원: 0 ──\u003c 까마귀발: N(여럿) 이걸 조합하면 네 가지 패턴이 나온다.\n──|| 정확히 1 (1) ──○| 0 또는 1 (0..1) ──|\u003c 1 이상 (1..N) ──○\u003c 0 이상 (0..N) 식별 관계는 실선, 비식별 관계는 점선 으로 구분한다. 식별 관계란 상위 엔터티의 PK가 하위 엔터티 PK의 일부로 포함되는 것이다. 주문번호가 주문상품의 PK 일부가 되는 경우가 대표적이다.\n대부분의 모델링 툴에서 기본으로 제공하는 방식이라 접할 기회가 가장 많다.\nBarker 표기법 같은 까마귀발 계열이지만 해석이 다르다. Richard Barker가 만든 표기법으로, Oracle 툴셋에 적용되어 있다.\nIE와의 핵심 차이:\n기호 IE 방식 Barker 방식 점선 비식별 관계 선택적 참여 (0 or 1) 실선 식별 관계 정확히 1 (필수 참여) 대시 정확히 1 식별 관계 같은 점선이 IE에서는 “비식별 관계”, Barker에서는 “선택적 참여\"를 뜻한다. 이 차이를 모르면 모델을 완전히 다르게 읽는다. DA# 같은 툴이 Barker 방식을 기본으로 쓰고 있어서, 다른 툴과 섞어 쓸 때 혼동이 생기기 쉽다.\nIDEF1X 표기법 1980년대 미 공군에서 개발한 표기법이다. 까마귀발 대신 관계선 끝에 작은 원으로 카디널리티를 표현한다.\n── 원 없음: 정확히 1 ──◇ 빈 원: 0 또는 1 ──● 속이 찬 원: 0 또는 N ──●P 속이 찬 원 + P: 1 또는 N 식별 관계는 실선, 비식별 관계는 점선이다. 이 부분은 IE 방식과 같다.\n변형도 있다. 모두 속이 찬 원을 쓰면서 Z(0 or 1), P(1 or N), N(정확히 N개) 같은 문자를 함께 표시하는 방식이다. 아무 표시가 없으면 0, 1 또는 N을 의미한다. ERwin 같은 툴에서 이 표기법을 쓸 수 있다.\n같은 비즈니스 규칙, 다른 그림 표기법 차이를 체감하려면 같은 비즈니스 규칙을 각 방식으로 읽어보는 게 가장 빠르다.\n비즈니스 규칙이 이렇다고 하자.\n하나의 고객은 여러 건의 주문을 할 수 있다 (안 할 수도 있다) 하나의 주문은 반드시 하나의 고객에 의해 이뤄진다 하나의 주문은 반드시 하나 이상의 주문상품을 포함한다 하나의 주문상품은 반드시 하나의 주문에 포함된다 하나의 상품은 여러 주문상품에 포함될 수 있다 (안 될 수도 있다) 하나의 주문상품은 반드시 하나의 상품이다 IE 방식으로 읽으면 이렇다.\n고객 ─ ─ ─○\u003c──||─ 주문 ──||──|\u003c─ 주문상품 ─||──○\u003c ─ ─ ─ 상품 (비식별, 0:N → 1) (식별, 1 → 1:N) (비식별, 1 → 0:N) 고객과 주문 사이는 점선 이니 비식별 관계다. 고객번호가 주문의 PK에 포함되지 않는다. 까마귀발+원 쪽이 고객이니, 고객은 주문을 안 하거나 여러 번 할 수 있다. 대시 쪽이 주문이니, 하나의 주문에는 정확히 하나의 고객이 있다.\n주문과 주문상품 사이는 실선 이니 식별 관계다. 주문번호가 주문상품 PK의 일부가 된다. 까마귀발+대시 쪽이 주문상품이니, 하나의 주문에는 최소 하나 이상의 주문상품이 있다.\n같은 규칙을 Barker나 IDEF1X로 그리면 선의 스타일과 기호가 달라진다. 비즈니스 규칙은 동일한데 읽는 법이 바뀌는 것이다.\n프로젝트에서 실제로 해야 할 것 표기법을 전부 외우는 게 목적이 아니다. 프로젝트에서 ERD를 공통 언어로 쓰기 위한 준비다.\n현업이 보든, 모델러가 보든, 개발자가 보든 같은 의미로 읽혀야 한다. 그런데 프로젝트마다 쓰는 툴이 다르고, 같은 툴이라도 표기법 설정이 다를 수 있다. DA#은 Barker가 기본이고, ERwin이나 PowerDesigner는 IE나 IDEF1X를 쓴다. MicroDesigner처럼 여러 표기법을 전환할 수 있는 툴도 있는데, 전환할 때 일부 표현이 완벽하게 매핑되지 않는 경우도 있다.\n프로젝트 시작 시 표기법을 통일하는 것이 첫 번째다. 통일이 안 되면 적어도 팀 전원이 사용 중인 툴의 표기법을 숙지해야 한다. 작은 차이 같지만, “이 점선이 비식별인지 선택적 참여인지\"를 다르게 해석하는 순간 설계 의도가 왜곡된다.\n한 가지 더. 표기법의 차이는 절대적인 것이 아니다. 같은 IE 방식이라도 MicroDesigner에서는 대시 2개를 하나로 표현하는 것처럼 툴에 따라 세부 표현이 다를 수 있다. 반드시 사용하는 툴의 도움말을 통해 확인하는 습관이 필요하다.\n클라우드 시대의 ERD 클라우드 DW 환경에서 ERD의 형태가 조금씩 바뀌고 있다. dbt에서는 SQL 기반으로 모델을 정의하고, ERD를 직접 그리기보다 코드에서 자동 생성하는 방식이 늘고 있다. Mermaid나 DBML 같은 텍스트 기반 다이어그램도 많이 쓰인다.\n도구가 바뀌어도 관계를 표현하는 본질은 같다. 카디널리티가 뭔지, 식별 관계와 비식별 관계가 어떻게 다른지 이해하지 못하면 어떤 도구를 써도 모델을 제대로 읽을 수 없다. 형식은 바뀌지만 표현해야 하는 것은 바뀌지 않는다.\n다음 글에서는 ERD에서 자주 등장하는 수퍼-서브 타입을 다룬다. 고객을 개인고객과 법인고객으로 나누는 것 같은, 일반화와 구체화의 표현 방식이다. 이것도 표기법마다 다르게 그린다.\n",
   "wordCount" : "737",
   "inLanguage": "en",
-  "datePublished": "2026-02-22T00:00:00Z",
-  "dateModified": "2026-02-22T00:00:00Z",
+  "datePublished": "2026-02-21T00:00:00Z",
+  "dateModified": "2026-02-21T00:00:00Z",
   "author":{
     "@type": "Person",
     "name": "Junho Lee"
@@ -837,7 +838,7 @@
     <h1 class="post-title entry-hint-parent">
       3. ERD 표기법 - 같은 그림, 다른 해석
     </h1>
-    <div class="post-meta"><span title='2026-02-22 00:00:00 +0000 UTC'>February 22, 2026</span>&nbsp;·&nbsp;4 분&nbsp;·&nbsp;Junho Lee
+    <div class="post-meta"><span title='2026-02-21 00:00:00 +0000 UTC'>February 21, 2026</span>&nbsp;·&nbsp;4 분&nbsp;·&nbsp;Junho Lee
 
 </div>
   </header> <div class="toc">
@@ -965,6 +966,11 @@
     <span class="title">« 이전 페이지</span>
     <br>
     <span>2. OLTP vs DW 모델 - 목적이 다르면 설계도 다르다</span>
+  </a>
+  <a class="next" href="https://biz-agentic-ai.github.io/guides/dw-modeling/004-de-trends-2026/">
+    <span class="title">다음 페이지 »</span>
+    <br>
+    <span>4. 2026년 데이터 엔지니어링이 가리키는 방향</span>
   </a>
 </nav>
 
