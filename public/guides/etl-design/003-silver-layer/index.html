@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>3. Silver 레이어 - Bronze를 분석 가능한 상태로 올린다 | Junho Lee | DataNexus 구축 과정</title>
 <meta name="keywords" content="etl, silver, data-cleaning">
 <meta name="description" content="Bronze에 쌓아둔 원본 데이터를 정제하고 표준화한다. 타입을 맞추고, 컬럼명을 통일하고, 중복을 제거한다. dbt로 이 과정을 SQL 모델로 정의한다.">
 <meta name="author" content="Junho Lee">
 <link rel="canonical"
-    href="http://localhost:1313/guides/etl-design/003-silver-layer/">
+    href="https://biz-agentic-ai.github.io/guides/etl-design/003-silver-layer/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.f02cd38532ee71bc47a8f72d7689b18efbda747f2e684f90cc6f2c90f2311a6b.css" integrity="sha256-8CzThTLucbxHqPctdomxjvvadH8uaE&#43;QzG8skPIxGms="
     rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.svg">
-<link rel="icon" type="image/svg+xml" sizes="16x16" href="http://localhost:1313/favicon.svg">
-<link rel="icon" type="image/svg+xml" sizes="32x32" href="http://localhost:1313/favicon.svg">
-<link rel="apple-touch-icon" href="http://localhost:1313/favicon.svg">
-<link rel="mask-icon" href="http://localhost:1313/favicon.svg">
+<link rel="icon" href="https://biz-agentic-ai.github.io/favicon.svg">
+<link rel="icon" type="image/svg+xml" sizes="16x16" href="https://biz-agentic-ai.github.io/favicon.svg">
+<link rel="icon" type="image/svg+xml" sizes="32x32" href="https://biz-agentic-ai.github.io/favicon.svg">
+<link rel="apple-touch-icon" href="https://biz-agentic-ai.github.io/favicon.svg">
+<link rel="mask-icon" href="https://biz-agentic-ai.github.io/favicon.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/guides/etl-design/003-silver-layer/">
+<link rel="alternate" hreflang="en" href="https://biz-agentic-ai.github.io/guides/etl-design/003-silver-layer/">
 <noscript>
     <style>
         #theme-toggle,
@@ -79,14 +79,14 @@
       "name": "Junho Lee | DataNexus 구축 과정",
       "logo": {
         "@type": "ImageObject",
-        "url": "http:\/\/localhost:1313\/favicon.svg"
+        "url": "https:\/\/biz-agentic-ai.github.io\/favicon.svg"
       }
     },
     "datePublished": "2026-02-22T00:00:00Z",
     "dateModified": "2026-02-22T00:00:00Z",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "http:\/\/localhost:1313\/guides\/etl-design\/003-silver-layer\/"
+      "@id": "https:\/\/biz-agentic-ai.github.io\/guides\/etl-design\/003-silver-layer\/"
     }
   }
   </script><style>
@@ -432,12 +432,104 @@
     }
   }
 </style>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0RS9ZG67P"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-Q0RS9ZG67P');
+        }
+      </script><meta property="og:url" content="https://biz-agentic-ai.github.io/guides/etl-design/003-silver-layer/">
+  <meta property="og:site_name" content="Junho Lee | DataNexus 구축 과정">
+  <meta property="og:title" content="3. Silver 레이어 - Bronze를 분석 가능한 상태로 올린다">
+  <meta property="og:description" content="Bronze에 쌓아둔 원본 데이터를 정제하고 표준화한다. 타입을 맞추고, 컬럼명을 통일하고, 중복을 제거한다. dbt로 이 과정을 SQL 모델로 정의한다.">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="guides">
+    <meta property="article:published_time" content="2026-02-22T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-02-22T00:00:00+00:00">
+    <meta property="article:tag" content="Etl">
+    <meta property="article:tag" content="Silver">
+    <meta property="article:tag" content="Data-Cleaning">
+      <meta property="og:see_also" content="https://biz-agentic-ai.github.io/guides/etl-design/004-scd/">
+      <meta property="og:see_also" content="https://biz-agentic-ai.github.io/guides/etl-design/002-bronze-layer/">
+      <meta property="og:see_also" content="https://biz-agentic-ai.github.io/guides/etl-design/001-medallion-architecture/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3. Silver 레이어 - Bronze를 분석 가능한 상태로 올린다">
+<meta name="twitter:description" content="Bronze에 쌓아둔 원본 데이터를 정제하고 표준화한다. 타입을 맞추고, 컬럼명을 통일하고, 중복을 제거한다. dbt로 이 과정을 SQL 모델로 정의한다.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "기술 가이드",
+      "item": "https://biz-agentic-ai.github.io/guides/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "ETL 설계",
+      "item": "https://biz-agentic-ai.github.io/guides/etl-design/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "3. Silver 레이어 - Bronze를 분석 가능한 상태로 올린다",
+      "item": "https://biz-agentic-ai.github.io/guides/etl-design/003-silver-layer/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "3. Silver 레이어 - Bronze를 분석 가능한 상태로 올린다",
+  "name": "3. Silver 레이어 - Bronze를 분석 가능한 상태로 올린다",
+  "description": "Bronze에 쌓아둔 원본 데이터를 정제하고 표준화한다. 타입을 맞추고, 컬럼명을 통일하고, 중복을 제거한다. dbt로 이 과정을 SQL 모델로 정의한다.",
+  "keywords": [
+    "etl", "silver", "data-cleaning"
+  ],
+  "articleBody": "\rGoogle Colab에서 실습하기\rBronze 데이터를 바로 쓰면 생기는 일 2편에서 Bronze에 원본을 있는 그대로 적재했다. 변환 없이. 그 원칙은 맞다. 문제는 Bronze 데이터가 분석에 쓸 수 있는 상태가 아니라는 것이다.\njaffle_shop의 bronze.orders를 보자. order_date 컬럼이 VARCHAR로 들어와 있다. 날짜 함수를 쓸 수 없다. status 컬럼에는 returned, return_pending, completed, placed, shipped가 섞여 있는데, 어느 값이 최종 상태인지 스키마만 봐서는 모른다.\nbronze.payments의 amount 컬럼은 센트 단위 정수다. 달러로 바꾸려면 100으로 나눠야 한다. 이걸 분석할 때마다 매번 나누는 건 실수를 부르는 구조다.\nSilver는 이런 문제를 한 번에 정리하는 레이어다. 타입을 맞추고, 컬럼명을 통일하고, 단위를 변환한다. 비즈니스 로직은 아직 넣지 않는다. “분석에 쓸 수 있는 깨끗한 상태\"를 만드는 게 Silver의 역할이다.\nSilver에서 하는 일, 안 하는 일 경계가 중요하다. Silver에서 비즈니스 로직을 넣기 시작하면 Bronze와 Silver를 나눈 의미가 사라진다.\nSilver에서 하는 일:\n타입 캐스팅 - VARCHAR를 DATE, INTEGER를 DECIMAL로 컬럼명 표준화 - user_id와 userId를 user_id로 통일 단위 변환 - 센트를 달러로, 밀리초를 초로 중복 제거 - 같은 레코드가 두 번 적재된 경우 NULL 처리 - 빈 문자열을 NULL로 통일 Silver에서 안 하는 일:\nKPI 계산 - 매출, 마진율 같은 비즈니스 지표 테이블 조인 - 주문과 고객을 합쳐서 하나의 뷰로 만드는 것 집계 - GROUP BY로 요약하는 것 조인과 집계는 Gold의 몫이다. Silver는 개별 테이블 단위로 정제만 한다.\ndbt가 필요한 이유 1편에서 dbt를 도구로 소개했다. 왜 SQL 파일을 직접 실행하지 않고 dbt를 쓰는가.\nSQL 파일을 하나씩 실행하면 처음엔 문제가 없다. Silver 테이블이 5개, 10개로 늘어나면 상황이 달라진다. 어떤 테이블이 어떤 Bronze 테이블에 의존하는지, 어떤 순서로 실행해야 하는지, 마지막 실행이 언제인지 추적이 안 된다.\ndbt는 이걸 해결한다. SQL 파일 하나가 하나의 모델이다. 모델 간 의존 관계를 ref() 함수로 선언하면 dbt가 실행 순서를 알아서 정한다. 변환 로직이 SQL 파일에 남으니 Git으로 이력 추적도 된다.\ndbt 프로젝트 세팅 Colab에서 dbt 프로젝트를 만든다.\n!pip install -q duckdb dbt-core dbt-duckdb import os # dbt 프로젝트 디렉토리 구조 생성 os.makedirs('jaffle_shop/models/staging', exist_ok=True) os.makedirs('jaffle_shop/models/marts', exist_ok=True) dbt 설정 파일을 만든다. DuckDB를 데이터베이스로 쓰도록 지정한다.\n%%writefile jaffle_shop/dbt_project.yml name: 'jaffle_shop' version: '1.0.0' profile: 'jaffle_shop' model-paths: [\"models\"] %%writefile jaffle_shop/profiles.yml jaffle_shop: target: dev outputs: dev: type: duckdb path: /content/warehouse.duckdb Silver 모델 작성 dbt에서는 models/staging/ 디렉토리에 Silver 레이어 모델을 둔다. stg_ 접두어가 staging(=Silver)을 뜻한다.\nstg_orders %%writefile jaffle_shop/models/staging/stg_orders.sql with source as ( select * from bronze.orders ), cleaned as ( select id as order_id, user_id as customer_id, cast(order_date as date) as order_date, status from source ) select * from cleaned Bronze의 id를 order_id로 바꿨다. 여러 테이블을 조인할 때 id만으로는 어느 테이블의 ID인지 알 수 없으니까. user_id도 customer_id로 바꿔서 의미를 명확히 했다. order_date를 DATE로 캐스팅했다.\nstg_customers %%writefile jaffle_shop/models/staging/stg_customers.sql with source as ( select * from bronze.customers ), cleaned as ( select id as customer_id, first_name, last_name from source ) select * from cleaned stg_payments %%writefile jaffle_shop/models/staging/stg_payments.sql with source as ( select * from bronze.payments ), cleaned as ( select id as payment_id, order_id, payment_method, amount / 100.0 as amount_dollars from source ) select * from cleaned amount를 100으로 나눠서 달러 단위로 바꿨다. 컬럼명도 amount_dollars로 변경해서 단위가 뭔지 이름에서 바로 읽힌다.\ndbt 실행 !cd jaffle_shop \u0026\u0026 dbt run --select staging.* dbt가 stg_orders, stg_customers, stg_payments 세 모델을 실행한다. 각각 DuckDB에 뷰로 생성된다.\n결과 확인 import duckdb conn = duckdb.connect('warehouse.duckdb') # Silver 레이어 확인 conn.execute(\"SELECT * FROM stg_orders LIMIT 5\").fetchdf() # 타입 확인 — order_date가 DATE로 바뀌었는가 conn.execute(\"\"\" SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'stg_orders' \"\"\").fetchdf() # payments의 amount가 달러 단위로 변환되었는가 conn.execute(\"SELECT * FROM stg_payments LIMIT 5\").fetchdf() Bronze에서는 VARCHAR였던 order_date가 DATE로 바뀌었다. amount가 센트에서 달러로 변환됐다. 컬럼명이 통일됐다. 이게 Silver다.\nCTE 패턴 위 SQL에서 반복적으로 쓰인 패턴이 있다. with source as (...), cleaned as (...) select * from cleaned. dbt 커뮤니티에서 널리 쓰이는 CTE(Common Table Expression) 패턴이다.\nwith source as ( -- 1단계: Bronze에서 원본을 가져온다 select * from bronze.orders ), cleaned as ( -- 2단계: 정제 로직을 적용한다 select id as order_id, cast(order_date as date) as order_date from source ) -- 3단계: 최종 결과를 반환한다 select * from cleaned source → cleaned → select. 각 단계가 뭘 하는지 이름에서 읽힌다. 정제 로직이 복잡해지면 CTE를 더 추가하면 된다. renamed, filtered, deduplicated 같은 이름으로 단계를 나누는 팀도 있다.\n중복 제거 패턴 Bronze에 같은 레코드가 두 번 들어오는 경우가 있다. 소스 시스템에서 데이터를 다시 보냈거나, 증분 적재 로직에 버그가 있었거나. Silver에서 이걸 잡아야 한다.\nwith source as ( select * from bronze.orders ), deduplicated as ( select *, row_number() over ( partition by id order by _loaded_at desc ) as row_num from source ), cleaned as ( select id as order_id, user_id as customer_id, cast(order_date as date) as order_date, status from deduplicated where row_num = 1 ) select * from cleaned row_number()로 같은 id가 여러 개 있으면 가장 최근에 적재된 것만 남긴다. 2편에서 추가한 _loaded_at 메타데이터 컬럼이 여기서 쓰인다.\nSilver를 함부로 바꾸면 Gold가 깨진다 Gold 모델은 Silver 테이블의 컬럼명, 타입, 단위를 믿고 쓴다. stg_orders의 order_date가 DATE라는 전제로 Gold에서 날짜 함수를 쓰고 있는데, 누군가 Silver에서 컬럼명을 ordered_at으로 바꾸면 Gold 모델이 전부 에러를 뱉는다.\n컬럼을 추가하는 건 괜찮다. 기존 컬럼의 이름이나 타입을 바꾸는 게 위험하다. dbt의 ref() 함수가 의존 관계를 추적하니까 어디가 영향 받는지는 확인할 수 있다.\n실무 참고: Airflow에서 dbt 실행 Airflow에서 dbt를 실행하는 방법은 여러 가지다. 가장 간단한 건 BashOperator로 dbt run을 호출하는 것이고, 더 정교하게 하려면 cosmos 라이브러리를 쓴다.\nfrom airflow import DAG from airflow.operators.bash import BashOperator from datetime import datetime with DAG( dag_id='silver_transformation', schedule='0 6 * * *', start_date=datetime(2026, 1, 1), catchup=False, ) as dag: # Bronze 적재 완료를 기다린 뒤 Silver 변환 실행 run_staging = BashOperator( task_id='dbt_run_staging', bash_command='cd /opt/dbt/jaffle_shop \u0026\u0026 dbt run --select staging', ) # dbt test로 Silver 데이터 품질 검증 test_staging = BashOperator( task_id='dbt_test_staging', bash_command='cd /opt/dbt/jaffle_shop \u0026\u0026 dbt test --select staging', ) run_staging \u003e\u003e test_staging dbt run 다음에 dbt test를 건다. Silver 변환이 끝나면 바로 품질 검증을 돌린다. 테스트가 실패하면 Gold 변환으로 넘어가지 않는다. 불량 데이터가 Gold까지 올라가는 걸 막는 구조다.\ncosmos 라이브러리를 쓰면 dbt 모델 하나하나를 Airflow 태스크로 분리할 수 있다. stg_orders가 실패해도 stg_customers는 독립적으로 성공 처리된다. 모델이 수십 개로 늘어나면 이 세분화가 의미 있어진다.\n다음 글에서는 SCD(Slowly Changing Dimension)를 다룬다. 고객의 주소가 바뀌었을 때 과거 주소를 어떻게 보존하는가. Type 1, 2, 3의 차이와 선택 기준.\nGoogle Colab에서 실습하기\r",
+  "wordCount" : "982",
+  "inLanguage": "en",
+  "datePublished": "2026-02-22T00:00:00Z",
+  "dateModified": "2026-02-22T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Junho Lee"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://biz-agentic-ai.github.io/guides/etl-design/003-silver-layer/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Junho Lee | DataNexus 구축 과정",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://biz-agentic-ai.github.io/favicon.svg"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top"><script data-goatcounter="https://biz-agentic-ai.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-inner"><div class="sidebar-header">
-      <a href="http://localhost:1313/" class="sidebar-logo">
+      <a href="https://biz-agentic-ai.github.io/" class="sidebar-logo">
         <img src="/images/DataNexus_Logo.jpg" alt="DataNexus" class="sidebar-logo-img">
         DataNexus
       </a>
@@ -447,22 +539,22 @@
       <h3 class="sidebar-section-title">DataNexus Series</h3>
       <ul>
         <li>
-          <a href="http://localhost:1313/posts/datanexus/004-skos-compatibility-layer/" title="4. SKOS 호환 레이어를 왜 넣었는가" >
+          <a href="https://biz-agentic-ai.github.io/posts/datanexus/004-skos-compatibility-layer/" title="4. SKOS 호환 레이어를 왜 넣었는가" >
             4. SKOS 호환 레이어를 왜 넣었는가
           </a>
         </li>
         <li>
-          <a href="http://localhost:1313/posts/datanexus/003-datahub-glossary-as-ontology/" title="3. DataHub Glossary를 온톨로지로 쓸 수 있을까" >
+          <a href="https://biz-agentic-ai.github.io/posts/datanexus/003-datahub-glossary-as-ontology/" title="3. DataHub Glossary를 온톨로지로 쓸 수 있을까" >
             3. DataHub Glossary를 온톨로지로 쓸 수 있을까
           </a>
         </li>
         <li>
-          <a href="http://localhost:1313/posts/datanexus/002-architecture-decisions/" title="2. 4개의 오픈소스를 이 조합으로 결정하기까지" >
+          <a href="https://biz-agentic-ai.github.io/posts/datanexus/002-architecture-decisions/" title="2. 4개의 오픈소스를 이 조합으로 결정하기까지" >
             2. 4개의 오픈소스를 이 조합으로 결정하기까지
           </a>
         </li>
         <li>
-          <a href="http://localhost:1313/posts/datanexus/001-why-datanexus/" title="1. 왜 DataNexus를 만드는가" >
+          <a href="https://biz-agentic-ai.github.io/posts/datanexus/001-why-datanexus/" title="1. 왜 DataNexus를 만드는가" >
             1. 왜 DataNexus를 만드는가
           </a>
         </li>
@@ -562,7 +654,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Junho Lee | DataNexus 구축 과정 (Alt + H)">Junho Lee | DataNexus 구축 과정</a>
+            <a href="https://biz-agentic-ai.github.io/" accesskey="h" title="Junho Lee | DataNexus 구축 과정 (Alt + H)">Junho Lee | DataNexus 구축 과정</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -588,27 +680,27 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/posts/" title="Posts">
+                <a href="https://biz-agentic-ai.github.io/posts/" title="Posts">
                     <span>Posts</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/guides/" title="Guides">
+                <a href="https://biz-agentic-ai.github.io/guides/" title="Guides">
                     <span>Guides</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="Tags">
+                <a href="https://biz-agentic-ai.github.io/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/categories/" title="Categories">
+                <a href="https://biz-agentic-ai.github.io/categories/" title="Categories">
                     <span>Categories</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="About">
+                <a href="https://biz-agentic-ai.github.io/about/" title="About">
                     <span>About</span>
                 </a>
             </li>
@@ -619,7 +711,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://localhost:1313/">홈</a>&nbsp;»&nbsp;<a href="http://localhost:1313/guides/">기술 가이드</a>&nbsp;»&nbsp;<a href="http://localhost:1313/guides/etl-design/">ETL 설계</a></div>
+    <div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">홈</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/guides/">기술 가이드</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/guides/etl-design/">ETL 설계</a></div>
     <h1 class="post-title entry-hint-parent">
       3. Silver 레이어 - Bronze를 분석 가능한 상태로 올린다
     </h1>
@@ -685,7 +777,7 @@
 </div>
 
 <h2 id="bronze-데이터를-바로-쓰면-생기는-일">Bronze 데이터를 바로 쓰면 생기는 일<a hidden class="anchor" aria-hidden="true" href="#bronze-데이터를-바로-쓰면-생기는-일">#</a></h2>
-<p><a href="http://localhost:1313/guides/etl-design/002-bronze-layer/">2편</a>에서 Bronze에 원본을 있는 그대로 적재했다. 변환 없이. 그 원칙은 맞다. 문제는 Bronze 데이터가 분석에 쓸 수 있는 상태가 아니라는 것이다.</p>
+<p><a href="https://biz-agentic-ai.github.io/guides/etl-design/002-bronze-layer/">2편</a>에서 Bronze에 원본을 있는 그대로 적재했다. 변환 없이. 그 원칙은 맞다. 문제는 Bronze 데이터가 분석에 쓸 수 있는 상태가 아니라는 것이다.</p>
 <p>jaffle_shop의 <code>bronze.orders</code>를 보자. <code>order_date</code> 컬럼이 VARCHAR로 들어와 있다. 날짜 함수를 쓸 수 없다. <code>status</code> 컬럼에는 <code>returned</code>, <code>return_pending</code>, <code>completed</code>, <code>placed</code>, <code>shipped</code>가 섞여 있는데, 어느 값이 최종 상태인지 스키마만 봐서는 모른다.</p>
 <p><code>bronze.payments</code>의 <code>amount</code> 컬럼은 센트 단위 정수다. 달러로 바꾸려면 100으로 나눠야 한다. 이걸 분석할 때마다 매번 나누는 건 실수를 부르는 구조다.</p>
 <p>Silver는 이런 문제를 한 번에 정리하는 레이어다. 타입을 맞추고, 컬럼명을 통일하고, 단위를 변환한다. 비즈니스 로직은 아직 넣지 않는다. &ldquo;분석에 쓸 수 있는 깨끗한 상태&quot;를 만드는 게 Silver의 역할이다.</p>
@@ -707,7 +799,7 @@
 </ul>
 <p>조인과 집계는 Gold의 몫이다. Silver는 개별 테이블 단위로 정제만 한다.</p>
 <h2 id="dbt가-필요한-이유">dbt가 필요한 이유<a hidden class="anchor" aria-hidden="true" href="#dbt가-필요한-이유">#</a></h2>
-<p><a href="http://localhost:1313/guides/etl-design/001-medallion-architecture/">1편</a>에서 dbt를 도구로 소개했다. 왜 SQL 파일을 직접 실행하지 않고 dbt를 쓰는가.</p>
+<p><a href="https://biz-agentic-ai.github.io/guides/etl-design/001-medallion-architecture/">1편</a>에서 dbt를 도구로 소개했다. 왜 SQL 파일을 직접 실행하지 않고 dbt를 쓰는가.</p>
 <p>SQL 파일을 하나씩 실행하면 처음엔 문제가 없다. Silver 테이블이 5개, 10개로 늘어나면 상황이 달라진다. 어떤 테이블이 어떤 Bronze 테이블에 의존하는지, 어떤 순서로 실행해야 하는지, 마지막 실행이 언제인지 추적이 안 된다.</p>
 <p>dbt는 이걸 해결한다. SQL 파일 하나가 하나의 모델이다. 모델 간 의존 관계를 <code>ref()</code> 함수로 선언하면 dbt가 실행 순서를 알아서 정한다. 변환 로직이 SQL 파일에 남으니 Git으로 이력 추적도 된다.</p>
 <h2 id="dbt-프로젝트-세팅">dbt 프로젝트 세팅<a hidden class="anchor" aria-hidden="true" href="#dbt-프로젝트-세팅">#</a></h2>
@@ -848,7 +940,7 @@
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#bb9af7">select</span> <span style="color:#9ece6a;font-weight:bold">*</span> <span style="color:#bb9af7">from</span> cleaned
-</span></span></code></pre></div><p><code>row_number()</code>로 같은 <code>id</code>가 여러 개 있으면 가장 최근에 적재된 것만 남긴다. <a href="http://localhost:1313/guides/etl-design/002-bronze-layer/">2편</a>에서 추가한 <code>_loaded_at</code> 메타데이터 컬럼이 여기서 쓰인다.</p>
+</span></span></code></pre></div><p><code>row_number()</code>로 같은 <code>id</code>가 여러 개 있으면 가장 최근에 적재된 것만 남긴다. <a href="https://biz-agentic-ai.github.io/guides/etl-design/002-bronze-layer/">2편</a>에서 추가한 <code>_loaded_at</code> 메타데이터 컬럼이 여기서 쓰인다.</p>
 <h2 id="silver를-함부로-바꾸면-gold가-깨진다">Silver를 함부로 바꾸면 Gold가 깨진다<a hidden class="anchor" aria-hidden="true" href="#silver를-함부로-바꾸면-gold가-깨진다">#</a></h2>
 <p>Gold 모델은 Silver 테이블의 컬럼명, 타입, 단위를 믿고 쓴다. <code>stg_orders</code>의 <code>order_date</code>가 DATE라는 전제로 Gold에서 날짜 함수를 쓰고 있는데, 누군가 Silver에서 컬럼명을 <code>ordered_at</code>으로 바꾸면 Gold 모델이 전부 에러를 뱉는다.</p>
 <p>컬럼을 추가하는 건 괜찮다. 기존 컬럼의 이름이나 타입을 바꾸는 게 위험하다. dbt의 <code>ref()</code> 함수가 의존 관계를 추적하니까 어디가 영향 받는지는 확인할 수 있다.</p>
@@ -902,17 +994,17 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/etl/">Etl</a></li>
-      <li><a href="http://localhost:1313/tags/silver/">Silver</a></li>
-      <li><a href="http://localhost:1313/tags/data-cleaning/">Data-Cleaning</a></li>
+      <li><a href="https://biz-agentic-ai.github.io/tags/etl/">Etl</a></li>
+      <li><a href="https://biz-agentic-ai.github.io/tags/silver/">Silver</a></li>
+      <li><a href="https://biz-agentic-ai.github.io/tags/data-cleaning/">Data-Cleaning</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/guides/etl-design/002-bronze-layer/">
+  <a class="prev" href="https://biz-agentic-ai.github.io/guides/etl-design/002-bronze-layer/">
     <span class="title">« 이전 페이지</span>
     <br>
     <span>2. Bronze 레이어 - 원본을 있는 그대로 쌓는다</span>
   </a>
-  <a class="next" href="http://localhost:1313/guides/etl-design/004-scd/">
+  <a class="next" href="https://biz-agentic-ai.github.io/guides/etl-design/004-scd/">
     <span class="title">다음 페이지 »</span>
     <br>
     <span>4. SCD - 고객 주소가 바뀌면 과거 주문은 어디로 배송된 걸로 남는가</span>
@@ -943,7 +1035,7 @@
         </main>
         
 <footer class="footer">
-        <span>&copy; 2026 <a href="http://localhost:1313/">Junho Lee | DataNexus 구축 과정</a></span> · 
+        <span>&copy; 2026 <a href="https://biz-agentic-ai.github.io/">Junho Lee | DataNexus 구축 과정</a></span> · 
 
     <span>
         Powered by

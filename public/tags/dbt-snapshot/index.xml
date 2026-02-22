@@ -1,1 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Dbt-Snapshot on Junho Lee | DataNexus 구축 과정</title><link>https://biz-agentic-ai.github.io/tags/dbt-snapshot/</link><description>Recent content in Dbt-Snapshot on Junho Lee | DataNexus 구축 과정</description><generator>Hugo -- 0.155.3</generator><language>ko</language><lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://biz-agentic-ai.github.io/tags/dbt-snapshot/index.xml" rel="self" type="application/rss+xml"/><item><title>4. SCD - 고객 주소가 바뀌면 과거 주문은 어디로 배송된 걸로 남는가</title><link>https://biz-agentic-ai.github.io/guides/etl-design/004-scd/</link><pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate><guid>https://biz-agentic-ai.github.io/guides/etl-design/004-scd/</guid><description>차원 데이터가 바뀌면 과거를 덮어쓸 것인가, 이력을 남길 것인가. SCD Type 1, 2, 3의 차이를 SQL로 직접 구현하고, dbt snapshot으로 프로덕션 패턴을 만든다.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Dbt-Snapshot on Junho Lee | DataNexus 구축 과정</title>
+    <link>https://biz-agentic-ai.github.io/tags/dbt-snapshot/</link>
+    <description>Recent content in Dbt-Snapshot on Junho Lee | DataNexus 구축 과정</description>
+    <generator>Hugo -- 0.155.3</generator>
+    <language>ko</language>
+    <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://biz-agentic-ai.github.io/tags/dbt-snapshot/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>4. SCD - 고객 주소가 바뀌면 과거 주문은 어디로 배송된 걸로 남는가</title>
+      <link>https://biz-agentic-ai.github.io/guides/etl-design/004-scd/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/guides/etl-design/004-scd/</guid>
+      <description>차원 데이터가 바뀌면 과거를 덮어쓸 것인가, 이력을 남길 것인가. SCD Type 1, 2, 3의 차이를 SQL로 직접 구현하고, dbt snapshot으로 프로덕션 패턴을 만든다.</description>
+    </item>
+  </channel>
+</rss>
