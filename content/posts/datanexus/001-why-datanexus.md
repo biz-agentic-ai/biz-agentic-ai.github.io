@@ -1,5 +1,5 @@
 ---
-title: "[DataNexus] 1. 왜 DataNexus를 만드는가"
+title: "1. 왜 DataNexus를 만드는가"
 date: 2026-02-16
 draft: false
 tags: ["datanexus", "ontology", "nl2sql", "graphrag"]

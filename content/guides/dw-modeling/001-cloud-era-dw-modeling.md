@@ -1,5 +1,5 @@
 ---
-title: "[DW] 클라우드 DW에서 Kimball은 여전히 유효한가"
+title: "클라우드 DW에서 Kimball은 여전히 유효한가"
 date: 2026-02-22
 draft: false
 summary: "Synapse, BigQuery, Redshift로 오면서 DW 모델링 관점이 어떻게 달라졌는지. Kimball, Data Vault, One Big Table - 실무에서의 판단 기준."

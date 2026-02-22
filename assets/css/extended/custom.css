@@ -53,3 +53,24 @@
 .logo a {
     font-size: 28px;
 }
+
+/* 홈 섹션 그룹 */
+.section-group {
+    margin-top: 2em;
+}
+
+.section-group-title {
+    font-size: 1.3em;
+    padding-bottom: 0.5em;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 0;
+}
+
+.section-group-title a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.section-group-title a:hover {
+    text-decoration: underline;
+}

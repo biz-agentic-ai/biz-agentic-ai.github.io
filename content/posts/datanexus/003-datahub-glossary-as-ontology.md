@@ -1,5 +1,5 @@
 ---
-title: "[DataNexus] 3. DataHub Glossary를 온톨로지로 쓸 수 있을까"
+title: "3. DataHub Glossary를 온톨로지로 쓸 수 있을까"
 date: 2026-02-18
 draft: false
 summary: "DataHub의 Business Glossary를 온톨로지 저장소로 쓰려고 했다. 되는 것과 안 되는 것, 그리고 우회한 방법."
