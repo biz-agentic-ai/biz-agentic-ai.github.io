@@ -6,12 +6,12 @@
     <description>Recent content in Cloud-Dw on Junho Lee | DataNexus 구축 과정</description>
     <generator>Hugo -- 0.155.3</generator>
     <language>ko</language>
-    <lastBuildDate>Sat, 21 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://biz-agentic-ai.github.io/tags/cloud-dw/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1. 클라우드 DW에서 Kimball은 여전히 유효한가</title>
       <link>https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/</link>
-      <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/</guid>
       <description>Synapse, BigQuery, Redshift로 오면서 DW 모델링 관점이 어떻게 달라졌는지. Kimball, Data Vault, One Big Table - 실무에서의 판단 기준.</description>
     </item>
