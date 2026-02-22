@@ -146,19 +146,6 @@
     font-size: 13px;
   }
 
-  /* Hide top header (replaced by sidebar) */
-  .header {
-    display: none;
-  }
-
-  .site-wrapper {
-    --header-height: 0px;
-  }
-
-  .main {
-    padding-top: 8px;
-  }
-
   .first-entry {
     margin-top: 0;
   }
@@ -229,19 +216,13 @@
     letter-spacing: 0.02em;
   }
 
-  /* Nav */
-  .sidebar-nav ul,
+  /* Sidebar nav */
   .sidebar-section ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  .sidebar-nav {
-    padding: 8px 0;
-  }
-
-  .sidebar-nav li a,
   .sidebar-section li a {
     display: block;
     padding: 9px 20px;
@@ -252,20 +233,10 @@
     transition: all 0.2s;
   }
 
-  .sidebar-nav li a:hover,
   .sidebar-section li a:hover {
     background: var(--sidebar-hover);
     border-left-color: var(--sidebar-accent);
     color: #fff;
-  }
-
-  .sidebar-nav li a.active {
-    background: var(--sidebar-active-bg);
-    color: #fff;
-    border-left-color: transparent;
-    font-weight: 600;
-    border-radius: 0 20px 20px 0;
-    margin-right: 12px;
   }
 
   .sidebar-section li a.active {
@@ -298,50 +269,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  /* Footer */
-  .sidebar-footer {
-    margin-top: auto;
-    padding: 16px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .sidebar-footer button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: none;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: var(--sidebar-text);
-    padding: 6px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.78rem;
-    transition: all 0.2s;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .sidebar-footer button:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--sidebar-accent);
-  }
-
-  body.dark .sidebar-footer #sidebar-sun {
-    display: inline-block;
-  }
-
-  body.dark .sidebar-footer #sidebar-moon {
-    display: none;
-  }
-
-  body:not(.dark) .sidebar-footer #sidebar-sun {
-    display: none;
-  }
-
-  body:not(.dark) .sidebar-footer #sidebar-moon {
-    display: inline-block;
   }
 
   /* Stats */

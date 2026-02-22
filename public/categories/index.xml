@@ -1,1 +1,47 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Categories on Junho Lee | DataNexus 구축 과정</title><link>https://biz-agentic-ai.github.io/categories/</link><description>Recent content in Categories on Junho Lee | DataNexus 구축 과정</description><generator>Hugo -- 0.155.3</generator><language>ko</language><lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://biz-agentic-ai.github.io/categories/index.xml" rel="self" type="application/rss+xml"/><item><title>DW 모델링</title><link>https://biz-agentic-ai.github.io/categories/dw-%EB%AA%A8%EB%8D%B8%EB%A7%81/</link><pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate><guid>https://biz-agentic-ai.github.io/categories/dw-%EB%AA%A8%EB%8D%B8%EB%A7%81/</guid><description/></item><item><title>ETL 설계</title><link>https://biz-agentic-ai.github.io/categories/etl-%EC%84%A4%EA%B3%84/</link><pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate><guid>https://biz-agentic-ai.github.io/categories/etl-%EC%84%A4%EA%B3%84/</guid><description/></item><item><title>Ontology</title><link>https://biz-agentic-ai.github.io/categories/ontology/</link><pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate><guid>https://biz-agentic-ai.github.io/categories/ontology/</guid><description/></item><item><title>Architecture</title><link>https://biz-agentic-ai.github.io/categories/architecture/</link><pubDate>Tue, 17 Feb 2026 00:00:00 +0000</pubDate><guid>https://biz-agentic-ai.github.io/categories/architecture/</guid><description/></item><item><title>DataNexus</title><link>https://biz-agentic-ai.github.io/categories/datanexus/</link><pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate><guid>https://biz-agentic-ai.github.io/categories/datanexus/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Categories on Junho Lee | DataNexus 구축 과정</title>
+    <link>http://localhost:1313/categories/</link>
+    <description>Recent content in Categories on Junho Lee | DataNexus 구축 과정</description>
+    <generator>Hugo -- 0.155.3</generator>
+    <language>ko</language>
+    <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DW 모델링</title>
+      <link>http://localhost:1313/categories/dw-%EB%AA%A8%EB%8D%B8%EB%A7%81/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/dw-%EB%AA%A8%EB%8D%B8%EB%A7%81/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ETL 설계</title>
+      <link>http://localhost:1313/categories/etl-%EC%84%A4%EA%B3%84/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/etl-%EC%84%A4%EA%B3%84/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ontology</title>
+      <link>http://localhost:1313/categories/ontology/</link>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/ontology/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Architecture</title>
+      <link>http://localhost:1313/categories/architecture/</link>
+      <pubDate>Tue, 17 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/architecture/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>DataNexus</title>
+      <link>http://localhost:1313/categories/datanexus/</link>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/datanexus/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
