@@ -13,7 +13,7 @@
       <link>https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/</guid>
-      <description>Synapse, BigQuery, Redshift로 오면서 DW 모델링 관점이 어떻게 달라졌는지. Kimball, Data Vault, One Big Table — 현장에서의 판단 기준.</description>
+      <description>Synapse, BigQuery, Redshift로 오면서 DW 모델링 관점이 어떻게 달라졌는지. Kimball, Data Vault, One Big Table - 실무에서의 판단 기준.</description>
     </item>
   </channel>
 </rss>
