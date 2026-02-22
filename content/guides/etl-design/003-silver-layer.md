@@ -4,7 +4,7 @@ date: 2026-02-22
 draft: false
 summary: "Bronze에 쌓아둔 원본 데이터를 정제하고 표준화한다. 타입을 맞추고, 컬럼명을 통일하고, 중복을 제거한다. dbt로 이 과정을 SQL 모델로 정의한다."
 categories: ["ETL 설계"]
-tags: ["etl", "silver", "dbt", "duckdb", "data-cleaning"]
+tags: ["etl", "silver", "data-cleaning"]
 series: ["etl-design-guide"]
 series_order: 3
 weight: 1

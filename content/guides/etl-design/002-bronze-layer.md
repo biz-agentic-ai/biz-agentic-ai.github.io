@@ -4,7 +4,7 @@ date: 2026-02-22
 draft: false
 summary: "Bronze에 데이터를 넣는 방법은 두 가지다. 전체를 덮어쓰거나, 바뀐 것만 가져오거나. 어떤 방식을 고르느냐에 따라 파이프라인의 복잡도가 완전히 달라진다."
 categories: ["ETL 설계"]
-tags: ["etl", "bronze", "full-load", "incremental-load", "duckdb", "cdc"]
+tags: ["etl", "bronze", "cdc"]
 series: ["etl-design-guide"]
 series_order: 2
 weight: 2

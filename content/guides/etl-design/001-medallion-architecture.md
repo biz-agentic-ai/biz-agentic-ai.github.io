@@ -4,7 +4,7 @@ date: 2026-02-22
 draft: false
 summary: "Bronze, Silver, Gold. 데이터를 레이어별로 나눠서 적재하면 뭐가 달라지는가. DuckDB와 dbt로 직접 구성해 본다."
 categories: ["ETL 설계"]
-tags: ["etl", "medallion-architecture", "duckdb", "dbt", "elt"]
+tags: ["etl", "medallion-architecture", "elt"]
 series: ["etl-design-guide"]
 series_order: 1
 weight: 3
