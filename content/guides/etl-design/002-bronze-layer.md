@@ -177,6 +177,75 @@ Bronze 적재 패턴을 정리하면 이렇다.
 
 Full Load 중에 **스냅샷** 방식이 하나 더 있다. 덮어쓰기가 아니라 적재일 기준으로 매일의 전체 상태를 따로 저장하는 방식이다. 상품 마스터의 어제 상태와 오늘 상태를 비교하고 싶을 때 쓴다. 스토리지를 많이 먹지만, [1편]({{< ref "001-medallion-architecture" >}})에서 얘기했듯 클라우드 환경에서 스토리지 비용은 무시할 수 있는 수준이다.
 
+## 실무 참고: Airflow로 Bronze 적재
+
+Bronze 적재를 Airflow DAG으로 짜면 테이블마다 Full Load / Incremental Load를 구분해서 태스크를 나눌 수 있다.
+
+```python
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from datetime import datetime
+import duckdb
+
+def load_full(table_name, source_url, **context):
+    """Full Load: 전체 교체"""
+    conn = duckdb.connect('warehouse.duckdb')
+    conn.execute(f"""
+        CREATE OR REPLACE TABLE bronze.{table_name} AS
+        SELECT *, current_timestamp AS _loaded_at,
+               '{table_name}' AS _source_system, 'full' AS _load_type
+        FROM read_csv_auto('{source_url}')
+    """)
+    conn.close()
+
+def load_incremental(table_name, source_url, key_column, **context):
+    """Incremental Load: 워터마크 이후만"""
+    conn = duckdb.connect('warehouse.duckdb')
+    wm = conn.execute(f"""
+        SELECT COALESCE(last_loaded_id, 0)
+        FROM bronze.watermarks WHERE table_name = '{table_name}'
+    """).fetchone()
+    last_id = wm[0] if wm else 0
+
+    conn.execute(f"""
+        INSERT INTO bronze.{table_name}
+        SELECT *, current_timestamp AS _loaded_at
+        FROM read_csv_auto('{source_url}')
+        WHERE {key_column} > {last_id}
+    """)
+    conn.close()
+
+with DAG(
+    dag_id='bronze_ingestion',
+    schedule='0 5 * * *',
+    start_date=datetime(2026, 1, 1),
+    catchup=False,
+) as dag:
+
+    # 소규모 마스터 → Full Load
+    load_customers = PythonOperator(
+        task_id='load_customers_full',
+        python_callable=load_full,
+        op_kwargs={'table_name': 'customers', 'source_url': '...'},
+    )
+
+    # 대용량 트랜잭션 → Incremental Load
+    load_orders = PythonOperator(
+        task_id='load_orders_incremental',
+        python_callable=load_incremental,
+        op_kwargs={
+            'table_name': 'orders',
+            'source_url': '...',
+            'key_column': 'id',
+        },
+    )
+
+    # 병렬 실행 — 테이블 간 의존 관계가 없으니까
+    [load_customers, load_orders]
+```
+
+소규모 마스터는 `load_full`, 대용량 트랜잭션은 `load_incremental`. 테이블 특성에 맞게 함수를 나눠서 호출한다. 테이블 간에는 의존 관계가 없으니 Airflow가 병렬로 실행한다.
+
 다음 글에서는 Silver 레이어를 다룬다. Bronze에 쌓아둔 원본 데이터를 정제하고 표준화하는 과정이다. dbt를 본격적으로 쓰기 시작한다.
 
 {{< colab "https://colab.research.google.com/github/biz-agentic-ai/biz-agentic-ai.github.io/blob/main/notebooks/etl-002-bronze-layer.ipynb" >}}

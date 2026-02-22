@@ -252,6 +252,41 @@ Gold 모델은 Silver 테이블의 컬럼명, 타입, 단위를 믿고 쓴다. `
 
 컬럼을 추가하는 건 괜찮다. 기존 컬럼의 이름이나 타입을 바꾸는 게 위험하다. dbt의 `ref()` 함수가 의존 관계를 추적하니까 어디가 영향 받는지는 확인할 수 있다.
 
+## 실무 참고: Airflow에서 dbt 실행
+
+Airflow에서 dbt를 실행하는 방법은 여러 가지다. 가장 간단한 건 `BashOperator`로 `dbt run`을 호출하는 것이고, 더 정교하게 하려면 `cosmos` 라이브러리를 쓴다.
+
+```python
+from airflow import DAG
+from airflow.operators.bash import BashOperator
+from datetime import datetime
+
+with DAG(
+    dag_id='silver_transformation',
+    schedule='0 6 * * *',
+    start_date=datetime(2026, 1, 1),
+    catchup=False,
+) as dag:
+
+    # Bronze 적재 완료를 기다린 뒤 Silver 변환 실행
+    run_staging = BashOperator(
+        task_id='dbt_run_staging',
+        bash_command='cd /opt/dbt/jaffle_shop && dbt run --select staging',
+    )
+
+    # dbt test로 Silver 데이터 품질 검증
+    test_staging = BashOperator(
+        task_id='dbt_test_staging',
+        bash_command='cd /opt/dbt/jaffle_shop && dbt test --select staging',
+    )
+
+    run_staging >> test_staging
+```
+
+`dbt run` 다음에 `dbt test`를 건다. Silver 변환이 끝나면 바로 품질 검증을 돌린다. 테스트가 실패하면 Gold 변환으로 넘어가지 않는다. 불량 데이터가 Gold까지 올라가는 걸 막는 구조다.
+
+`cosmos` 라이브러리를 쓰면 dbt 모델 하나하나를 Airflow 태스크로 분리할 수 있다. `stg_orders`가 실패해도 `stg_customers`는 독립적으로 성공 처리된다. 모델이 수십 개로 늘어나면 이 세분화가 의미 있어진다.
+
 다음 글에서는 SCD(Slowly Changing Dimension)를 다룬다. 고객의 주소가 바뀌었을 때 과거 주소를 어떻게 보존하는가. Type 1, 2, 3의 차이와 선택 기준.
 
 {{< colab "https://colab.research.google.com/github/biz-agentic-ai/biz-agentic-ai.github.io/blob/main/notebooks/etl-003-silver-layer.ipynb" >}}

@@ -126,6 +126,44 @@ conn.execute("SELECT * FROM bronze.orders LIMIT 5").fetchdf()
 
 클라우드 환경에서 스토리지 비용은 거의 무시할 수 있는 수준이다. 레이어를 하나 더 두는 비용보다, 데이터 늪에 빠졌을 때의 비용이 훨씬 크다.
 
+## 실무 참고: Airflow DAG
+
+이 시리즈의 실습은 Colab + dbt로 진행하지만, 실무에서는 Airflow가 파이프라인을 스케줄링하고 오케스트레이션한다. 메달리온 아키텍처의 Bronze → Silver → Gold 흐름을 Airflow DAG으로 짜면 이런 모양이다.
+
+```python
+from airflow import DAG
+from airflow.operators.bash import BashOperator
+from datetime import datetime
+
+with DAG(
+    dag_id='medallion_pipeline',
+    schedule='0 6 * * *',  # 매일 오전 6시
+    start_date=datetime(2026, 1, 1),
+    catchup=False,
+) as dag:
+
+    bronze = BashOperator(
+        task_id='load_bronze',
+        bash_command='python scripts/load_bronze.py',
+    )
+
+    silver = BashOperator(
+        task_id='run_silver',
+        bash_command='cd dbt_project && dbt run --select staging',
+    )
+
+    gold = BashOperator(
+        task_id='run_gold',
+        bash_command='cd dbt_project && dbt run --select marts',
+    )
+
+    bronze >> silver >> gold
+```
+
+`bronze >> silver >> gold`. 의존 관계가 한 줄로 읽힌다. Bronze 적재가 끝나야 Silver가 돌고, Silver가 끝나야 Gold가 돈다. Airflow가 이 순서를 보장하고, 실패하면 알림을 보내고, 재실행도 처리한다.
+
+dbt는 "무엇을 변환할지"를 정의하고, Airflow는 "언제, 어떤 순서로 실행할지"를 정의한다. 역할이 다르다.
+
 다음 글에서는 Bronze 레이어를 본격적으로 다룬다. Full Load와 Incremental Load의 차이, 증분 적재의 기준 컬럼을 어떻게 잡는지.
 
 {{< colab "https://colab.research.google.com/github/biz-agentic-ai/biz-agentic-ai.github.io/blob/main/notebooks/etl-001-medallion-architecture.ipynb" >}}
