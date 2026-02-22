@@ -9,6 +9,13 @@
     <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://biz-agentic-ai.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>1. 메달리온 아키텍처 - 데이터를 세 겹으로 쌓는 이유</title>
+      <link>https://biz-agentic-ai.github.io/guides/etl-design/001-medallion-architecture/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/guides/etl-design/001-medallion-architecture/</guid>
+      <description>Bronze, Silver, Gold. 데이터를 레이어별로 나눠서 적재하면 뭐가 달라지는가. DuckDB와 dbt로 직접 구성해 본다.</description>
+    </item>
+    <item>
       <title>4. 수퍼-서브 타입 - 고객이 개인이면서 법인일 수 있는가</title>
       <link>https://biz-agentic-ai.github.io/guides/dw-modeling/004-super-sub-type/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
