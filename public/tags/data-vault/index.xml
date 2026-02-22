@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Data-Vault on Junho Lee | DataNexus 구축 과정</title>
+    <link>https://biz-agentic-ai.github.io/tags/data-vault/</link>
+    <description>Recent content in Data-Vault on Junho Lee | DataNexus 구축 과정</description>
+    <generator>Hugo -- 0.155.3</generator>
+    <language>ko</language>
+    <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://biz-agentic-ai.github.io/tags/data-vault/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>클라우드 DW에서 Kimball은 여전히 유효한가</title>
+      <link>https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/</guid>
+      <description>Synapse, BigQuery, Redshift로 오면서 DW 모델링 관점이 어떻게 달라졌는지. Kimball, Data Vault, One Big Table — 현장에서의 판단 기준.</description>
+    </item>
+  </channel>
+</rss>

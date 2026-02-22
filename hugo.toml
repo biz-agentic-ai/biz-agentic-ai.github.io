@@ -57,6 +57,11 @@ googleAnalytics = "G-Q0RS9ZG67P"
     url = "/posts/"
     weight = 10
   [[menu.main]]
+    identifier = "guides"
+    name = "Guides"
+    url = "/guides/"
+    weight = 15
+  [[menu.main]]
     identifier = "tags"
     name = "Tags"
     url = "/tags/"
