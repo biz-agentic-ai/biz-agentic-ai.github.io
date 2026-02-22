@@ -9,6 +9,13 @@
     <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://biz-agentic-ai.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>OLTP vs DW 모델 - 목적이 다르면 설계도 다르다</title>
+      <link>https://biz-agentic-ai.github.io/guides/dw-modeling/002-oltp-vs-dw-model/</link>
+      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <guid>https://biz-agentic-ai.github.io/guides/dw-modeling/002-oltp-vs-dw-model/</guid>
+      <description>ERD가 같아 보여도 설계 철학은 완전히 다르다. OLTP는 트랜잭션 정합성, DW는 분석 접근 경로. 그 차이가 Unknown 레코드와 시점 데이터 같은 낯선 것들을 만든다.</description>
+    </item>
+    <item>
       <title>클라우드 DW에서 Kimball은 여전히 유효한가</title>
       <link>https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
