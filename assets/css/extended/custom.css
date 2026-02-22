@@ -74,3 +74,8 @@
 .section-group-title a:hover {
     text-decoration: underline;
 }
+
+/* 코드 블록 폰트 크기 */
+.post-content pre code {
+    font-size: 1.05em;
+}
