@@ -77,6 +77,11 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
+    <loc>https://biz-agentic-ai.github.io/posts/datanexus/</loc>
+    <lastmod>2026-02-20T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://biz-agentic-ai.github.io/series/datanexus-building-log/</loc>
     <lastmod>2026-02-20T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>

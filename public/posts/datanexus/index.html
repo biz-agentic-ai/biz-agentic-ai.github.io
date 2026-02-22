@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head>
-	<meta name="generator" content="Hugo 0.155.3"><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Junho Lee | DataNexus 구축 과정</title>
-
-<meta name="description" content="Data &amp; AI Architect가 온톨로지 기반 데이터 에이전트를 만드는 과정">
+<title>DataNexus 구축기 | Junho Lee | DataNexus 구축 과정</title>
+<meta name="keywords" content="">
+<meta name="description" content="온톨로지 기반 데이터 에이전트 플랫폼, DataNexus를 만드는 과정">
 <meta name="author" content="Junho Lee">
 <link rel="canonical"
-    href="https://biz-agentic-ai.github.io/">
+    href="https://biz-agentic-ai.github.io/posts/datanexus/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.5c012621866bcfdf4e9cf37944735c26d489da41c84e8a58e87b2b5c5918bd3c.css" integrity="sha256-XAEmIYZrz99OnPN5RHNcJtSJ2kHITopY6HsrXFkYvTw="
     rel="preload stylesheet" as="style">
 <link rel="icon" href="https://biz-agentic-ai.github.io/favicon.svg">
@@ -21,8 +20,7 @@
 <link rel="mask-icon" href="https://biz-agentic-ai.github.io/favicon.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/json" href="https://biz-agentic-ai.github.io/index.json">
-<link rel="alternate" hreflang="en" href="https://biz-agentic-ai.github.io/">
+<link rel="alternate" hreflang="en" href="https://biz-agentic-ai.github.io/posts/datanexus/">
 <noscript>
     <style>
         #theme-toggle,
@@ -494,26 +492,34 @@
           gtag('js', new Date());
           gtag('config', 'G-Q0RS9ZG67P');
         }
-      </script><meta property="og:url" content="https://biz-agentic-ai.github.io/">
+      </script><meta property="og:url" content="https://biz-agentic-ai.github.io/posts/datanexus/">
   <meta property="og:site_name" content="Junho Lee | DataNexus 구축 과정">
-  <meta property="og:title" content="Junho Lee | DataNexus 구축 과정">
-  <meta property="og:description" content="Data &amp; AI Architect가 온톨로지 기반 데이터 에이전트를 만드는 과정">
+  <meta property="og:title" content="DataNexus 구축기">
+  <meta property="og:description" content="온톨로지 기반 데이터 에이전트 플랫폼, DataNexus를 만드는 과정">
   <meta property="og:locale" content="ko">
   <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Junho Lee | DataNexus 구축 과정">
-<meta name="twitter:description" content="Data &amp; AI Architect가 온톨로지 기반 데이터 에이전트를 만드는 과정">
+<meta name="twitter:title" content="DataNexus 구축기">
+<meta name="twitter:description" content="온톨로지 기반 데이터 에이전트 플랫폼, DataNexus를 만드는 과정">
+
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Junho Lee | DataNexus 구축 과정",
-  "url": "https://biz-agentic-ai.github.io/",
-  "description": "Data \u0026 AI Architect가 온톨로지 기반 데이터 에이전트를 만드는 과정",
-  "image": "https://biz-agentic-ai.github.io/favicon.svg",
-  "sameAs": [
-      "https://github.com/biz-agentic-ai", "https://www.linkedin.com/in/leejuno/"
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://biz-agentic-ai.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "DataNexus 구축기",
+      "item": "https://biz-agentic-ai.github.io/posts/datanexus/"
+    }
   ]
 }
 </script>
@@ -748,103 +754,67 @@
         </ul>
     </nav>
 </header>
-<main class="main">
-<article class="first-entry home-info">
-    <header class="entry-header">
-        <h1><img src="/images/DataNexus_Logo.jpg" alt="DataNexus" class="home-logo-img"> DataNexus 구축 과정</h1>
-    </header>
-    <div class="entry-content">
-        엔터프라이즈 데이터를 자연어로 탐색하는 AI 에이전트, DataNexus를 만드는 과정을 기록합니다.
-    </div>
-    <footer class="entry-footer">
-        <div class="social-icons" >
-    <a href="https://github.com/biz-agentic-ai" target="_blank" rel="noopener noreferrer me"
-        title="Github">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path
-        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-    </path>
-</svg>
-    </a>
-    <a href="https://www.linkedin.com/in/leejuno/" target="_blank" rel="noopener noreferrer me"
-        title="Linkedin">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-    stroke-linecap="round" stroke-linejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-    <rect x="2" y="9" width="4" height="12"></rect>
-    <circle cx="4" cy="4" r="2"></circle>
-</svg>
-    </a>
-</div>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">홈</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/posts/">Posts</a></div>
+  <h1>
+    DataNexus 구축기
+  </h1>
+  <div class="post-description">
+    온톨로지 기반 데이터 에이전트 플랫폼, DataNexus를 만드는 과정
+  </div>
+</header>
 
-    </footer>
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">4. SKOS 호환 레이어를 왜 넣었는가
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>DataNexus 온톨로지를 외부와 연결하기 위해 SKOS를 선택한 이유. LPG와 RDF, 두 그래프 모델을 잇는 호환 레이어 설계.</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-02-20 00:00:00 +0000 UTC'>February 20, 2026</span>&nbsp;·&nbsp;8 분&nbsp;·&nbsp;Junho Lee</footer>
+  <a class="entry-link" aria-label="post link to 4. SKOS 호환 레이어를 왜 넣었는가" href="https://biz-agentic-ai.github.io/posts/datanexus/004-skos-compatibility-layer/"></a>
 </article>
-<div class="section-group">
-  <h2 class="section-group-title"><a href="/posts/">DataNexus 구축기</a></h2>
-  <article class="post-entry"> 
-    <header class="entry-header">
-      <h2 class="entry-hint-parent">4. SKOS 호환 레이어를 왜 넣었는가
-      </h2>
-    </header>
-    <div class="entry-content">
-      <p>DataNexus 온톨로지를 외부와 연결하기 위해 SKOS를 선택한 이유. LPG와 RDF, 두 그래프 모델을 잇는 호환 레이어 설계.</p>
-    </div>
-    <footer class="entry-footer"><span title='2026-02-20 00:00:00 +0000 UTC'>February 20, 2026</span>&nbsp;·&nbsp;8 분&nbsp;·&nbsp;Junho Lee</footer>
-    <a class="entry-link" aria-label="post link to 4. SKOS 호환 레이어를 왜 넣었는가" href="https://biz-agentic-ai.github.io/posts/datanexus/004-skos-compatibility-layer/"></a>
-  </article>
-  <article class="post-entry"> 
-    <header class="entry-header">
-      <h2 class="entry-hint-parent">3. DataHub Glossary를 온톨로지로 쓸 수 있을까
-      </h2>
-    </header>
-    <div class="entry-content">
-      <p>DataHub의 Business Glossary를 온톨로지 저장소로 쓰려고 했다. 되는 것과 안 되는 것, 그리고 우회한 방법.</p>
-    </div>
-    <footer class="entry-footer"><span title='2026-02-18 00:00:00 +0000 UTC'>February 18, 2026</span>&nbsp;·&nbsp;6 분&nbsp;·&nbsp;Junho Lee</footer>
-    <a class="entry-link" aria-label="post link to 3. DataHub Glossary를 온톨로지로 쓸 수 있을까" href="https://biz-agentic-ai.github.io/posts/datanexus/003-datahub-glossary-as-ontology/"></a>
-  </article>
-  <article class="post-entry"> 
-    <header class="entry-header">
-      <h2 class="entry-hint-parent">2. 4개의 오픈소스를 이 조합으로 결정하기까지
-      </h2>
-    </header>
-    <div class="entry-content">
-      <p>DataNexus의 기술 스택을 DataHub &#43; Vanna &#43; ApeRAG &#43; DozerDB로 결정한 과정. 후보군에서 탈락한 것들과 그 이유.</p>
-    </div>
-    <footer class="entry-footer"><span title='2026-02-17 00:00:00 +0000 UTC'>February 17, 2026</span>&nbsp;·&nbsp;5 분&nbsp;·&nbsp;Junho Lee</footer>
-    <a class="entry-link" aria-label="post link to 2. 4개의 오픈소스를 이 조합으로 결정하기까지" href="https://biz-agentic-ai.github.io/posts/datanexus/002-architecture-decisions/"></a>
-  </article>
-  <article class="post-entry"> 
-    <header class="entry-header">
-      <h2 class="entry-hint-parent">1. 왜 DataNexus를 만드는가
-      </h2>
-    </header>
-    <div class="entry-content">
-      <p>“VIP 기준이 뭐죠?” 유통사 BI Agent 프로젝트에서 있었던 일이다.
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">3. DataHub Glossary를 온톨로지로 쓸 수 있을까
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>DataHub의 Business Glossary를 온톨로지 저장소로 쓰려고 했다. 되는 것과 안 되는 것, 그리고 우회한 방법.</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-02-18 00:00:00 +0000 UTC'>February 18, 2026</span>&nbsp;·&nbsp;6 분&nbsp;·&nbsp;Junho Lee</footer>
+  <a class="entry-link" aria-label="post link to 3. DataHub Glossary를 온톨로지로 쓸 수 있을까" href="https://biz-agentic-ai.github.io/posts/datanexus/003-datahub-glossary-as-ontology/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">2. 4개의 오픈소스를 이 조합으로 결정하기까지
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>DataNexus의 기술 스택을 DataHub &#43; Vanna &#43; ApeRAG &#43; DozerDB로 결정한 과정. 후보군에서 탈락한 것들과 그 이유.</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-02-17 00:00:00 +0000 UTC'>February 17, 2026</span>&nbsp;·&nbsp;5 분&nbsp;·&nbsp;Junho Lee</footer>
+  <a class="entry-link" aria-label="post link to 2. 4개의 오픈소스를 이 조합으로 결정하기까지" href="https://biz-agentic-ai.github.io/posts/datanexus/002-architecture-decisions/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">1. 왜 DataNexus를 만드는가
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>“VIP 기준이 뭐죠?” 유통사 BI Agent 프로젝트에서 있었던 일이다.
 현업 담당자가 테스트 중에 Agent에게 물었다. “지난달 VIP 고객 매출 알려줘.” 시스템이 숫자를 뱉어냈는데, 담당자 표정이 좋지 않았다. “이거 뭔가 이상한데요. VIP 기준이 우리 팀이랑 다른 것 같아요.”
 마케팅의 VIP와 CRM의 VIP가 달랐다. 매출도 마찬가지. 순매출이냐 총매출이냐에 따라 수억 단위로 차이가 난다.
 처음 겪는 문제가 아니었다. DW를 클라우드로 옮기는 프로젝트에서도 봤고, 차세대 정보계를 여러 벤더와 1년 넘게 만들 때도 똑같았다. 벤더마다 “매출”, “원가&#34;의 기준이 달라서 데이터 정합성 잡느라 몇 주씩 지연됐다. 용어 하나 안 맞으면 전체 일정이 밀린다. DW/BI 프로젝트를 하면서 이 문제가 안 나온 적이 없다.
 ...</p>
-    </div>
-    <footer class="entry-footer"><span title='2026-02-16 00:00:00 +0000 UTC'>February 16, 2026</span>&nbsp;·&nbsp;4 분&nbsp;·&nbsp;Junho Lee</footer>
-    <a class="entry-link" aria-label="post link to 1. 왜 DataNexus를 만드는가" href="https://biz-agentic-ai.github.io/posts/datanexus/001-why-datanexus/"></a>
-  </article>
-</div>
-<div class="section-group">
-  <h2 class="section-group-title"><a href="/guides/dw-modeling/">DW Modeling</a></h2>
-  <article class="post-entry"> 
-    <header class="entry-header">
-      <h2 class="entry-hint-parent">클라우드 DW에서 Kimball은 여전히 유효한가
-      </h2>
-    </header>
-    <div class="entry-content">
-      <p>Synapse, BigQuery, Redshift로 오면서 DW 모델링 관점이 어떻게 달라졌는지. Kimball, Data Vault, One Big Table - 실무에서의 판단 기준.</p>
-    </div>
-    <footer class="entry-footer"><span title='2026-02-22 00:00:00 +0000 UTC'>February 22, 2026</span>&nbsp;·&nbsp;5 분&nbsp;·&nbsp;Junho Lee</footer>
-    <a class="entry-link" aria-label="post link to 클라우드 DW에서 Kimball은 여전히 유효한가" href="https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/"></a>
-  </article>
-</div>
+  </div>
+  <footer class="entry-footer"><span title='2026-02-16 00:00:00 +0000 UTC'>February 16, 2026</span>&nbsp;·&nbsp;4 분&nbsp;·&nbsp;Junho Lee</footer>
+  <a class="entry-link" aria-label="post link to 1. 왜 DataNexus를 만드는가" href="https://biz-agentic-ai.github.io/posts/datanexus/001-why-datanexus/"></a>
+</article>
         </main>
         
 <footer class="footer">
