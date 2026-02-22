@@ -127,3 +127,5 @@ conn.execute("SELECT * FROM bronze.orders LIMIT 5").fetchdf()
 클라우드 환경에서 스토리지 비용은 거의 무시할 수 있는 수준이다. 레이어를 하나 더 두는 비용보다, 데이터 늪에 빠졌을 때의 비용이 훨씬 크다.
 
 다음 글에서는 Bronze 레이어를 본격적으로 다룬다. Full Load와 Incremental Load의 차이, 증분 적재의 기준 컬럼을 어떻게 잡는지.
+
+{{< colab "https://colab.research.google.com/github/biz-agentic-ai/biz-agentic-ai.github.io/blob/main/notebooks/etl-001-medallion-architecture.ipynb" >}}

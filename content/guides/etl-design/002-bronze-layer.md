@@ -178,3 +178,5 @@ Bronze 적재 패턴을 정리하면 이렇다.
 Full Load 중에 **스냅샷** 방식이 하나 더 있다. 덮어쓰기가 아니라 적재일 기준으로 매일의 전체 상태를 따로 저장하는 방식이다. 상품 마스터의 어제 상태와 오늘 상태를 비교하고 싶을 때 쓴다. 스토리지를 많이 먹지만, [1편]({{< ref "001-medallion-architecture" >}})에서 얘기했듯 클라우드 환경에서 스토리지 비용은 무시할 수 있는 수준이다.
 
 다음 글에서는 Silver 레이어를 다룬다. Bronze에 쌓아둔 원본 데이터를 정제하고 표준화하는 과정이다. dbt를 본격적으로 쓰기 시작한다.
+
+{{< colab "https://colab.research.google.com/github/biz-agentic-ai/biz-agentic-ai.github.io/blob/main/notebooks/etl-002-bronze-layer.ipynb" >}}
