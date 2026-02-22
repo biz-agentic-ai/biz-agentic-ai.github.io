@@ -3,7 +3,7 @@ title: "2. OLTP vs DW 모델 - 목적이 다르면 설계도 다르다"
 date: 2026-02-20
 draft: false
 summary: "ERD가 같아 보여도 설계 철학은 완전히 다르다. OLTP는 트랜잭션 정합성, DW는 분석 접근 경로. 그 차이가 Unknown 레코드와 시점 데이터 같은 낯선 것들을 만든다."
-categories: ["DW Modeling"]
+categories: ["DW 모델링"]
 tags: ["dw-modeling", "oltp", "star-schema", "data-warehouse"]
 series: ["dw-modeling-guide"]
 series_order: 2

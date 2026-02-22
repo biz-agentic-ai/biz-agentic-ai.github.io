@@ -3,7 +3,7 @@ title: "4. 수퍼-서브 타입 - 고객이 개인이면서 법인일 수 있는
 date: 2026-02-22
 draft: false
 summary: "수퍼-서브 타입은 논리 모델에서 비즈니스 분류를 명확하게 만든다. 물리 모델로 넘어갈 때 세 가지 선택지가 생기고, DW에서는 그 선택이 차원 설계 전체를 바꾼다."
-categories: ["DW Modeling"]
+categories: ["DW 모델링"]
 tags: ["dw-modeling", "erd", "super-sub-type", "dimension"]
 series: ["dw-modeling-guide"]
 series_order: 4

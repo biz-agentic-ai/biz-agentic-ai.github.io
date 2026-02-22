@@ -3,7 +3,7 @@ title: "3. ERD 표기법 - 같은 그림, 다른 해석"
 date: 2026-02-21
 draft: false
 summary: "같은 까마귀발인데 왜 해석이 다를까. 점선 하나가 툴마다 다른 뜻을 가진다. 프로젝트에서 모델을 공통 언어로 쓰려면 쓰는 도구의 표기법부터 맞춰야 한다."
-categories: ["DW Modeling"]
+categories: ["DW 모델링"]
 tags: ["dw-modeling", "erd", "notation", "crows-foot", "idef1x"]
 series: ["dw-modeling-guide"]
 series_order: 3
