@@ -11,6 +11,8 @@ author: "Junho Lee"
 ShowToc: true
 ---
 
+{{< colab "https://colab.research.google.com/github/biz-agentic-ai/biz-agentic-ai.github.io/blob/main/notebooks/etl-001-medallion-architecture.ipynb" >}}
+
 ## 데이터 레이크가 늪이 되는 과정
 
 데이터 레이크에 파일을 쏟아놓고 바로 분석하려는 팀이 있다. 처음엔 빠르다. CSV 올리고 SQL 한 줄이면 결과가 나온다.

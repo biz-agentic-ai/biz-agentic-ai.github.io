@@ -11,6 +11,8 @@ author: "Junho Lee"
 ShowToc: true
 ---
 
+{{< colab "https://colab.research.google.com/github/biz-agentic-ai/biz-agentic-ai.github.io/blob/main/notebooks/etl-002-bronze-layer.ipynb" >}}
+
 ## 원본을 건드리면 돌아갈 곳이 없다
 
 [1편]({{< ref "001-medallion-architecture" >}})에서 Bronze 레이어의 원칙을 정했다. 소스 시스템에서 가져온 데이터를 변환 없이 저장한다. 타입 캐스팅도 안 하고, 컬럼명도 안 바꾼다.
