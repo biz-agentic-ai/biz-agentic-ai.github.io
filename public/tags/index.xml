@@ -6,34 +6,69 @@
     <description>Recent content in Tags on Junho Lee | DataNexus 구축 과정</description>
     <generator>Hugo -- 0.155.3</generator>
     <language>ko</language>
-    <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 13:00:00 +0900</lastBuildDate>
     <atom:link href="https://biz-agentic-ai.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dbt-Snapshot</title>
+      <link>https://biz-agentic-ai.github.io/tags/dbt-snapshot/</link>
+      <pubDate>Sun, 22 Feb 2026 13:00:00 +0900</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/dbt-snapshot/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Etl</title>
+      <link>https://biz-agentic-ai.github.io/tags/etl/</link>
+      <pubDate>Sun, 22 Feb 2026 13:00:00 +0900</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/etl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Scd</title>
+      <link>https://biz-agentic-ai.github.io/tags/scd/</link>
+      <pubDate>Sun, 22 Feb 2026 13:00:00 +0900</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/scd/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Data-Cleaning</title>
+      <link>https://biz-agentic-ai.github.io/tags/data-cleaning/</link>
+      <pubDate>Sun, 22 Feb 2026 12:00:00 +0900</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/data-cleaning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Silver</title>
+      <link>https://biz-agentic-ai.github.io/tags/silver/</link>
+      <pubDate>Sun, 22 Feb 2026 12:00:00 +0900</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/silver/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Bronze</title>
       <link>https://biz-agentic-ai.github.io/tags/bronze/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 22 Feb 2026 11:00:00 +0900</pubDate>
       <guid>https://biz-agentic-ai.github.io/tags/bronze/</guid>
       <description></description>
     </item>
     <item>
       <title>Cdc</title>
       <link>https://biz-agentic-ai.github.io/tags/cdc/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 22 Feb 2026 11:00:00 +0900</pubDate>
       <guid>https://biz-agentic-ai.github.io/tags/cdc/</guid>
       <description></description>
     </item>
     <item>
-      <title>Data-Cleaning</title>
-      <link>https://biz-agentic-ai.github.io/tags/data-cleaning/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/data-cleaning/</guid>
+      <title>Elt</title>
+      <link>https://biz-agentic-ai.github.io/tags/elt/</link>
+      <pubDate>Sun, 22 Feb 2026 10:00:00 +0900</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/elt/</guid>
       <description></description>
     </item>
     <item>
-      <title>Dbt-Snapshot</title>
-      <link>https://biz-agentic-ai.github.io/tags/dbt-snapshot/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/dbt-snapshot/</guid>
+      <title>Medallion-Architecture</title>
+      <link>https://biz-agentic-ai.github.io/tags/medallion-architecture/</link>
+      <pubDate>Sun, 22 Feb 2026 10:00:00 +0900</pubDate>
+      <guid>https://biz-agentic-ai.github.io/tags/medallion-architecture/</guid>
       <description></description>
     </item>
     <item>
@@ -44,45 +79,10 @@
       <description></description>
     </item>
     <item>
-      <title>Elt</title>
-      <link>https://biz-agentic-ai.github.io/tags/elt/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/elt/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Erd</title>
       <link>https://biz-agentic-ai.github.io/tags/erd/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/tags/erd/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Etl</title>
-      <link>https://biz-agentic-ai.github.io/tags/etl/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/etl/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Medallion-Architecture</title>
-      <link>https://biz-agentic-ai.github.io/tags/medallion-architecture/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/medallion-architecture/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Scd</title>
-      <link>https://biz-agentic-ai.github.io/tags/scd/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/scd/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Silver</title>
-      <link>https://biz-agentic-ai.github.io/tags/silver/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/tags/silver/</guid>
       <description></description>
     </item>
     <item>

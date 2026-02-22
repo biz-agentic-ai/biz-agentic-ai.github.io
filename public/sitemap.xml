@@ -3,51 +3,111 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://biz-agentic-ai.github.io/guides/etl-design/004-scd/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://biz-agentic-ai.github.io/guides/etl-design/003-silver-layer/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-22T12:00:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://biz-agentic-ai.github.io/guides/etl-design/002-bronze-layer/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-22T11:00:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://biz-agentic-ai.github.io/guides/etl-design/001-medallion-architecture/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/guides/dw-modeling/004-super-sub-type/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/bronze/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-22T10:00:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://biz-agentic-ai.github.io/categories/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/cdc/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/data-cleaning/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://biz-agentic-ai.github.io/tags/dbt-snapshot/</loc>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/etl/</loc>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/categories/etl-%EC%84%A4%EA%B3%84/</loc>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/guides/etl-design/</loc>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/series/etl-design-guide/</loc>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/</loc>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/scd/</loc>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/series/</loc>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/</loc>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/guides/</loc>
+    <lastmod>2026-02-22T13:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/data-cleaning/</loc>
+    <lastmod>2026-02-22T12:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/silver/</loc>
+    <lastmod>2026-02-22T12:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/bronze/</loc>
+    <lastmod>2026-02-22T11:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/cdc/</loc>
+    <lastmod>2026-02-22T11:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/elt/</loc>
+    <lastmod>2026-02-22T10:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/tags/medallion-architecture/</loc>
+    <lastmod>2026-02-22T10:00:00+09:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://biz-agentic-ai.github.io/guides/dw-modeling/004-super-sub-type/</loc>
     <lastmod>2026-02-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -72,67 +132,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/elt/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
     <loc>https://biz-agentic-ai.github.io/tags/erd/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/etl/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/categories/etl-%EC%84%A4%EA%B3%84/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/guides/etl-design/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/series/etl-design-guide/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/medallion-architecture/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/scd/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/series/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/silver/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/tags/</loc>
-    <lastmod>2026-02-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://biz-agentic-ai.github.io/guides/</loc>
     <lastmod>2026-02-22T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

@@ -6,20 +6,20 @@
     <description>Recent content in Categories on Junho Lee | DataNexus 구축 과정</description>
     <generator>Hugo -- 0.155.3</generator>
     <language>ko</language>
-    <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 13:00:00 +0900</lastBuildDate>
     <atom:link href="https://biz-agentic-ai.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ETL 설계</title>
+      <link>https://biz-agentic-ai.github.io/categories/etl-%EC%84%A4%EA%B3%84/</link>
+      <pubDate>Sun, 22 Feb 2026 13:00:00 +0900</pubDate>
+      <guid>https://biz-agentic-ai.github.io/categories/etl-%EC%84%A4%EA%B3%84/</guid>
+      <description></description>
+    </item>
     <item>
       <title>DW 모델링</title>
       <link>https://biz-agentic-ai.github.io/categories/dw-%EB%AA%A8%EB%8D%B8%EB%A7%81/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/categories/dw-%EB%AA%A8%EB%8D%B8%EB%A7%81/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>ETL 설계</title>
-      <link>https://biz-agentic-ai.github.io/categories/etl-%EC%84%A4%EA%B3%84/</link>
-      <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
-      <guid>https://biz-agentic-ai.github.io/categories/etl-%EC%84%A4%EA%B3%84/</guid>
       <description></description>
     </item>
     <item>

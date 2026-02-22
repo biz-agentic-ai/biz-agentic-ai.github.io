@@ -1,6 +1,6 @@
 ---
 title: "1. 메달리온 아키텍처 - 데이터를 세 겹으로 쌓는 이유"
-date: 2026-02-22
+date: 2026-02-22T10:00:00+09:00
 draft: false
 summary: "Bronze, Silver, Gold. 데이터를 레이어별로 나눠서 적재하면 뭐가 달라지는가. DuckDB와 dbt로 직접 구성해 본다."
 categories: ["ETL 설계"]

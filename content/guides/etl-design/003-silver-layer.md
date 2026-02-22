@@ -1,6 +1,6 @@
 ---
 title: "3. Silver 레이어 - Bronze를 분석 가능한 상태로 올린다"
-date: 2026-02-22
+date: 2026-02-22T12:00:00+09:00
 draft: false
 summary: "Bronze에 쌓아둔 원본 데이터를 정제하고 표준화한다. 타입을 맞추고, 컬럼명을 통일하고, 중복을 제거한다. dbt로 이 과정을 SQL 모델로 정의한다."
 categories: ["ETL 설계"]
