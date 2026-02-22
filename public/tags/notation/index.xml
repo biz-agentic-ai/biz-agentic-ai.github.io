@@ -13,7 +13,7 @@
       <link>https://biz-agentic-ai.github.io/guides/dw-modeling/003-erd-notation/</link>
       <pubDate>Sat, 21 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/guides/dw-modeling/003-erd-notation/</guid>
-      <description>Crow&amp;rsquo;s Foot, Barker, IDEF1X - 표기법이 다르면 같은 관계도 다르게 읽힌다. 프로젝트에서 ERD를 공통 언어로 쓰려면 표기법부터 맞춰야 한다.</description>
+      <description>같은 까마귀발인데 왜 해석이 다를까. 점선 하나가 툴마다 다른 뜻을 가진다. 프로젝트에서 모델을 공통 언어로 쓰려면 쓰는 도구의 표기법부터 맞춰야 한다.</description>
     </item>
   </channel>
 </rss>

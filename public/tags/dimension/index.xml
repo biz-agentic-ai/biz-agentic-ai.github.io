@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Generalization on Junho Lee | DataNexus 구축 과정</title>
-    <link>https://biz-agentic-ai.github.io/tags/generalization/</link>
-    <description>Recent content in Generalization on Junho Lee | DataNexus 구축 과정</description>
+    <title>Dimension on Junho Lee | DataNexus 구축 과정</title>
+    <link>https://biz-agentic-ai.github.io/tags/dimension/</link>
+    <description>Recent content in Dimension on Junho Lee | DataNexus 구축 과정</description>
     <generator>Hugo -- 0.155.3</generator>
     <language>ko</language>
     <lastBuildDate>Sun, 22 Feb 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://biz-agentic-ai.github.io/tags/generalization/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://biz-agentic-ai.github.io/tags/dimension/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>4. 수퍼-서브 타입 - 고객이 개인이면서 법인일 수 있는가</title>
       <link>https://biz-agentic-ai.github.io/guides/dw-modeling/004-super-sub-type/</link>
       <pubDate>Sun, 22 Feb 2026 00:00:00 +0000</pubDate>
       <guid>https://biz-agentic-ai.github.io/guides/dw-modeling/004-super-sub-type/</guid>
-      <description>같은 수퍼-서브 타입도 Exclusive인지 Inclusive인지에 따라 의미가 완전히 다르다. 표기법마다 그리는 방식까지 달라서 모델 리뷰에서 해석이 엇갈린다.</description>
+      <description>수퍼-서브 타입은 논리 모델에서 비즈니스 분류를 명확하게 만든다. 물리 모델로 넘어갈 때 세 가지 선택지가 생기고, DW에서는 그 선택이 차원 설계 전체를 바꾼다.</description>
     </item>
   </channel>
 </rss>
