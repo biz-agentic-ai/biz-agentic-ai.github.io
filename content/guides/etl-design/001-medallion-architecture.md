@@ -86,15 +86,15 @@ print(f"DuckDB {duckdb.__version__} 준비 완료")
 conn.execute("""
 CREATE SCHEMA IF NOT EXISTS bronze;
 
-CREATE TABLE bronze.orders AS
+CREATE OR REPLACE TABLE bronze.orders AS
 SELECT * FROM read_csv_auto('https://raw.githubusercontent.com/
   dbt-labs/jaffle_shop/main/seeds/raw_orders.csv');
 
-CREATE TABLE bronze.customers AS
+CREATE OR REPLACE TABLE bronze.customers AS
 SELECT * FROM read_csv_auto('https://raw.githubusercontent.com/
   dbt-labs/jaffle_shop/main/seeds/raw_customers.csv');
 
-CREATE TABLE bronze.payments AS
+CREATE OR REPLACE TABLE bronze.payments AS
 SELECT * FROM read_csv_auto('https://raw.githubusercontent.com/
   dbt-labs/jaffle_shop/main/seeds/raw_payments.csv');
 """)
