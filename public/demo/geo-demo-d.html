@@ -1,0 +1,2636 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GEO 데모 - JSON-LD 빌더</title>
+  <style>
+    /* ── Common Resets & Fonts ── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      background: #0a0a18;
+      color: #e0e0e0;
+      font-family: 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0
+    }
+
+    /* ── Section Switcher TNB ── */
+    .geo-tnb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 36px;
+      background: rgba(10, 10, 24, 0.98);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      z-index: 99999;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 0 12px
+    }
+
+    .geo-tnb-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+      padding-left: 10px;
+      white-space: nowrap
+    }
+
+    .geo-tnb-brand-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .geo-tnb-brand-text {
+      font-size: 14px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.92);
+      letter-spacing: -0.3px
+    }
+
+    .geo-tnb-brand-text em {
+      font-style: normal;
+      color: #CD4A4A
+    }
+
+    .geo-tnb-nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin: 0 auto
+    }
+
+    .geo-tnb-link {
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: all .2s;
+      cursor: pointer;
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap
+    }
+
+    .geo-tnb-link:hover {
+      color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.05)
+    }
+
+    .geo-tnb-link.active {
+      color: #fff;
+      background: rgba(74, 144, 226, 0.2)
+    }
+
+    .tnb-key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .5px
+    }
+
+    .geo-tnb-link.active .tnb-key {
+      background: rgba(74, 144, 226, 0.4)
+    }
+
+    /* ── Demo Section Container ── */
+    .demo-section {
+      display: none;
+      min-height: 100vh
+    }
+
+    .demo-section.active {
+      display: block
+    }
+
+    /* ── Script Balloon Tooltip (shared) ── */
+    .sp-balloon {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 89999;
+      width: 370px;
+      max-width: calc(100vw - 48px);
+      background: rgba(10, 10, 24, 0.96);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(74, 144, 226, 0.25);
+      border-radius: 14px;
+      padding: 0;
+      opacity: 0;
+      transform: translateY(12px) scale(0.97);
+      transition: opacity .3s ease, transform .3s ease;
+      pointer-events: none;
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4)
+    }
+
+    .sp-balloon.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto
+    }
+
+    .sp-balloon-hd {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04)
+    }
+
+    .sp-balloon-step {
+      font-size: 10px;
+      font-weight: 800;
+      color: rgba(74, 144, 226, 0.8);
+      letter-spacing: .5px;
+      white-space: nowrap;
+      background: rgba(74, 144, 226, 0.1);
+      padding: 2px 8px;
+      border-radius: 10px
+    }
+
+    .sp-balloon-title {
+      flex: 1;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .sp-balloon-close {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      font-size: 16px;
+      padding: 2px 4px;
+      line-height: 1;
+      transition: color .15s
+    }
+
+    .sp-balloon-close:hover {
+      color: rgba(255, 255, 255, 0.7)
+    }
+
+    .sp-balloon-body {
+      padding: 10px 16px 6px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.75;
+      word-break: keep-all;
+      max-height: 120px;
+      overflow-y: auto
+    }
+
+    .sp-balloon-ft {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px 12px
+    }
+
+    .sp-balloon-nav {
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all .15s;
+      font-family: inherit
+    }
+
+    .sp-balloon-nav:hover {
+      background: rgba(74, 144, 226, 0.12);
+      border-color: rgba(74, 144, 226, 0.3);
+      color: #fff
+    }
+
+    .sp-dot-b {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      transition: all .25s;
+      cursor: pointer;
+      display: inline-block
+    }
+
+    .sp-dot-b.done {
+      background: rgba(0, 212, 170, 0.45)
+    }
+
+    .sp-dot-b.now {
+      background: #4A90E2;
+      box-shadow: 0 0 6px rgba(74, 144, 226, 0.5);
+      transform: scale(1.35)
+    }
+
+    .sp-balloon-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 89998;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(74, 144, 226, 0.15);
+      border: 1px solid rgba(74, 144, 226, 0.3);
+      color: rgba(74, 144, 226, 0.8);
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s;
+      backdrop-filter: blur(8px);
+      font-family: inherit
+    }
+
+    .sp-balloon-toggle:hover {
+      background: rgba(74, 144, 226, 0.25);
+      color: #fff
+    }
+
+    .sp-balloon-toggle.show {
+      display: flex
+    }
+
+
+
+    .demo-section { display: block; min-height: 100vh; }
+    /* ── JSON-LD 빌더 (D) ── */
+
+    #section-D {
+      --red: #E8002D;
+      --dark: #1a1a2e;
+      --mid: #16213e;
+      --card: #0f3460;
+      --accent: #e94560;
+      --green: #00d4aa;
+      --yellow: #ffd700;
+      --gray: #8b9ab1;
+      --light: #f0f4ff;
+      --white: #ffffff;
+      --ai-blue: #4A90E2;
+      --ai-purple: #7B68EE;
+    }
+
+    #section-D * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    #section-D {
+      font-family: 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 260px;
+    }
+
+    /* ── NAV ── */
+    #section-D .nav-bar {
+      position: fixed;
+      top: 36px;
+      left: 0;
+      right: 0;
+      background: rgba(26, 26, 46, 0.97);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 9999;
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #section-D .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+
+    #section-D .nav-logo .badge {
+      background: #E8002D;
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    #section-D .nav-badge-live {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 212, 170, 0.1);
+      border: 1px solid rgba(0, 212, 170, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    #section-D .nav-badge-live::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: kd_pulse-dot 1.5s ease infinite;
+    }
+
+    @keyframes kd_pulse-dot {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(0.75);
+      }
+    }
+
+    /* ── MAIN ── */
+    #section-D .main-wrapper {
+      padding-top: 96px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #section-D .page-header {
+      padding: 36px 40px 0;
+      animation: kd_fadeSlide .4s ease;
+    }
+
+    @keyframes kd_fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #section-D .demo-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #E8002D;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    #section-D .page-title {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    #section-D .page-title span {
+      color: var(--ai-blue);
+    }
+
+    #section-D .page-subtitle {
+      font-size: 15px;
+      color: var(--gray);
+      margin-bottom: 28px;
+      font-weight: 400;
+    }
+
+    /* ── SCHEMA TYPE TABS ── */
+    #section-D .schema-tabs {
+      display: flex;
+      gap: 6px;
+      padding: 0 40px;
+      margin-bottom: 0;
+      flex-wrap: wrap;
+    }
+
+    #section-D .schema-tab {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: 10px 10px 0 0;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: none;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--gray);
+      transition: all .22s;
+      position: relative;
+      bottom: -1px;
+    }
+
+    #section-D .schema-tab:hover {
+      background: rgba(74, 144, 226, 0.1);
+      color: var(--ai-blue);
+      border-color: rgba(74, 144, 226, 0.25);
+    }
+
+    #section-D .schema-tab.active {
+      background: #0d1117;
+      color: var(--white);
+      border-color: rgba(74, 144, 226, 0.4);
+      border-bottom: 1px solid #0d1117;
+    }
+
+    #section-D .schema-tab .tab-icon {
+      font-size: 16px;
+    }
+
+    /* ── MAIN GRID ── */
+    #section-D .builder-layout {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 0;
+      flex: 1;
+      margin: 0 40px;
+      border: 1px solid rgba(74, 144, 226, 0.25);
+      border-radius: 0 14px 14px 14px;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    /* ── LEFT PANEL (FORM) ── */
+    #section-D .form-panel {
+      background: rgba(255, 255, 255, 0.025);
+      border-right: 1px solid rgba(255, 255, 255, 0.07);
+      overflow-y: auto;
+      max-height: calc(100vh - 260px);
+    }
+
+    #section-D .form-panel::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    #section-D .form-panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #section-D .form-panel::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+    }
+
+    #section-D .form-section {
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    #section-D .form-section:last-child {
+      border-bottom: none;
+    }
+
+    #section-D .form-section-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      color: var(--gray);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    #section-D .form-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    #section-D .form-group {
+      margin-bottom: 12px;
+    }
+
+    #section-D .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray);
+      margin-bottom: 5px;
+      letter-spacing: 0.3px;
+    }
+
+    #section-D .form-label .required {
+      color: var(--accent);
+      margin-left: 2px;
+    }
+
+    #section-D .form-input,
+    #section-D .form-select,
+    #section-D .form-textarea {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: var(--white);
+      font-family: inherit;
+      transition: border-color .2s, background .2s;
+      outline: none;
+    }
+
+    #section-D .form-input:focus,
+    #section-D .form-select:focus,
+    #section-D .form-textarea:focus {
+      border-color: rgba(74, 144, 226, 0.6);
+      background: rgba(74, 144, 226, 0.06);
+    }
+
+    #section-D .form-input::placeholder,
+    #section-D .form-textarea::placeholder {
+      color: rgba(139, 154, 177, 0.5);
+    }
+
+    #section-D .form-select option {
+      background: #1a1a2e;
+      color: var(--white);
+    }
+
+    #section-D .form-textarea {
+      resize: vertical;
+      min-height: 70px;
+      line-height: 1.5;
+    }
+
+    #section-D .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    /* Star rating */
+    #section-D .star-rating {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    #section-D .star-btn {
+      font-size: 22px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.2);
+      transition: color .15s, transform .15s;
+      padding: 2px;
+      line-height: 1;
+    }
+
+    #section-D .star-btn.active {
+      color: var(--yellow);
+    }
+
+    #section-D .star-btn:hover {
+      color: var(--yellow);
+      transform: scale(1.15);
+    }
+
+    /* Checkboxes */
+    #section-D .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    #section-D .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.02);
+      transition: all .18s;
+      font-size: 12px;
+      color: var(--gray);
+      user-select: none;
+    }
+
+    #section-D .checkbox-item:hover {
+      border-color: rgba(74, 144, 226, 0.3);
+      color: var(--white);
+    }
+
+    #section-D .checkbox-item.checked {
+      border-color: rgba(74, 144, 226, 0.5);
+      background: rgba(74, 144, 226, 0.1);
+      color: var(--white);
+    }
+
+    #section-D .checkbox-item input[type="checkbox"] {
+      display: none;
+    }
+
+    #section-D .checkbox-check {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all .18s;
+      font-size: 9px;
+    }
+
+    #section-D .checkbox-item.checked .checkbox-check {
+      background: var(--ai-blue);
+      border-color: var(--ai-blue);
+      color: white;
+    }
+
+    /* FAQ pairs */
+    #section-D .faq-pair {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+      position: relative;
+      animation: kd_fadeIn .3s ease;
+    }
+
+    @keyframes kd_fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #section-D .faq-pair-num {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ai-blue);
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    #section-D .faq-delete {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      font-size: 14px;
+      transition: color .15s;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    #section-D .faq-delete:hover {
+      color: #ff6b6b;
+      background: rgba(255, 107, 107, 0.1);
+    }
+
+    #section-D .add-faq-btn {
+      width: 100%;
+      padding: 9px;
+      background: rgba(74, 144, 226, 0.07);
+      border: 1px dashed rgba(74, 144, 226, 0.3);
+      border-radius: 8px;
+      color: var(--ai-blue);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    #section-D .add-faq-btn:hover {
+      background: rgba(74, 144, 226, 0.15);
+      border-style: solid;
+    }
+
+    /* ── RIGHT PANEL (CODE) ── */
+    #section-D .code-panel {
+      background: #0d1117;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #section-D .code-header {
+      background: #161b22;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      flex-shrink: 0;
+    }
+
+    #section-D .code-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #section-D .code-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    #section-D .code-dot.red {
+      background: #ff5f57;
+    }
+
+    #section-D .code-dot.yellow {
+      background: #ffbd2e;
+    }
+
+    #section-D .code-dot.green {
+      background: #28c840;
+    }
+
+    #section-D .code-title {
+      font-size: 12px;
+      color: var(--gray);
+      font-family: 'Consolas', 'JetBrains Mono', monospace;
+      margin-left: 4px;
+    }
+
+    #section-D .code-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    #section-D .code-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: all .2s;
+    }
+
+    #section-D .code-btn-copy {
+      background: rgba(74, 144, 226, 0.15);
+      border: 1px solid rgba(74, 144, 226, 0.3);
+      color: var(--ai-blue);
+    }
+
+    #section-D .code-btn-copy:hover {
+      background: rgba(74, 144, 226, 0.3);
+    }
+
+    #section-D .code-btn-copy.copied {
+      background: rgba(0, 212, 170, 0.15);
+      border-color: rgba(0, 212, 170, 0.3);
+      color: var(--green);
+    }
+
+    #section-D .code-btn-validate {
+      background: rgba(0, 212, 170, 0.15);
+      border: 1px solid rgba(0, 212, 170, 0.3);
+      color: var(--green);
+    }
+
+    #section-D .code-btn-validate:hover {
+      background: rgba(0, 212, 170, 0.28);
+    }
+
+    #section-D .code-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 0;
+      font-family: 'Consolas', 'JetBrains Mono', 'Fira Code', monospace;
+      font-size: 12.5px;
+      line-height: 1.75;
+    }
+
+    #section-D .code-body::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    #section-D .code-body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #section-D .code-body::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    #section-D .code-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      padding: 0 16px;
+      transition: background .15s;
+    }
+
+    #section-D .code-line:hover {
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    #section-D .line-num {
+      min-width: 36px;
+      color: rgba(255, 255, 255, 0.18);
+      font-size: 11px;
+      text-align: right;
+      padding-right: 14px;
+      flex-shrink: 0;
+      user-select: none;
+      line-height: 1.75;
+    }
+
+    #section-D .line-content {
+      color: #e6edf3;
+      word-break: break-all;
+    }
+
+    #section-D .ck {
+      color: #79c0ff;
+    }
+
+    /* key */
+    #section-D .cv {
+      color: #a5d6ff;
+    }
+
+    /* value/colon */
+    #section-D .cs {
+      color: #a8ff80;
+    }
+
+    /* string */
+    #section-D .cn {
+      color: #f78166;
+    }
+
+    /* number */
+    #section-D .cb {
+      color: #ff7b72;
+    }
+
+    /* boolean */
+    #section-D .cc {
+      color: #6e7681;
+      font-style: italic;
+    }
+
+    /* comment */
+    #section-D .cp {
+      color: #e6edf3;
+    }
+
+    /* punctuation */
+
+    /* code update animation */
+    #section-D .code-body.updating {
+      opacity: 0.6;
+      transition: opacity .1s;
+    }
+
+    #section-D .code-body.updated {
+      opacity: 1;
+      transition: opacity .25s;
+    }
+
+    /* ── BOTTOM SECTION ── */
+    #section-D .bottom-area {
+      padding: 20px 40px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ── VALIDATION PANEL ── */
+    #section-D .validation-panel {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    #section-D .validation-header {
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #section-D .validation-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--gray);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    #section-D .validation-body {
+      padding: 16px 18px;
+    }
+
+    #section-D .validation-idle {
+      text-align: center;
+      padding: 16px 0;
+      color: var(--gray);
+      font-size: 13px;
+    }
+
+    #section-D .validation-idle p {
+      margin-bottom: 12px;
+      opacity: 0.7;
+    }
+
+    /* progress bar */
+    #section-D .validate-progress {
+      display: none;
+      margin-bottom: 12px;
+    }
+
+    #section-D .progress-label {
+      font-size: 11px;
+      color: var(--gray);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #section-D .progress-bar-track {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    #section-D .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--ai-blue), var(--green));
+      border-radius: 99px;
+      width: 0%;
+      transition: width .4s ease;
+    }
+
+    /* validation results */
+    #section-D .validation-results {
+      display: none;
+      animation: kd_fadeIn .4s ease;
+    }
+
+    #section-D .vr-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(0, 212, 170, 0.08);
+      border: 1px solid rgba(0, 212, 170, 0.2);
+      margin-bottom: 12px;
+    }
+
+    #section-D .vr-status-icon {
+      font-size: 18px;
+    }
+
+    #section-D .vr-status-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    #section-D .vr-props {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    #section-D .vr-prop {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      padding: 4px 6px;
+      border-radius: 5px;
+    }
+
+    #section-D .vr-prop.ok {
+      color: var(--green);
+    }
+
+    #section-D .vr-prop.warn {
+      color: var(--yellow);
+    }
+
+    #section-D .vr-prop.miss {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    #section-D .vr-rich-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 212, 170, 0.1);
+      border: 1px solid rgba(0, 212, 170, 0.25);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* ── RICH SNIPPET PREVIEW ── */
+    #section-D .snippet-preview {
+      display: none;
+      animation: kd_fadeIn .5s ease;
+      background: #fff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
+
+    #section-D .snippet-url {
+      font-size: 11px;
+      color: #1558d6;
+      font-family: Arial, sans-serif;
+      margin-bottom: 2px;
+    }
+
+    #section-D .snippet-title {
+      font-size: 18px;
+      color: #1558d6;
+      font-family: Arial, sans-serif;
+      font-weight: 400;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    #section-D .snippet-title:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    #section-D .snippet-desc {
+      font-size: 13px;
+      color: #4d5156;
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      margin-bottom: 6px;
+    }
+
+    #section-D .snippet-rating {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      color: #4d5156;
+    }
+
+    #section-D .snippet-stars {
+      color: #f4a400;
+      letter-spacing: -1px;
+    }
+
+    #section-D .snippet-price {
+      font-size: 13px;
+      color: #188038;
+      font-family: Arial, sans-serif;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    #section-D .snippet-breadcrumb {
+      font-size: 12px;
+      color: #5f6368;
+      font-family: Arial, sans-serif;
+      margin-bottom: 3px;
+    }
+
+    /* ── QUICK TEMPLATES ── */
+    #section-D .templates-panel {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    #section-D .templates-header {
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    #section-D .templates-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: var(--gray);
+      text-transform: uppercase;
+    }
+
+    #section-D .templates-body {
+      padding: 14px 18px;
+    }
+
+    #section-D .template-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    #section-D .tpl-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--white);
+      font-family: inherit;
+      transition: all .2s;
+    }
+
+    #section-D .tpl-btn:hover {
+      border-color: rgba(74, 144, 226, 0.5);
+      background: rgba(74, 144, 226, 0.1);
+      color: var(--ai-blue);
+      transform: translateY(-1px);
+    }
+
+    #section-D .tpl-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ── INFO BOX ── */
+    #section-D .info-box-row {
+      padding: 0 40px 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    #section-D .info-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    #section-D .info-box-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    #section-D .info-box-text {
+      color: var(--gray);
+    }
+
+    #section-D .info-box-text strong {
+      color: var(--white);
+    }
+
+    #section-D .info-box code {
+      background: rgba(74, 144, 226, 0.15);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--ai-blue);
+    }
+
+    /* ── HIDDEN schema panels ── */
+    #section-D .schema-form {
+      display: none;
+    }
+
+    #section-D .schema-form.active {
+      display: block;
+    }
+
+    /* Utility */
+    #section-D .mt8 {
+      margin-top: 8px;
+    }
+
+    #section-D .mt12 {
+      margin-top: 12px;
+    }
+
+    /* ── GEO Demo TNB (공통 네비게이션) ── */
+    #section-D .geo-tnb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 36px;
+      background: #0a0a18;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 16px;
+      font-family: 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo', sans-serif;
+    }
+
+    #section-D .geo-tnb-brand {
+      font-size: 11px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.35);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin-right: 4px;
+    }
+
+    #section-D .geo-tnb-sep {
+      width: 1px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    #section-D .geo-tnb-links {
+      display: flex;
+      gap: 2px;
+    }
+
+    #section-D .geo-tnb-link {
+      padding: 3px 11px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    #section-D .geo-tnb-link:hover {
+      color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    #section-D .geo-tnb-link.active {
+      color: #4A90E2;
+      background: rgba(74, 144, 226, 0.15);
+      font-weight: 700;
+    }
+
+    #section-D .geo-tnb-link .tnb-key {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.35);
+      padding: 1px 4px;
+      border-radius: 3px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    #section-D .geo-tnb-link.active .tnb-key {
+      background: rgba(74, 144, 226, 0.25);
+      color: rgba(74, 144, 226, 0.8);
+    }
+  </style>
+
+  </style>
+</head>
+<body>
+
+  <div class="geo-tnb">
+    <div class="geo-tnb-brand">
+      <div class="geo-tnb-brand-icon"><svg viewBox="0 0 100 100" width="26" height="26"><rect x="14" y="14" width="72" height="72" rx="18" transform="rotate(45 50 50)" fill="#4A90E2"/><path d="M35 55 L45 45 L55 55 L65 45" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="geo-tnb-brand-text">GEO 최적화 데모</div>
+    </div>
+    <div class="geo-tnb-nav">
+      <a class="geo-tnb-link" href="geo-demo-a.html"><span class="tnb-key">A</span>AI검색비교</a>
+      <a class="geo-tnb-link" href="geo-demo-b.html"><span class="tnb-key">B</span>robots.txt</a>
+      <a class="geo-tnb-link" href="geo-demo-c1.html"><span class="tnb-key">C1</span>초코스틱 B/A</a>
+      <a class="geo-tnb-link" href="geo-demo-c2.html"><span class="tnb-key">C2</span>호텔 B/A</a>
+      <a class="geo-tnb-link active" href="javascript:void(0)"><span class="tnb-key">D</span>JSON-LD 빌더</a>
+    </div>
+  </div>
+
+  <div id="section-D" class="demo-section">
+    <!-- NAV -->
+    <nav class="nav-bar">
+      <div class="nav-logo">
+        <span>AutoSchema</span>
+        <span class="badge">DEMO D</span>
+      </div>
+      <div class="nav-badge-live">실시간 생성</div>
+    </nav>
+
+    <div class="main-wrapper">
+
+      <!-- PAGE HEADER -->
+      <div class="page-header">
+        <div class="demo-label">Demo D &middot; Schema Markup</div>
+        <h1 class="page-title">JSON-LD <span>스키마 빌더</span></h1>
+        <p class="page-subtitle">상품 정보를 입력하면 구조화 데이터가 실시간으로 생성됩니다 &mdash; AI 검색 최적화의 핵심</p>
+      </div>
+
+      <!-- SCHEMA TYPE TABS -->
+      <div class="schema-tabs">
+        <button class="schema-tab active" data-type="product" onclick="switchSchema('product')">
+          <span class="tab-icon">&#127851;</span> Product <small
+            style="color:var(--gray);font-weight:400;font-size:11px;">&nbsp;상품</small>
+        </button>
+        <button class="schema-tab" data-type="hotel" onclick="switchSchema('hotel')">
+          <span class="tab-icon">&#127968;</span> Hotel <small
+            style="color:var(--gray);font-weight:400;font-size:11px;">&nbsp;로컬비즈니스</small>
+        </button>
+        <button class="schema-tab" data-type="faq" onclick="switchSchema('faq')">
+          <span class="tab-icon">&#10067;</span> FAQ <small
+            style="color:var(--gray);font-weight:400;font-size:11px;">&nbsp;자주 묻는 질문</small>
+        </button>
+        <button class="schema-tab" data-type="article" onclick="switchSchema('article')">
+          <span class="tab-icon">&#128221;</span> Article <small
+            style="color:var(--gray);font-weight:400;font-size:11px;">&nbsp;기사/콘텐츠</small>
+        </button>
+      </div>
+
+      <!-- BUILDER LAYOUT -->
+      <div class="builder-layout" style="margin-bottom:20px;">
+
+        <!-- LEFT: FORM PANEL -->
+        <div class="form-panel">
+
+          <!-- ★ PRODUCT FORM -->
+          <div id="form-product" class="schema-form active">
+            <div class="form-section">
+              <div class="form-section-title">기본 정보</div>
+              <div class="form-group">
+                <label class="form-label">상품명 <span class="required">*</span></label>
+                <input type="text" class="form-input" id="p-name" value="초코스틱 오리지널" oninput="debouncedUpdate()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">브랜드</label>
+                <input type="text" class="form-input" id="p-brand" value="K식품" oninput="debouncedUpdate()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">GTIN / 바코드</label>
+                <input type="text" class="form-input" id="p-gtin" value="08801062170035" oninput="debouncedUpdate()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">카테고리</label>
+                <input type="text" class="form-input" id="p-category" value="스낵 > 비스킷 > 초콜릿코팅스틱"
+                  oninput="debouncedUpdate()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">설명</label>
+                <textarea class="form-textarea" id="p-desc" oninput="debouncedUpdate()"
+                  rows="3">바삭한 쌀 스낵에 진한 밀크초콜릿을 코팅한 K식품의 대표 스낵. 바삭하고 달콤한 맛이 특징입니다.</textarea>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-section-title">가격 &amp; 재고</div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">가격 <span class="required">*</span></label>
+                  <input type="number" class="form-input" id="p-price" value="1500" oninput="debouncedUpdate()">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">통화</label>
+                  <select class="form-select" id="p-currency" onchange="debouncedUpdate()">
+                    <option value="KRW" selected>KRW (원)</option>
+                    <option value="USD">USD (달러)</option>
+                    <option value="JPY">JPY (엔)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">재고 상태</label>
+                <select class="form-select" id="p-stock" onchange="debouncedUpdate()">
+                  <option value="InStock" selected>InStock (재고 있음)</option>
+                  <option value="OutOfStock">OutOfStock (품절)</option>
+                  <option value="PreOrder">PreOrder (사전예약)</option>
+                  <option value="LimitedAvailability">LimitedAvailability (한정 수량)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-section-title">영양 정보</div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">용량</label>
+                  <input type="text" class="form-input" id="p-weight" value="54g" oninput="debouncedUpdate()">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">칼로리</label>
+                  <input type="text" class="form-input" id="p-cal" value="250 kcal" oninput="debouncedUpdate()">
+                </div>
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">지방</label>
+                  <input type="text" class="form-input" id="p-fat" value="7.8g" oninput="debouncedUpdate()">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">탄수화물</label>
+                  <input type="text" class="form-input" id="p-carb" value="36g" oninput="debouncedUpdate()">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">당류</label>
+                <input type="text" class="form-input" id="p-sugar" value="22g" oninput="debouncedUpdate()">
+              </div>
+            </div>
+          </div>
+
+          <!-- ★ HOTEL FORM -->
+          <div id="form-hotel" class="schema-form">
+            <div class="form-section">
+              <div class="form-section-title">호텔 정보</div>
+              <div class="form-group">
+                <label class="form-label">호텔명 <span class="required">*</span></label>
+                <input type="text" class="form-input" id="h-name" value="그랜드호텔 월드" oninput="debouncedUpdate()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">주소 <span class="required">*</span></label>
+                <input type="text" class="form-input" id="h-address" value="서울특별시 강남권 올림픽로 240"
+                  oninput="debouncedUpdate()">
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">우편번호</label>
+                  <input type="text" class="form-input" id="h-postal" value="05551" oninput="debouncedUpdate()">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">전화번호</label>
+                  <input type="text" class="form-input" id="h-phone" value="+82-2-419-7000" oninput="debouncedUpdate()">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">가격대</label>
+                <input type="text" class="form-input" id="h-price" value="₩250,000 - ₩800,000"
+                  oninput="debouncedUpdate()">
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-section-title">평점</div>
+              <div class="form-group">
+                <label class="form-label">별점</label>
+                <div class="star-rating" id="star-rating">
+                  <button class="star-btn active" data-star="1" onclick="setStar(1)">&#9733;</button>
+                  <button class="star-btn active" data-star="2" onclick="setStar(2)">&#9733;</button>
+                  <button class="star-btn active" data-star="3" onclick="setStar(3)">&#9733;</button>
+                  <button class="star-btn active" data-star="4" onclick="setStar(4)">&#9733;</button>
+                  <button class="star-btn active" data-star="5" onclick="setStar(5)">&#9733;</button>
+                  <span style="font-size:12px;color:var(--gray);margin-left:8px;" id="star-label">5 / 5</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-section-title">편의시설</div>
+              <div class="checkbox-grid" id="amenities-grid">
+                <div class="checkbox-item checked" onclick="toggleAmenity(this)">
+                  <input type="checkbox" checked>
+                  <span class="checkbox-check">&#10003;</span>
+                  <span>수영장</span>
+                </div>
+                <div class="checkbox-item checked" onclick="toggleAmenity(this)">
+                  <input type="checkbox" checked>
+                  <span class="checkbox-check">&#10003;</span>
+                  <span>피트니스</span>
+                </div>
+                <div class="checkbox-item checked" onclick="toggleAmenity(this)">
+                  <input type="checkbox" checked>
+                  <span class="checkbox-check">&#10003;</span>
+                  <span>레스토랑</span>
+                </div>
+                <div class="checkbox-item checked" onclick="toggleAmenity(this)">
+                  <input type="checkbox" checked>
+                  <span class="checkbox-check">&#10003;</span>
+                  <span>스파</span>
+                </div>
+                <div class="checkbox-item" onclick="toggleAmenity(this)">
+                  <input type="checkbox">
+                  <span class="checkbox-check"></span>
+                  <span>비즈니스센터</span>
+                </div>
+                <div class="checkbox-item checked" onclick="toggleAmenity(this)">
+                  <input type="checkbox" checked>
+                  <span class="checkbox-check">&#10003;</span>
+                  <span>주차장</span>
+                </div>
+                <div class="checkbox-item checked" onclick="toggleAmenity(this)">
+                  <input type="checkbox" checked>
+                  <span class="checkbox-check">&#10003;</span>
+                  <span>Wi-Fi</span>
+                </div>
+                <div class="checkbox-item" onclick="toggleAmenity(this)">
+                  <input type="checkbox">
+                  <span class="checkbox-check"></span>
+                  <span>키즈라운지</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ★ FAQ FORM -->
+          <div id="form-faq" class="schema-form">
+            <div class="form-section">
+              <div class="form-section-title">자주 묻는 질문</div>
+              <div id="faq-pairs">
+                <div class="faq-pair" data-index="1">
+                  <div class="faq-pair-num">Q&amp;A 1</div>
+                  <button class="faq-delete" onclick="deleteFaqPair(this)" title="삭제">&#10005;</button>
+                  <div class="form-group">
+                    <label class="form-label">질문</label>
+                    <input type="text" class="form-input faq-q" value="초코스틱 오리지널는 어떤 맛인가요?" oninput="debouncedUpdate()">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">답변</label>
+                    <textarea class="form-textarea faq-a" rows="2"
+                      oninput="debouncedUpdate()">바삭한 쌀 스낵에 진한 밀크초콜릿을 입힌 달콤하고 바삭한 맛이 특징입니다. 한 봉지에 54g이 들어 있습니다.</textarea>
+                  </div>
+                </div>
+                <div class="faq-pair" data-index="2">
+                  <div class="faq-pair-num">Q&amp;A 2</div>
+                  <button class="faq-delete" onclick="deleteFaqPair(this)" title="삭제">&#10005;</button>
+                  <div class="form-group">
+                    <label class="form-label">질문</label>
+                    <input type="text" class="form-input faq-q" value="초코스틱 오리지널의 알레르기 성분은 무엇인가요?"
+                      oninput="debouncedUpdate()">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">답변</label>
+                    <textarea class="form-textarea faq-a" rows="2"
+                      oninput="debouncedUpdate()">밀, 우유, 대두를 함유하고 있습니다. 땅콩 가공시설에서 제조됩니다. 알레르기 반응이 있으신 분은 섭취 전 확인하세요.</textarea>
+                  </div>
+                </div>
+              </div>
+              <button class="add-faq-btn mt8" onclick="addFaqPair()">
+                <span>+</span> Q&amp;A 쌍 추가
+              </button>
+            </div>
+          </div>
+
+          <!-- ★ ARTICLE FORM -->
+          <div id="form-article" class="schema-form">
+            <div class="form-section">
+              <div class="form-section-title">기사 정보</div>
+              <div class="form-group">
+                <label class="form-label">제목 <span class="required">*</span></label>
+                <input type="text" class="form-input" id="a-title" value="초코스틱 오리지널 리뷰: 한국 대표 스낵의 진화"
+                  oninput="debouncedUpdate()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">저자</label>
+                <input type="text" class="form-input" id="a-author" value="김지수" oninput="debouncedUpdate()">
+              </div>
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label class="form-label">게시일</label>
+                  <input type="date" class="form-input" id="a-date" value="2024-11-11" oninput="debouncedUpdate()">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">수정일</label>
+                  <input type="date" class="form-input" id="a-modified" value="2024-11-20" oninput="debouncedUpdate()">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">발행 매체</label>
+                <input type="text" class="form-input" id="a-publisher" value="스낵리뷰 매거진" oninput="debouncedUpdate()">
+              </div>
+              <div class="form-group">
+                <label class="form-label">설명</label>
+                <textarea class="form-textarea" id="a-desc" rows="3"
+                  oninput="debouncedUpdate()">K식품의 초코스틱 오리지널를 상세히 리뷰합니다. 맛, 식감, 영양 성분까지 꼼꼼히 분석했습니다.</textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">이미지 URL</label>
+                <input type="text" class="form-input" id="a-image" value="https://www.kfood.com/images/pepero-choco.jpg"
+                  oninput="debouncedUpdate()">
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /form-panel -->
+
+        <!-- RIGHT: CODE PANEL -->
+        <div class="code-panel">
+          <div class="code-header">
+            <div class="code-header-left">
+              <div class="code-dot red"></div>
+              <div class="code-dot yellow"></div>
+              <div class="code-dot green"></div>
+              <span class="code-title">schema.jsonld</span>
+            </div>
+            <div class="code-actions">
+              <button class="code-btn code-btn-copy" id="d-copy-btn" onclick="dCopyCode()">
+                &#128203; 복사
+              </button>
+              <button class="code-btn code-btn-validate" onclick="runValidation()">
+                &#9989; 검증하기
+              </button>
+            </div>
+          </div>
+          <div class="code-body" id="code-body"></div>
+        </div>
+
+      </div><!-- /builder-layout -->
+
+      <!-- BOTTOM AREA -->
+      <div class="bottom-area">
+
+        <!-- VALIDATION PANEL -->
+        <div class="validation-panel">
+          <div class="validation-header">
+            <div class="validation-title">
+              <span>&#127758;</span> Google Rich Results 검증
+            </div>
+          </div>
+          <div class="validation-body">
+            <div class="validation-idle" id="val-idle">
+              <p>오른쪽 상단 "&#9989; 검증하기" 버튼을 클릭하세요</p>
+              <p style="font-size:11px;">Google Rich Results Test 시뮬레이션</p>
+            </div>
+
+            <div class="validate-progress" id="val-progress">
+              <div class="progress-label">
+                <span id="progress-step-text">스키마 파싱 중...</span>
+                <span id="progress-pct">0%</span>
+              </div>
+              <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+              </div>
+            </div>
+
+            <div class="validation-results" id="val-results">
+              <div class="vr-status">
+                <span class="vr-status-icon">&#9989;</span>
+                <div>
+                  <div class="vr-status-text">유효한 Schema.org 마크업입니다</div>
+                  <div style="font-size:11px;color:var(--gray);margin-top:2px;" id="vr-type-detected">감지된 타입: Product
+                  </div>
+                </div>
+              </div>
+              <div class="vr-props" id="vr-props"></div>
+              <div class="vr-rich-tag" id="vr-rich-tag">
+                <span>&#129001;</span> 리치 결과 자격 충족
+              </div>
+
+              <!-- Rich Snippet Preview -->
+              <div class="snippet-preview" id="snippet-preview"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUICK TEMPLATES -->
+        <div class="templates-panel">
+          <div class="templates-header">
+            <div class="templates-title">&#9889; 퀵 템플릿</div>
+          </div>
+          <div class="templates-body">
+            <div class="template-btns">
+              <button class="tpl-btn" onclick="loadTemplate('product')">
+                &#127851; 초코스틱 오리지널 <span style="color:var(--gray);font-weight:400;">(Product)</span>
+              </button>
+              <button class="tpl-btn" onclick="loadTemplate('hotel')">
+                &#127968; 그랜드호텔 월드 <span style="color:var(--gray);font-weight:400;">(Hotel)</span>
+              </button>
+              <button class="tpl-btn" onclick="loadTemplate('faq')">
+                &#10067; 초코스틱 FAQ <span style="color:var(--gray);font-weight:400;">(FAQPage)</span>
+              </button>
+              <button class="tpl-btn" onclick="loadTemplate('article')">
+                &#128221; 초코스틱 리뷰 <span style="color:var(--gray);font-weight:400;">(Article)</span>
+              </button>
+            </div>
+            <div style="padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.06);">
+              <div style="font-size:11px;color:var(--gray);line-height:1.7;">
+                <span style="color:var(--ai-blue);font-weight:700;">TIP.</span>
+                템플릿을 클릭하면 해당 스키마로 전환하고 샘플 데이터를 모두 채웁니다.<br>
+                입력 필드를 수정하면 JSON-LD가 <span style="color:var(--green);font-weight:600;">실시간</span>으로 업데이트됩니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /bottom-area -->
+
+      <!-- INFO BOXES -->
+      <div class="info-box-row">
+        <div class="info-box">
+          <span class="info-box-icon">&#128161;</span>
+          <div class="info-box-text">
+            이 JSON-LD 코드를 웹페이지 <code>&lt;head&gt;</code> 태그 안에
+            <code>&lt;script type="application/ld+json"&gt;</code>으로 삽입하세요.
+            검색엔진이 구조화 데이터를 인식해 <strong>리치 결과(Rich Result)</strong>를 표시합니다.
+          </div>
+        </div>
+        <div class="info-box">
+          <span class="info-box-icon">&#128202;</span>
+          <div class="info-box-text">
+            <strong>자동 스키마 변환 기능</strong>으로 전 상품 일괄 적용 가능.
+            SKU 수천 개도 API 한 번으로 JSON-LD 생성 &rarr; CMS 자동 삽입 &rarr;
+            <strong>Google 크롤링 완료</strong>까지 자동화합니다.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main-wrapper -->
+  </div>
+
+
+  <div class="sp-balloon" id="spBalloon">
+    <div class="sp-balloon-hd">
+      <span class="sp-balloon-step" id="spStep">1/6</span>
+      <span class="sp-balloon-title" id="spTitle">스크립트</span>
+      <button class="sp-balloon-close" onclick="spHide()" title="닫기 (S)">&times;</button>
+    </div>
+    <div class="sp-balloon-body" id="spBody"></div>
+    <div class="sp-balloon-ft">
+      <button class="sp-balloon-nav" onclick="spPrev()">←</button>
+      <span id="spDots"></span>
+      <button class="sp-balloon-nav" onclick="spNext()">→</button>
+    </div>
+  </div>
+  <button class="sp-balloon-toggle" id="spToggle" onclick="spShow()" title="스크립트 보기 (S)">💬</button>
+
+
+  <script>// ── JSON-LD 빌더 (D) ──
+    (function () {
+
+      // ── STATE ──────────────────────────────────────────────────────────────────
+      let currentSchema = 'product';
+      let starRating = 5;
+      let faqCounter = 2;
+      let debounceTimer = null;
+
+      // ── SCHEMA SWITCHING ───────────────────────────────────────────────────────
+      function switchSchema(type) {
+        currentSchema = type;
+        // tabs
+        document.querySelector('#section-D').querySelectorAll('.schema-tab').forEach(t => {
+          t.classList.toggle('active', t.dataset.type === type);
+        });
+
+        // forms
+        document.querySelector('#section-D').querySelectorAll('.schema-form').forEach(f => {
+          f.classList.remove('active');
+        });
+        document.getElementById('form-' + type).classList.add('active');
+
+        resetValidation();
+        updateCode();
+      }
+
+      // ── STAR RATING ────────────────────────────────────────────────────────────
+      function setStar(n) {
+        starRating = n;
+        document.querySelector('#section-D').querySelectorAll('.star-btn').forEach(btn => {
+          btn.classList.toggle('active', parseInt(btn.dataset.star) <= n);
+        });
+        document.getElementById('star-label').textContent = n + ' / 5';
+        debouncedUpdate();
+      }
+
+      // ── CHECKBOX AMENITIES ─────────────────────────────────────────────────────
+      function toggleAmenity(el) {
+        el.classList.toggle('checked');
+        const cb = el.querySelector('input[type="checkbox"]');
+        const check = el.querySelector('.checkbox-check');
+        if (el.classList.contains('checked')) {
+          cb.checked = true;
+          check.innerHTML = '&#10003;';
+        } else {
+          cb.checked = false;
+          check.innerHTML = '';
+        }
+        debouncedUpdate();
+      }
+
+      function getAmenities() {
+        return Array.from(document.querySelectorAll('#amenities-grid .checkbox-item.checked'))
+          .map(el => el.querySelector('span:last-child').textContent.trim());
+      }
+
+      // ── FAQ PAIRS ──────────────────────────────────────────────────────────────
+      function addFaqPair() {
+        faqCounter++;
+        const container = document.getElementById('faq-pairs');
+        const div = document.createElement('div');
+        div.className = 'faq-pair';
+        div.dataset.index = faqCounter;
+        div.innerHTML = `
+    <div class="faq-pair-num">Q&A ${faqCounter}</div>
+    <button class="faq-delete" onclick="deleteFaqPair(this)" title="삭제">&#10005;</button>
+    <div class="form-group">
+      <label class="form-label">질문</label>
+      <input type="text" class="form-input faq-q" placeholder="질문을 입력하세요" oninput="debouncedUpdate()">
+    </div>
+    <div class="form-group">
+      <label class="form-label">답변</label>
+      <textarea class="form-textarea faq-a" rows="2" placeholder="답변을 입력하세요" oninput="debouncedUpdate()"></textarea>
+    </div>
+  `;
+        container.appendChild(div);
+        debouncedUpdate();
+      }
+
+      function deleteFaqPair(btn) {
+        const pairs = document.querySelector('#section-D').querySelectorAll('.faq-pair');
+        if (pairs.length <= 1) return;
+        btn.closest('.faq-pair').remove();
+        // renumber
+        document.querySelector('#section-D').querySelectorAll('.faq-pair').forEach((p, i) => {
+          p.querySelector('.faq-pair-num').textContent = 'Q&A ' + (i + 1);
+        });
+        debouncedUpdate();
+      }
+
+      function getFaqPairs() {
+        const pairs = [];
+        document.querySelector('#section-D').querySelectorAll('.faq-pair').forEach(p => {
+          const q = p.querySelector('.faq-q').value.trim();
+          const a = p.querySelector('.faq-a').value.trim();
+          if (q) pairs.push({ q, a });
+        });
+        return pairs;
+      }
+
+      // ── JSON-LD GENERATORS ─────────────────────────────────────────────────────
+      function generateProduct() {
+        const name = document.getElementById('p-name').value.trim() || '상품명';
+        const brand = document.getElementById('p-brand').value.trim();
+        const gtin = document.getElementById('p-gtin').value.trim();
+        const category = document.getElementById('p-category').value.trim();
+        const desc = document.getElementById('p-desc').value.trim();
+        const price = document.getElementById('p-price').value.trim();
+        const currency = document.getElementById('p-currency').value;
+        const stock = document.getElementById('p-stock').value;
+        const weight = document.getElementById('p-weight').value.trim();
+        const cal = document.getElementById('p-cal').value.trim();
+        const fat = document.getElementById('p-fat').value.trim();
+        const carb = document.getElementById('p-carb').value.trim();
+        const sugar = document.getElementById('p-sugar').value.trim();
+
+        const obj = {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": name
+        };
+        if (brand) obj["brand"] = { "@type": "Brand", "name": brand };
+        if (gtin) obj["gtin13"] = gtin;
+        if (category) obj["category"] = category;
+        if (desc) obj["description"] = desc;
+        if (price) {
+          obj["offers"] = {
+            "@type": "Offer",
+            "price": price,
+            "priceCurrency": currency,
+            "availability": "https://schema.org/" + stock,
+            "priceValidUntil": new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+          };
+        }
+        if (weight || cal || fat || carb || sugar) {
+          const nutr = { "@type": "NutritionInformation" };
+          if (weight) nutr["servingSize"] = weight;
+          if (cal) nutr["calories"] = cal;
+          if (fat) nutr["fatContent"] = fat;
+          if (carb) nutr["carbohydrateContent"] = carb;
+          if (sugar) nutr["sugarContent"] = sugar;
+          obj["nutrition"] = nutr;
+        }
+        return obj;
+      }
+
+      function generateHotel() {
+        const name = document.getElementById('h-name').value.trim() || '호텔명';
+        const address = document.getElementById('h-address').value.trim();
+        const postal = document.getElementById('h-postal').value.trim();
+        const phone = document.getElementById('h-phone').value.trim();
+        const priceRange = document.getElementById('h-price').value.trim();
+        const amenities = getAmenities();
+
+        const obj = {
+          "@context": "https://schema.org",
+          "@type": "Hotel",
+          "name": name
+        };
+        if (address) {
+          obj["address"] = {
+            "@type": "PostalAddress",
+            "streetAddress": address,
+            "addressCountry": "KR"
+          };
+          if (postal) obj["address"]["postalCode"] = postal;
+        }
+        if (phone) obj["telephone"] = phone;
+        obj["aggregateRating"] = {
+          "@type": "AggregateRating",
+          "ratingValue": starRating,
+          "reviewCount": 1284,
+          "bestRating": 5,
+          "worstRating": 1
+        };
+        if (priceRange) obj["priceRange"] = priceRange;
+        if (amenities.length > 0) obj["amenityFeature"] = amenities.map(a => ({
+          "@type": "LocationFeatureSpecification",
+          "name": a,
+          "value": true
+        }));
+        return obj;
+      }
+
+      function generateFaq() {
+        const pairs = getFaqPairs();
+        return {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": pairs.map(p => ({
+            "@type": "Question",
+            "name": p.q,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": p.a
+            }
+          }))
+        };
+      }
+
+      function generateArticle() {
+        const title = document.getElementById('a-title').value.trim() || '제목';
+        const author = document.getElementById('a-author').value.trim();
+        const date = document.getElementById('a-date').value;
+        const modified = document.getElementById('a-modified').value;
+        const publisher = document.getElementById('a-publisher').value.trim();
+        const desc = document.getElementById('a-desc').value.trim();
+        const image = document.getElementById('a-image').value.trim();
+
+        const obj = {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": title
+        };
+        if (author) obj["author"] = { "@type": "Person", "name": author };
+        if (date) obj["datePublished"] = date;
+        if (modified) obj["dateModified"] = modified;
+        if (publisher) obj["publisher"] = {
+          "@type": "Organization",
+          "name": publisher,
+          "logo": { "@type": "ImageObject", "url": "https://example.com/logo.png" }
+        };
+        if (desc) obj["description"] = desc;
+        if (image) obj["image"] = image;
+        return obj;
+      }
+
+      function getCurrentJsonObj() {
+        switch (currentSchema) {
+          case 'product': return generateProduct();
+          case 'hotel': return generateHotel();
+          case 'faq': return generateFaq();
+          case 'article': return generateArticle();
+        }
+      }
+
+      // ── SYNTAX HIGHLIGHTING ────────────────────────────────────────────────────
+      function highlightJSON(obj) {
+        const json = JSON.stringify(obj, null, 2);
+        const lines = json.split('\n');
+        const codeBody = document.getElementById('code-body');
+
+        codeBody.classList.add('updating');
+
+        setTimeout(() => {
+          codeBody.innerHTML = '';
+          lines.forEach((rawLine, i) => {
+            const lineEl = document.createElement('div');
+            lineEl.className = 'code-line';
+
+            const numEl = document.createElement('span');
+            numEl.className = 'line-num';
+            numEl.textContent = i + 1;
+
+            const contentEl = document.createElement('span');
+            contentEl.className = 'line-content';
+            contentEl.innerHTML = colorize(rawLine);
+
+            lineEl.appendChild(numEl);
+            lineEl.appendChild(contentEl);
+            codeBody.appendChild(lineEl);
+          });
+
+          codeBody.classList.remove('updating');
+          codeBody.classList.add('updated');
+          setTimeout(() => codeBody.classList.remove('updated'), 300);
+        }, 60);
+      }
+
+      function colorize(line) {
+        // Escape HTML first
+        line = line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+        // Key: "key":
+        line = line.replace(/^(\s*)(&quot;[^&]+&quot;)(\s*:)/g, (_, indent, key, colon) => {
+          return indent + `<span class="ck">${key}</span><span class="cp">${colon}</span>`;
+        });
+
+        // String value (after colon+space)
+        line = line.replace(/: (&quot;[^&]*&quot;)(,?)$/g, (_, str, comma) => {
+          return `: <span class="cs">${str}</span><span class="cp">${comma}</span>`;
+        });
+
+        // Number value
+        line = line.replace(/: (-?\d+\.?\d*)(,?)$/g, (_, num, comma) => {
+          return `: <span class="cn">${num}</span><span class="cp">${comma}</span>`;
+        });
+
+        // Boolean/null
+        line = line.replace(/: (true|false|null)(,?)$/g, (_, val, comma) => {
+          return `: <span class="cb">${val}</span><span class="cp">${comma}</span>`;
+        });
+
+        // Opening braces/brackets as standalone values
+        line = line.replace(/: (\{|\[)/g, `: <span class="cp">$1</span>`);
+
+        // Lines that are just punctuation
+        line = line.replace(/^(\s*)(\}|\]|{|\[)(,?)$/g, (_, indent, br, comma) => {
+          return `${indent}<span class="cp">${br}${comma}</span>`;
+        });
+
+        return line;
+      }
+
+      // ── UPDATE ─────────────────────────────────────────────────────────────────
+      function updateCode() {
+        const obj = getCurrentJsonObj();
+        highlightJSON(obj);
+      }
+
+      function debouncedUpdate() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(updateCode, 180);
+      }
+
+      // ── COPY ───────────────────────────────────────────────────────────────────
+      function dCopyCode() {
+        const obj = getCurrentJsonObj();
+        const json = JSON.stringify(obj, null, 2);
+        const wrapped = `<script type="application/ld+json">\n${json}\n<\/script>`;
+
+        navigator.clipboard.writeText(wrapped).then(() => {
+          const btn = document.getElementById('d-copy-btn');
+          btn.textContent = '✓ 복사됨';
+          btn.classList.add('copied');
+          setTimeout(() => {
+            btn.innerHTML = '&#128203; 복사';
+            btn.classList.remove('copied');
+          }, 2000);
+        });
+      }
+
+      // ── VALIDATION ─────────────────────────────────────────────────────────────
+      function resetValidation() {
+        document.getElementById('val-idle').style.display = 'block';
+        document.getElementById('val-progress').style.display = 'none';
+        document.getElementById('val-results').style.display = 'none';
+      }
+
+      const validationConfigs = {
+        product: {
+          type: 'Product',
+          props: [
+            { key: 'name', label: '상품명 (name)', required: true },
+            { key: 'brand', label: '브랜드 (brand)', required: false },
+            { key: 'gtin13', label: 'GTIN 바코드', required: false },
+            { key: 'description', label: '설명 (description)', required: false },
+            { key: 'offers', label: '가격 (offers)', required: true },
+            { key: 'nutrition', label: '영양정보 (nutrition)', required: false },
+          ],
+          richLabel: '리치 결과 자격 충족 (상품 스니펫)',
+          snippetFn: buildProductSnippet
+        },
+        hotel: {
+          type: 'Hotel / LocalBusiness',
+          props: [
+            { key: 'name', label: '호텔명 (name)', required: true },
+            { key: 'address', label: '주소 (address)', required: true },
+            { key: 'telephone', label: '전화번호 (telephone)', required: false },
+            { key: 'aggregateRating', label: '평점 (aggregateRating)', required: true },
+            { key: 'priceRange', label: '가격대 (priceRange)', required: false },
+            { key: 'amenityFeature', label: '편의시설 (amenityFeature)', required: false },
+          ],
+          richLabel: '리치 결과 자격 충족 (로컬 팩 스니펫)',
+          snippetFn: buildHotelSnippet
+        },
+        faq: {
+          type: 'FAQPage',
+          props: [
+            { key: 'mainEntity', label: 'Q&A 항목 (mainEntity)', required: true },
+          ],
+          richLabel: '리치 결과 자격 충족 (FAQ 아코디언)',
+          snippetFn: buildFaqSnippet
+        },
+        article: {
+          type: 'Article',
+          props: [
+            { key: 'headline', label: '제목 (headline)', required: true },
+            { key: 'author', label: '저자 (author)', required: false },
+            { key: 'datePublished', label: '게시일 (datePublished)', required: true },
+            { key: 'publisher', label: '발행 매체 (publisher)', required: false },
+            { key: 'description', label: '설명 (description)', required: false },
+            { key: 'image', label: '이미지 (image)', required: false },
+          ],
+          richLabel: '리치 결과 자격 충족 (탑 스토리 카드)',
+          snippetFn: buildArticleSnippet
+        }
+      };
+
+      const progressSteps = [
+        '스키마 파싱 중...',
+        'JSON-LD 문법 검사 중...',
+        'Schema.org 어휘 검증 중...',
+        '리치 결과 적격성 판단 중...',
+        '검증 완료'
+      ];
+
+      function runValidation() {
+        resetValidation();
+        document.getElementById('val-idle').style.display = 'none';
+        document.getElementById('val-progress').style.display = 'block';
+
+        const fill = document.getElementById('progress-fill');
+        const stepText = document.getElementById('progress-step-text');
+        const pct = document.getElementById('progress-pct');
+
+        let step = 0;
+        const totalDuration = 1800;
+        const stepDuration = totalDuration / progressSteps.length;
+
+        function dNextStep() {
+          if (step >= progressSteps.length) {
+            showValidationResults();
+            return;
+          }
+          const percent = Math.round(((step + 1) / progressSteps.length) * 100);
+          stepText.textContent = progressSteps[step];
+          pct.textContent = percent + '%';
+          fill.style.width = percent + '%';
+          step++;
+          setTimeout(dNextStep, stepDuration);
+        }
+        dNextStep();
+      }
+
+      function showValidationResults() {
+        document.getElementById('val-progress').style.display = 'none';
+
+        const config = validationConfigs[currentSchema];
+        const obj = getCurrentJsonObj();
+
+        // type label
+        document.getElementById('vr-type-detected').textContent = '감지된 타입: ' + config.type;
+
+        // props
+        const propsEl = document.getElementById('vr-props');
+        propsEl.innerHTML = '';
+        let allRequired = true;
+        config.props.forEach(p => {
+          const exists = obj.hasOwnProperty(p.key) ||
+            (p.key === 'mainEntity' && obj.mainEntity && obj.mainEntity.length > 0);
+          const div = document.createElement('div');
+          div.className = 'vr-prop ' + (exists ? 'ok' : (p.required ? 'warn' : 'miss'));
+          div.innerHTML = (exists ? '&#9989;' : (p.required ? '&#9888;' : '&#10006;')) + ' ' + p.label;
+          propsEl.appendChild(div);
+          if (p.required && !exists) allRequired = false;
+        });
+
+        // rich result tag
+        const richTag = document.getElementById('vr-rich-tag');
+        if (allRequired) {
+          richTag.innerHTML = '<span>&#129001;</span> ' + config.richLabel;
+          richTag.style.background = 'rgba(0,212,170,0.1)';
+          richTag.style.borderColor = 'rgba(0,212,170,0.25)';
+          richTag.style.color = 'var(--green)';
+        } else {
+          richTag.innerHTML = '<span>&#128993;</span> 필수 필드 보완 필요';
+          richTag.style.background = 'rgba(255,215,0,0.1)';
+          richTag.style.borderColor = 'rgba(255,215,0,0.25)';
+          richTag.style.color = 'var(--yellow)';
+        }
+
+        // snippet preview
+        const snippetEl = document.getElementById('snippet-preview');
+        snippetEl.innerHTML = config.snippetFn(obj);
+        snippetEl.style.display = 'block';
+
+        document.getElementById('val-results').style.display = 'block';
+      }
+
+      function buildProductSnippet(obj) {
+        const name = obj.name || '상품명';
+        const brand = obj.brand ? obj.brand.name : '';
+        const price = obj.offers ? obj.offers.price : '';
+        const currency = obj.offers ? obj.offers.priceCurrency : 'KRW';
+        const priceStr = price ? (currency === 'KRW' ? '₩' + Number(price).toLocaleString() : price + ' ' + currency) : '';
+        return `
+    <div class="snippet-breadcrumb">kfood.com › 상품 › 스낵</div>
+    <div class="snippet-title">${name}${brand ? ' | ' + brand : ''} - 공식몰</div>
+    <div class="snippet-desc">${obj.description ? obj.description.substring(0, 100) + '...' : '상품 상세 정보를 확인하세요.'}</div>
+    ${priceStr ? `<div class="snippet-price">${priceStr} · <span style="color:#188038;">재고 있음</span></div>` : ''}
+  `;
+      }
+
+      function buildHotelSnippet(obj) {
+        const name = obj.name || '호텔명';
+        const addr = obj.address ? obj.address.streetAddress : '';
+        const rating = obj.aggregateRating ? obj.aggregateRating.ratingValue : '';
+        const reviews = obj.aggregateRating ? obj.aggregateRating.reviewCount : '';
+        const stars = rating ? '&#9733;'.repeat(Math.round(rating)) + '&#9734;'.repeat(5 - Math.round(rating)) : '';
+        return `
+    <div class="snippet-breadcrumb">grandhotel-example.com › 서울 · 호텔</div>
+    <div class="snippet-title">${name}</div>
+    <div class="snippet-desc">${addr}</div>
+    ${rating ? `<div class="snippet-rating"><span class="snippet-stars">${stars}</span> ${rating} · 리뷰 ${Number(reviews).toLocaleString()}개 · ${obj.priceRange || ''}</div>` : ''}
+  `;
+      }
+
+      function buildFaqSnippet(obj) {
+        const pairs = obj.mainEntity || [];
+        let html = `<div class="snippet-breadcrumb">example.com</div><div class="snippet-title">초코스틱 오리지널 자주 묻는 질문</div>`;
+        pairs.slice(0, 3).forEach(p => {
+          html += `<div style="margin-top:6px;border-top:1px solid #e8eaed;padding-top:6px;">
+      <div style="font-size:13px;color:#202124;font-family:Arial;font-weight:500;">${p.name || p['@type']}</div>
+      <div style="font-size:12px;color:#5f6368;font-family:Arial;margin-top:2px;">${(p.acceptedAnswer && p.acceptedAnswer.text ? p.acceptedAnswer.text.substring(0, 80) : '') + '...'}</div>
+    </div>`;
+        });
+        return html;
+      }
+
+      function buildArticleSnippet(obj) {
+        const title = obj.headline || '기사 제목';
+        const pub = obj.publisher ? obj.publisher.name : '';
+        const date = obj.datePublished || '';
+        const desc = obj.description || '';
+        return `
+    <div class="snippet-breadcrumb">${pub || 'example.com'} › 리뷰${date ? ' · ' + date : ''}</div>
+    <div class="snippet-title">${title}</div>
+    <div class="snippet-desc">${desc.substring(0, 120)}${desc.length > 120 ? '...' : ''}</div>
+  `;
+      }
+
+      // ── TEMPLATES ──────────────────────────────────────────────────────────────
+      function loadTemplate(type) {
+        switchSchema(type);
+
+        if (type === 'product') {
+          document.getElementById('p-name').value = '초코스틱 오리지널';
+          document.getElementById('p-brand').value = 'K식품';
+          document.getElementById('p-gtin').value = '08801062170035';
+          document.getElementById('p-category').value = '스낵 > 비스킷 > 초콜릿코팅스틱';
+          document.getElementById('p-desc').value = '바삭한 쌀 스낵에 진한 밀크초콜릿을 코팅한 K식품의 대표 스낵. 바삭하고 달콤한 맛이 특징입니다.';
+          document.getElementById('p-price').value = '1500';
+          document.getElementById('p-currency').value = 'KRW';
+          document.getElementById('p-stock').value = 'InStock';
+          document.getElementById('p-weight').value = '54g';
+          document.getElementById('p-cal').value = '250 kcal';
+          document.getElementById('p-fat').value = '7.8g';
+          document.getElementById('p-carb').value = '36g';
+          document.getElementById('p-sugar').value = '22g';
+        } else if (type === 'hotel') {
+          document.getElementById('h-name').value = '그랜드호텔 월드';
+          document.getElementById('h-address').value = '서울특별시 강남권 올림픽로 240';
+          document.getElementById('h-postal').value = '05551';
+          document.getElementById('h-phone').value = '+82-2-419-7000';
+          document.getElementById('h-price').value = '₩250,000 - ₩800,000';
+          setStar(5);
+          // reset and check all amenities
+          document.querySelectorAll('#amenities-grid .checkbox-item').forEach(el => {
+            const name = el.querySelector('span:last-child').textContent.trim();
+            const shouldCheck = ['수영장', '피트니스', '레스토랑', '스파', '주차장', 'Wi-Fi'].includes(name);
+            if (shouldCheck) {
+              el.classList.add('checked');
+              el.querySelector('input').checked = true;
+              el.querySelector('.checkbox-check').innerHTML = '&#10003;';
+            } else {
+              el.classList.remove('checked');
+              el.querySelector('input').checked = false;
+              el.querySelector('.checkbox-check').innerHTML = '';
+            }
+          });
+        } else if (type === 'faq') {
+          const container = document.getElementById('faq-pairs');
+          container.innerHTML = '';
+          const faqData = [
+            { q: '초코스틱 오리지널는 어떤 맛인가요?', a: '바삭한 쌀 스낵에 진한 밀크초콜릿을 입힌 달콤하고 바삭한 맛이 특징입니다. 한 봉지에 54g이 들어 있습니다.' },
+            { q: '초코스틱 오리지널의 알레르기 성분은 무엇인가요?', a: '밀, 우유, 대두를 함유하고 있습니다. 땅콩 가공시설에서 제조됩니다. 알레르기 반응이 있으신 분은 섭취 전 확인하세요.' },
+            { q: '초코스틱 오리지널의 유통기한은 얼마인가요?', a: '제조일로부터 6개월입니다. 서늘하고 건조한 곳에 보관하세요. 직사광선과 고온을 피해 보관하시기 바랍니다.' },
+          ];
+          faqCounter = faqData.length;
+          faqData.forEach((item, i) => {
+            const div = document.createElement('div');
+            div.className = 'faq-pair';
+            div.dataset.index = i + 1;
+            div.innerHTML = `
+        <div class="faq-pair-num">Q&A ${i + 1}</div>
+        <button class="faq-delete" onclick="deleteFaqPair(this)" title="삭제">&#10005;</button>
+        <div class="form-group">
+          <label class="form-label">질문</label>
+          <input type="text" class="form-input faq-q" value="${item.q}" oninput="debouncedUpdate()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">답변</label>
+          <textarea class="form-textarea faq-a" rows="2" oninput="debouncedUpdate()">${item.a}</textarea>
+        </div>
+      `;
+            container.appendChild(div);
+          });
+        } else if (type === 'article') {
+          document.getElementById('a-title').value = '초코스틱 오리지널 리뷰: 한국 대표 스낵의 진화';
+          document.getElementById('a-author').value = '김지수';
+          document.getElementById('a-date').value = '2024-11-11';
+          document.getElementById('a-modified').value = '2024-11-20';
+          document.getElementById('a-publisher').value = '스낵리뷰 매거진';
+          document.getElementById('a-desc').value = 'K식품의 초코스틱 오리지널를 상세히 리뷰합니다. 맛, 식감, 영양 성분까지 꼼꼼히 분석했습니다.';
+          document.getElementById('a-image').value = 'https://www.kfood.com/images/pepero-choco.jpg';
+        }
+
+        resetValidation();
+        updateCode();
+      }
+
+      // ── INIT ───────────────────────────────────────────────────────────────────
+      updateCode();
+
+
+
+
+
+      // Expose to global
+      window.addFaqPair = addFaqPair;
+      window.dCopyCode = dCopyCode;
+      window.debouncedUpdate = debouncedUpdate;
+      window.deleteFaqPair = deleteFaqPair;
+      window.loadTemplate = loadTemplate;
+      window.runValidation = runValidation;
+      window.setStar = setStar;
+      window.switchSchema = switchSchema;
+      window.toggleAmenity = toggleAmenity;
+      window.updateCode = updateCode;
+    })();</script>
+
+
+  <script>
+    const ALL_SP_STEPS = {
+      A: [
+        {
+          title: '오프닝 — AI 답변, 이미 충분합니다',
+          script: '자, 먼저 AI 검색의 현재 상태를 보겠습니다. 핵심 질문은 하나예요. <b>"AI가 잘 답하느냐?"가 아니라, "누구의 데이터로 답하느냐?"</b>입니다.'
+        },
+        {
+          title: '검색 실행',
+          script: '검색 버튼을 눌러볼게요. 세 가지 AI 엔진 — Genspark, Perplexity, ChatGPT — 이 동일한 질문에 어떻게 답하는지 바로 비교해보겠습니다.'
+        },
+        {
+          title: 'Genspark — 🟢 공식 출처',
+          script: '먼저 Genspark입니다. <b>공식 사이트(grandhotel-example.com)의 상품 페이지를 직접 인용</b>하고 있어요. 테마파크 연결통로, 호텔 레스토랑, 객실 상세까지 공식 데이터 기반이죠.'
+        },
+        {
+          title: 'Perplexity — 🟠 제3자 의존',
+          script: 'Perplexity를 보세요. 내용은 비슷하지만 출처가 전혀 다릅니다. <b>네이버 블로그, 티스토리, 여기어때, 트립어드바이저</b> — 전부 제3자 사이트예요. 브랜드가 통제할 수 없는 정보입니다.'
+        },
+        {
+          title: 'ChatGPT — 🟡 공식 사이트',
+          script: 'ChatGPT는 <b>GRAND HOTELS & RESORTS 공식 사이트</b>를 참조합니다. 하지만 Schema를 활용하지 않아 구조적 정밀도는 Genspark보다 떨어져요.'
+        },
+        {
+          title: '핵심 메시지',
+          script: '<b>AI 답변은 이미 충분합니다. 문제는 출처입니다.</b> Schema가 공식 인용을 보장하진 않지만, AI가 공식 사이트를 쉽게 파싱할 수 있게 만들어 <b>블로그 대비 공식 출처 선택 확률을 높입니다</b>.'
+        }
+      ],
+      B: [
+        {
+          title: '오프닝 — 왜 robots.txt인가?',
+          script: '<b>robots.txt</b> — AI 크롤러가 우리 사이트에 접근할 수 있는지를 결정하는 파일입니다. K그룹 8개 계열사의 현재 상태를 보겠습니다.'
+        },
+        {
+          title: '그랜드호텔 — 양호 사례',
+          script: '그랜드호텔을 클릭해보면 <b>GPTBot, ClaudeBot, Perplexity-Agent 모두 허용</b> 상태입니다. AI가 공식 사이트 데이터를 가져갈 수 있어요. 모범 사례죠.'
+        },
+        {
+          title: 'K시네마 — 전체 차단',
+          script: 'K시네마를 보시면 <b>User-agent: * / Disallow: / — 모든 크롤러 전체 차단</b>입니다. AI가 공식 정보를 못 가져가고 블로그를 인용하게 됩니다.'
+        },
+        {
+          title: 'K커머스 — 정교한 정책',
+          script: 'K커머스은 <b>크롤러별로 세분화된 정책</b>을 쓰고 있어요. Googlebot은 허용, GPTBot은 일부 제한. 가장 전략적인 접근법입니다.'
+        },
+        {
+          title: 'robots.txt 코드 확인',
+          script: '실제 코드를 보시죠. <b>한 줄의 코드가 AI 출처를 결정</b>하는 셈이에요.'
+        },
+        {
+          title: '핵심 메시지',
+          script: '같은 그룹사인데 정책이 전부 다릅니다. <b>GEO 최적화의 첫 단계는 AI 크롤러에 문을 여는 것</b>입니다.'
+        }
+      ],
+      C1: [
+        {
+          title: '오프닝 — AI 답변, 이미 충분합니다',
+          script: '초코스틱를 예로 들어볼게요. AI한테 물어보면 <b>이미 꽤 정확하게 소개합니다</b>. 54g, 250kcal, 가격까지 다 나와요. 그럼 뭐가 문제일까요?'
+        },
+        {
+          title: 'Before — 좋은 답변, 제3자 출처',
+          script: 'Before를 보세요. 답변 자체는 훌륭해요. 문제는 <b>출처가 FatSecret, 이마트몰, SSG.COM</b>이라는 거예요. 공식 브랜드 사이트가 출처에 없습니다.'
+        },
+        {
+          title: '문제 진단 — 출처 통제 불가',
+          script: '<b>채널별 가격이 다 다릅니다.</b> AI가 어떤 가격을 보여줄지는 그날그날 달라요. 브랜드 입장에선 통제 불가능한 상태입니다.'
+        },
+        {
+          title: 'GEO 적용 — JSON-LD Product Schema',
+          script: '<b>JSON-LD Product Schema</b>를 공식 사이트에 심으면, AI가 "이게 공식 데이터구나"하고 우선 인용합니다.'
+        },
+        {
+          title: 'After — 공식 출처 기반 답변',
+          script: 'After를 보시면 <b>출처가 전부 초록색</b>으로 바뀌었죠. 브랜드가 AI 답변의 출처를 통제하게 된 겁니다.'
+        },
+        {
+          title: '핵심 메시지',
+          script: '<b>같은 답변, 다른 신뢰도.</b> 구조화 데이터 하나로 AI의 출처가 제3자에서 공식 브랜드로 바뀝니다.'
+        }
+      ],
+      C2: [
+        {
+          title: '오프닝 — AI 추천, 이미 충분합니다',
+          script: '"그랜드호텔 월드 가족 여행 패키지" — AI한테 물어보면 <b>이미 상당히 정확하게 소개합니다</b>. 수영장 정보, 패키지 가격, 조식까지요.'
+        },
+        {
+          title: 'Before — 좋은 답변, 제3자 출처',
+          script: 'Before를 보세요. 답변 품질은 좋지만 일부 출처가 <b>NOL, KB카드, Visit Seoul</b> 등 혼합돼 있어요. 공식 사이트만으로는 충분하지 않습니다.'
+        },
+        {
+          title: '문제 진단 — 출처 통제 불가',
+          script: '<b>제3자 채널 가격은 수시로 변합니다.</b> 호텔이 직접 통제할 수 없는 정보가 고객한테 전달되는 겁니다.'
+        },
+        {
+          title: 'GEO 적용 — Hotel + FAQ Schema',
+          script: '<b>Hotel Schema와 FAQ Schema</b>를 함께 적용합니다. 객실 가격, 수영장 운영시간, 조식 가격을 구조화 데이터로 직접 제공합니다.'
+        },
+        {
+          title: 'After — 공식 출처 기반 답변',
+          script: 'After를 보세요. 같은 정보인데 <b>출처가 전부 초록색</b>이죠. 가격도 ₩290,000~로 공식가 기준입니다.'
+        },
+        {
+          title: '핵심 메시지',
+          script: '<b>Hotel + FAQ 스키마가 AI의 신뢰도와 정확성을 보장합니다.</b> OTA 가격 변동에 흔들리지 않는 브랜드 통제 정보.'
+        }
+      ],
+      D: [
+        {
+          title: '오프닝 — 직접 만들어보기',
+          script: '이번엔 <b>직접 만들어보겠습니다</b>. JSON-LD 코드를 몰라도 괜찮아요. 폼 입력만으로 자동 생성됩니다.'
+        },
+        {
+          title: 'Product 스키마 — 초코스틱 예시',
+          script: 'Product 탭에 초코스틱 정보가 입력되어 있어요. <b>오른쪽에서 JSON-LD 코드가 실시간으로 생성</b>되는 거 보이시죠?'
+        },
+        {
+          title: 'Hotel 스키마 — 그랜드호텔 예시',
+          script: 'Hotel 탭으로 넘어가볼게요. <b>체크박스 하나 클릭할 때마다 코드가 바로 업데이트</b>됩니다. 개발자 없이도 가능해요.'
+        },
+        {
+          title: 'FAQ 스키마',
+          script: 'FAQ 탭입니다. <b>자주 묻는 질문을 추가하면 FAQ Schema가 자동 생성</b>됩니다. AI 답변에 직접 반영돼요.'
+        },
+        {
+          title: '검증 & 복사',
+          script: '<b>검증 버튼으로 문법 체크</b>하고, 복사 버튼 한 번이면 끝입니다. HTML head에 붙여넣기만 하면 돼요.'
+        },
+        {
+          title: '핵심 메시지',
+          script: '<b>4가지 스키마로 GEO 최적화를 완성하세요.</b> 코딩 없이, 폼 입력만으로, 10분이면 됩니다.'
+        }
+      ]
+    };
+
+    let currentSection = 'D';
+    let SP_STEPS = ALL_SP_STEPS['D'];
+    let spIdx = 0, spVisible = true;
+
+    function renderSp() {
+      document.getElementById('spStep').textContent = `${spIdx + 1}/${SP_STEPS.length}`;
+      document.getElementById('spTitle').textContent = SP_STEPS[spIdx].title;
+      document.getElementById('spBody').innerHTML = SP_STEPS[spIdx].script;
+      const dots = document.getElementById('spDots');
+      dots.innerHTML = SP_STEPS.map((_, i) =>
+        `<span class="sp-dot-b ${i < spIdx ? 'done' : ''} ${i === spIdx ? 'now' : ''}" onclick="spGo(${i})"></span>`
+      ).join('');
+    }
+    function spShow() { spVisible = true; document.getElementById('spBalloon').classList.add('visible'); document.getElementById('spToggle').classList.remove('show'); }
+    function spHide() { spVisible = false; document.getElementById('spBalloon').classList.remove('visible'); document.getElementById('spToggle').classList.add('show'); }
+    function spGo(i) { spIdx = Math.max(0, Math.min(i, SP_STEPS.length - 1)); renderSp(); if (!spVisible) spShow(); }
+    function spNext() { spGo(spIdx + 1); }
+    function spPrev() { spGo(spIdx - 1); }
+
+    document.addEventListener('keydown', e => {
+      if (e.key.toLowerCase() === 's' && !e.ctrlKey && !e.metaKey && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault(); spVisible ? spHide() : spShow();
+      }
+    });
+
+    renderSp(); spShow();
+
+  </script>
+
+</body>
+</html>

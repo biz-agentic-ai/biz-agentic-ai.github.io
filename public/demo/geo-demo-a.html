@@ -1,0 +1,2166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GEO 데모 - AI 검색 비교</title>
+  <style>
+    /* ── Common Resets & Fonts ── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      background: #0a0a18;
+      color: #e0e0e0;
+      font-family: 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0
+    }
+
+    /* ── Section Switcher TNB ── */
+    .geo-tnb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 36px;
+      background: rgba(10, 10, 24, 0.98);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      z-index: 99999;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 0 12px
+    }
+
+    .geo-tnb-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: auto;
+      padding-left: 10px;
+      white-space: nowrap
+    }
+
+    .geo-tnb-brand-icon {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .geo-tnb-brand-text {
+      font-size: 14px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.92);
+      letter-spacing: -0.3px
+    }
+
+    .geo-tnb-brand-text em {
+      font-style: normal;
+      color: #CD4A4A
+    }
+
+    .geo-tnb-nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      margin: 0 auto
+    }
+
+    .geo-tnb-link {
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      transition: all .2s;
+      cursor: pointer;
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap
+    }
+
+    .geo-tnb-link:hover {
+      color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.05)
+    }
+
+    .geo-tnb-link.active {
+      color: #fff;
+      background: rgba(74, 144, 226, 0.2)
+    }
+
+    .tnb-key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .5px
+    }
+
+    .geo-tnb-link.active .tnb-key {
+      background: rgba(74, 144, 226, 0.4)
+    }
+
+    /* ── Demo Section Container ── */
+    .demo-section {
+      display: none;
+      min-height: 100vh
+    }
+
+    .demo-section.active {
+      display: block
+    }
+
+    /* ── Script Balloon Tooltip (shared) ── */
+    .sp-balloon {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 89999;
+      width: 370px;
+      max-width: calc(100vw - 48px);
+      background: rgba(10, 10, 24, 0.96);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(74, 144, 226, 0.25);
+      border-radius: 14px;
+      padding: 0;
+      opacity: 0;
+      transform: translateY(12px) scale(0.97);
+      transition: opacity .3s ease, transform .3s ease;
+      pointer-events: none;
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4)
+    }
+
+    .sp-balloon.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto
+    }
+
+    .sp-balloon-hd {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04)
+    }
+
+    .sp-balloon-step {
+      font-size: 10px;
+      font-weight: 800;
+      color: rgba(74, 144, 226, 0.8);
+      letter-spacing: .5px;
+      white-space: nowrap;
+      background: rgba(74, 144, 226, 0.1);
+      padding: 2px 8px;
+      border-radius: 10px
+    }
+
+    .sp-balloon-title {
+      flex: 1;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .sp-balloon-close {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      font-size: 16px;
+      padding: 2px 4px;
+      line-height: 1;
+      transition: color .15s
+    }
+
+    .sp-balloon-close:hover {
+      color: rgba(255, 255, 255, 0.7)
+    }
+
+    .sp-balloon-body {
+      padding: 10px 16px 6px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.75;
+      word-break: keep-all;
+      max-height: 120px;
+      overflow-y: auto
+    }
+
+    .sp-balloon-ft {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px 12px
+    }
+
+    .sp-balloon-nav {
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all .15s;
+      font-family: inherit
+    }
+
+    .sp-balloon-nav:hover {
+      background: rgba(74, 144, 226, 0.12);
+      border-color: rgba(74, 144, 226, 0.3);
+      color: #fff
+    }
+
+    .sp-dot-b {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      transition: all .25s;
+      cursor: pointer;
+      display: inline-block
+    }
+
+    .sp-dot-b.done {
+      background: rgba(0, 212, 170, 0.45)
+    }
+
+    .sp-dot-b.now {
+      background: #4A90E2;
+      box-shadow: 0 0 6px rgba(74, 144, 226, 0.5);
+      transform: scale(1.35)
+    }
+
+    .sp-balloon-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 89998;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(74, 144, 226, 0.15);
+      border: 1px solid rgba(74, 144, 226, 0.3);
+      color: rgba(74, 144, 226, 0.8);
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s;
+      backdrop-filter: blur(8px);
+      font-family: inherit
+    }
+
+    .sp-balloon-toggle:hover {
+      background: rgba(74, 144, 226, 0.25);
+      color: #fff
+    }
+
+    .sp-balloon-toggle.show {
+      display: flex
+    }
+
+
+
+    .demo-section { display: block; min-height: 100vh; }
+    /* ── AI검색비교 (A) ── */
+
+    #section-A {
+      --dark: #1a1a2e;
+      --mid: #16213e;
+      --card: #0f3460;
+      --accent: #e94560;
+      --green: #00d4aa;
+      --yellow: #ffd700;
+      --gray: #8b9ab1;
+      --light: #f0f4ff;
+      --white: #ffffff;
+      --ai-blue: #4A90E2;
+      --ai-purple: #7B68EE;
+      --red: #E8002D;
+
+      --genspark-color: #00d4aa;
+      --perplexity-color: #4A90E2;
+      --chatgpt-color: #74aa9c;
+    }
+
+    #section-A * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    #section-A {
+      font-family: 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 48px;
+    }
+
+    /* ─── HEADER ─── */
+    #section-A .top-bar {
+      position: fixed;
+      top: 36px;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(26, 26, 46, 0.97);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      gap: 14px;
+    }
+
+    #section-A .top-bar .demo-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #E8002D;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    #section-A .top-bar .pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
+      animation: ka_pulseRing 1.8s ease-out infinite;
+    }
+
+    @keyframes ka_pulseRing {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
+      }
+
+      70% {
+        box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+      }
+    }
+
+    #section-A .top-bar .title-text {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+
+    #section-A .top-bar .title-text span {
+      color: var(--ai-blue);
+    }
+
+    #section-A .spacer {
+      flex: 1;
+    }
+
+    #section-A .top-bar .hint {
+      font-size: 11px;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ─── MAIN LAYOUT ─── */
+    #section-A .page {
+      padding-top: 96px;
+      min-height: 100vh;
+    }
+
+    #section-A .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 40px 60px;
+    }
+
+    /* ─── PAGE HERO ─── */
+    #section-A .hero {
+      text-align: center;
+      padding: 48px 0 36px;
+      position: relative;
+    }
+
+    #section-A .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 300px;
+      background: radial-gradient(ellipse at center, rgba(74, 144, 226, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    #section-A .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(233, 69, 96, 0.12);
+      border: 1px solid rgba(233, 69, 96, 0.3);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    #section-A .hero h1 {
+      font-size: 38px;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.8px;
+      margin-bottom: 12px;
+    }
+
+    #section-A .hero h1 em {
+      font-style: normal;
+      color: var(--ai-blue);
+    }
+
+    #section-A .hero p {
+      font-size: 16px;
+      color: var(--gray);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ─── SEARCH BAR ─── */
+    #section-A .search-section {
+      max-width: 760px;
+      margin: 0 auto 44px;
+    }
+
+    #section-A .search-bar {
+      display: flex;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(74, 144, 226, 0.4);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color .25s, box-shadow .25s;
+      box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
+    }
+
+    #section-A .search-bar:focus-within {
+      border-color: var(--ai-blue);
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+    }
+
+    #section-A .search-icon {
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      color: var(--gray);
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    #section-A .search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--white);
+      font-size: 15px;
+      font-family: inherit;
+      padding: 16px 0;
+      font-weight: 500;
+    }
+
+    #section-A .search-input::placeholder {
+      color: var(--gray);
+    }
+
+    #section-A .search-btn {
+      background: var(--ai-blue);
+      border: none;
+      outline: none;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      padding: 0 28px;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    #section-A .search-btn:hover {
+      background: #357abd;
+    }
+
+    #section-A .search-btn:active {
+      transform: scale(0.98);
+    }
+
+    #section-A .search-btn.loading {
+      background: #2a5a8a;
+      pointer-events: none;
+    }
+
+    #section-A .search-btn svg {
+      transition: transform .3s;
+    }
+
+    #section-A .search-btn.loading svg {
+      animation: ka_spin 0.8s linear infinite;
+    }
+
+    @keyframes ka_spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #section-A .search-note {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    #section-A .search-note .dot-status {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    /* ─── RESULTS GRID ─── */
+    #section-A .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 28px;
+      align-items: start;
+    }
+
+    /* ─── AI CARD ─── */
+    #section-A .ai-card {
+      background: #12122a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .5s ease, transform .5s ease, border-color .3s;
+      position: relative;
+    }
+
+    #section-A .ai-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #section-A .ai-card:hover {
+      border-color: rgba(255, 255, 255, 0.16);
+    }
+
+    #section-A .ai-card.card-good {
+      border-top: 3px solid var(--green);
+    }
+
+    #section-A .ai-card.card-mid {
+      border-top: 3px solid var(--yellow);
+    }
+
+    #section-A .ai-card.card-bad {
+      border-top: 3px solid var(--accent);
+    }
+
+    /* Card chrome bar */
+    #section-A .card-chrome {
+      background: #1c1c30;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    #section-A .chrome-dots {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    #section-A .chrome-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    #section-A .chrome-dot.r {
+      background: #ff5f57;
+    }
+
+    #section-A .chrome-dot.y {
+      background: #ffbd2e;
+    }
+
+    #section-A .chrome-dot.g {
+      background: #28c840;
+    }
+
+    #section-A .chrome-url {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-size: 11px;
+      color: var(--gray);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #section-A .chrome-url span {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Platform name bar */
+    #section-A .platform-bar {
+      padding: 14px 18px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    #section-A .platform-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #section-A .platform-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    #section-A .icon-genspark {
+      background: linear-gradient(135deg, #00d4aa22, #00d4aa44);
+      border: 1px solid rgba(0, 212, 170, 0.4);
+      color: var(--green);
+    }
+
+    #section-A .icon-perplexity {
+      background: linear-gradient(135deg, #4A90E222, #4A90E244);
+      border: 1px solid rgba(74, 144, 226, 0.4);
+      color: var(--ai-blue);
+    }
+
+    #section-A .icon-chatgpt {
+      background: linear-gradient(135deg, #74aa9c22, #74aa9c44);
+      border: 1px solid rgba(116, 170, 156, 0.4);
+      color: #74aa9c;
+    }
+
+    #section-A .platform-name {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+
+    #section-A .platform-sub {
+      font-size: 10px;
+      color: var(--gray);
+      margin-top: 1px;
+      font-weight: 400;
+    }
+
+    #section-A .quality-badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    #section-A .badge-good-q {
+      background: rgba(0, 212, 170, 0.15);
+      border: 1px solid rgba(0, 212, 170, 0.35);
+      color: var(--green);
+    }
+
+    #section-A .badge-mid-q {
+      background: rgba(255, 215, 0, 0.12);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      color: var(--yellow);
+    }
+
+    #section-A .badge-bad-q {
+      background: rgba(233, 69, 96, 0.15);
+      border: 1px solid rgba(233, 69, 96, 0.35);
+      color: var(--accent);
+    }
+
+    /* Card body — AI response */
+    #section-A .card-body {
+      padding: 18px 18px 20px;
+      font-size: 13px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.82);
+      min-height: 320px;
+    }
+
+    /* Typing indicator */
+    #section-A .typing-indicator {
+      display: none;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 0;
+    }
+
+    #section-A .typing-indicator.active {
+      display: flex;
+    }
+
+    #section-A .typing-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gray);
+      animation: ka_typingBounce 1.2s ease-in-out infinite;
+    }
+
+    #section-A .typing-dot:nth-child(2) {
+      animation-delay: .2s;
+    }
+
+    #section-A .typing-dot:nth-child(3) {
+      animation-delay: .4s;
+    }
+
+    @keyframes ka_typingBounce {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+
+      30% {
+        transform: translateY(-6px);
+        opacity: 1;
+      }
+    }
+
+    /* Response content */
+    #section-A .ai-response {
+      display: none;
+    }
+
+    #section-A .ai-response.show {
+      display: block;
+    }
+
+    #section-A .ai-response h3 {
+      font-size: 14px;
+      font-weight: 800;
+      margin: 0 0 10px;
+      letter-spacing: -0.2px;
+    }
+
+    #section-A .ai-response p {
+      margin-bottom: 10px;
+    }
+
+    #section-A .ai-response p:last-child {
+      margin-bottom: 0;
+    }
+
+    #section-A .ai-response ul {
+      padding-left: 0;
+      list-style: none;
+      margin: 8px 0 12px;
+    }
+
+    #section-A .ai-response ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 12.5px;
+    }
+
+    #section-A .ai-response ul li:last-child {
+      border-bottom: none;
+    }
+
+    #section-A .li-icon {
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 13px;
+    }
+
+    #section-A .highlight {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    #section-A .highlight-warn {
+      color: var(--yellow);
+      font-weight: 600;
+    }
+
+    #section-A .highlight-bad {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Source citation chips */
+    #section-A .sources-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    #section-A .source-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(74, 144, 226, 0.12);
+      border: 1px solid rgba(74, 144, 226, 0.25);
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 10.5px;
+      color: var(--ai-blue);
+      font-weight: 600;
+    }
+
+    #section-A .source-chip.green {
+      background: rgba(0, 212, 170, 0.1);
+      border-color: rgba(0, 212, 170, 0.25);
+      color: var(--green);
+    }
+
+    #section-A .source-chip.yellow {
+      background: rgba(255, 215, 0, 0.1);
+      border-color: rgba(255, 215, 0, 0.25);
+      color: var(--yellow);
+    }
+
+    #section-A .source-chip.gray {
+      background: rgba(139, 154, 177, 0.1);
+      border-color: rgba(139, 154, 177, 0.2);
+      color: var(--gray);
+    }
+
+    /* Schema pill inside response */
+    #section-A .schema-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0, 212, 170, 0.12);
+      border: 1px solid rgba(0, 212, 170, 0.3);
+      padding: 1px 7px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--green);
+      vertical-align: middle;
+      letter-spacing: 0.3px;
+    }
+
+    #section-A .schema-pill.blue {
+      background: rgba(74, 144, 226, 0.12);
+      border-color: rgba(74, 144, 226, 0.3);
+      color: var(--ai-blue);
+    }
+
+    #section-A .schema-pill.warn {
+      background: rgba(255, 215, 0, 0.1);
+      border-color: rgba(255, 215, 0, 0.25);
+      color: var(--yellow);
+    }
+
+    #section-A .schema-pill.none {
+      background: rgba(233, 69, 96, 0.1);
+      border-color: rgba(233, 69, 96, 0.25);
+      color: var(--accent);
+    }
+
+    /* Rating row */
+    #section-A .rating-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0 4px;
+      font-size: 12.5px;
+    }
+
+    #section-A .stars {
+      color: var(--yellow);
+      letter-spacing: 1px;
+    }
+
+    #section-A .rating-val {
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    #section-A .rating-count {
+      color: var(--gray);
+      font-size: 11px;
+    }
+
+    /* Info table inside card */
+    #section-A .info-table {
+      width: 100%;
+      font-size: 12px;
+      margin: 8px 0;
+      border-collapse: collapse;
+    }
+
+    #section-A .info-table tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    #section-A .info-table tr:last-child {
+      border-bottom: none;
+    }
+
+    #section-A .info-table td {
+      padding: 5px 4px;
+    }
+
+    #section-A .info-table td:first-child {
+      color: var(--gray);
+      width: 90px;
+      font-size: 11px;
+    }
+
+    #section-A .info-table td:last-child {
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Disclaimer box */
+    #section-A .disclaimer-box {
+      background: rgba(233, 69, 96, 0.07);
+      border: 1px solid rgba(233, 69, 96, 0.2);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.65);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    #section-A .disclaimer-box strong {
+      color: var(--accent);
+    }
+
+    /* ─── SUMMARY PANEL ─── */
+    #section-A .summary-panel {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+
+    #section-A .summary-panel.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #section-A .summary-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    #section-A .summary-head h2 {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    #section-A .summary-head .section-badge {
+      background: rgba(74, 144, 226, 0.15);
+      border: 1px solid rgba(74, 144, 226, 0.35);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--ai-blue);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    #section-A .summary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    #section-A .summary-case {
+      border-radius: 12px;
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #section-A .summary-case.good {
+      background: rgba(0, 212, 170, 0.06);
+      border: 1px solid rgba(0, 212, 170, 0.2);
+    }
+
+    #section-A .summary-case.bad {
+      background: rgba(233, 69, 96, 0.06);
+      border: 1px solid rgba(233, 69, 96, 0.2);
+    }
+
+    #section-A .case-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    #section-A .case-indicator {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    #section-A .ci-good {
+      background: rgba(0, 212, 170, 0.15);
+    }
+
+    #section-A .ci-bad {
+      background: rgba(233, 69, 96, 0.12);
+    }
+
+    #section-A .case-brand {
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    #section-A .case-status-badge {
+      margin-left: auto;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    #section-A .csb-green {
+      background: rgba(0, 212, 170, 0.15);
+      border: 1px solid rgba(0, 212, 170, 0.3);
+      color: var(--green);
+    }
+
+    #section-A .csb-red {
+      background: rgba(233, 69, 96, 0.15);
+      border: 1px solid rgba(233, 69, 96, 0.3);
+      color: var(--accent);
+    }
+
+    #section-A .case-desc {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.6;
+    }
+
+    #section-A .case-arrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    #section-A .arrow-from {
+      color: var(--gray);
+    }
+
+    #section-A .arrow-icon {
+      color: var(--ai-blue);
+      font-size: 14px;
+    }
+
+    #section-A .arrow-to-good {
+      color: var(--green);
+    }
+
+    #section-A .arrow-to-bad {
+      color: var(--accent);
+    }
+
+    /* ─── INSIGHT BOX ─── */
+    #section-A .insight-box {
+      background: linear-gradient(135deg, rgba(74, 144, 226, 0.12) 0%, rgba(123, 104, 238, 0.12) 100%);
+      border: 1px solid rgba(74, 144, 226, 0.3);
+      border-radius: 14px;
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .5s ease .15s, transform .5s ease .15s;
+    }
+
+    #section-A .insight-box.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #section-A .insight-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+
+    #section-A .insight-text {
+      flex: 1;
+    }
+
+    #section-A .insight-text h3 {
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1.35;
+      letter-spacing: -0.4px;
+      margin-bottom: 4px;
+    }
+
+    #section-A .insight-text h3 em {
+      font-style: normal;
+      color: var(--ai-blue);
+    }
+
+    #section-A .insight-text p {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    #section-A .insight-stat {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    #section-A .insight-stat .big-num {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--ai-blue);
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    #section-A .insight-stat .big-label {
+      font-size: 11px;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ─── BOTTOM NOTE ─── */
+    #section-A .bottom-note {
+      background: rgba(255, 215, 0, 0.06);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    #section-A .note-icon {
+      flex-shrink: 0;
+      font-size: 15px;
+      margin-top: 1px;
+    }
+
+    /* ─── RESET BUTTON ─── */
+    #section-A .reset-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all .2s;
+      margin-top: 8px;
+      font-family: inherit;
+    }
+
+    #section-A .reset-btn:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: var(--white);
+    }
+
+    /* ─── FADE IN KEYFRAME ─── */
+    @keyframes ka_fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) {
+      #section-A .results-grid {
+        grid-template-columns: 1fr;
+        max-width: 580px;
+        margin: 0 auto 28px;
+      }
+
+      #section-A .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #section-A .insight-box {
+        flex-wrap: wrap;
+      }
+
+      #section-A .insight-stat {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 700px) {
+      #section-A .container {
+        padding: 24px 20px 48px;
+      }
+
+      #section-A .hero h1 {
+        font-size: 26px;
+      }
+    }
+
+    /* ─── SCROLL INDICATOR ─── */
+    #section-A .card-count-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-size: 11px;
+      color: var(--gray);
+    }
+
+    #section-A .count-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      transition: background .3s;
+    }
+
+    #section-A .count-dot.lit {
+      background: var(--ai-blue);
+    }
+
+    /* ─── GENSPARK special: structured data highlight ─── */
+    #section-A .structured-block {
+      background: rgba(0, 212, 170, 0.06);
+      border: 1px solid rgba(0, 212, 170, 0.18);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin: 10px 0;
+      font-size: 12px;
+    }
+
+    #section-A .structured-block .sb-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ── GEO Demo TNB (공통 네비게이션) ── */
+    #section-A .geo-tnb {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 36px;
+      background: #0a0a18;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 16px;
+      font-family: 'Malgun Gothic', '맑은 고딕', 'Apple SD Gothic Neo', sans-serif;
+    }
+
+    #section-A .geo-tnb-brand {
+      font-size: 11px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.35);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin-right: 4px;
+    }
+
+    #section-A .geo-tnb-sep {
+      width: 1px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    #section-A .geo-tnb-links {
+      display: flex;
+      gap: 2px;
+    }
+
+    #section-A .geo-tnb-link {
+      padding: 3px 11px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    #section-A .geo-tnb-link:hover {
+      color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    #section-A .geo-tnb-link.active {
+      color: #4A90E2;
+      background: rgba(74, 144, 226, 0.15);
+      font-weight: 700;
+    }
+
+    #section-A .geo-tnb-link .tnb-key {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.35);
+      padding: 1px 4px;
+      border-radius: 3px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    #section-A .geo-tnb-link.active .tnb-key {
+      background: rgba(74, 144, 226, 0.25);
+      color: rgba(74, 144, 226, 0.8);
+    }
+
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <div class="geo-tnb">
+    <div class="geo-tnb-brand">
+      <div class="geo-tnb-brand-icon"><svg viewBox="0 0 100 100" width="26" height="26"><rect x="14" y="14" width="72" height="72" rx="18" transform="rotate(45 50 50)" fill="#4A90E2"/><path d="M35 55 L45 45 L55 55 L65 45" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="geo-tnb-brand-text">GEO 최적화 데모</div>
+    </div>
+    <div class="geo-tnb-nav">
+      <a class="geo-tnb-link active" href="javascript:void(0)"><span class="tnb-key">A</span>AI검색비교</a>
+      <a class="geo-tnb-link" href="geo-demo-b.html"><span class="tnb-key">B</span>robots.txt</a>
+      <a class="geo-tnb-link" href="geo-demo-c1.html"><span class="tnb-key">C1</span>초코스틱 B/A</a>
+      <a class="geo-tnb-link" href="geo-demo-c2.html"><span class="tnb-key">C2</span>호텔 B/A</a>
+      <a class="geo-tnb-link" href="geo-demo-d.html"><span class="tnb-key">D</span>JSON-LD 빌더</a>
+    </div>
+  </div>
+
+  <div id="section-A" class="demo-section active">
+    <!-- ─── FIXED TOP BAR ─── -->
+    <div class="top-bar">
+      <div class="demo-label">
+        <span class="pulse"></span>
+        DEMO A
+      </div>
+      <span class="title-text">실시간 <em>AI 검색</em> 비교</span>
+      <div class="spacer"></div>
+      <div class="hint">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
+        AI 답변은 이미 좋습니다 — 문제는 '누구의 데이터'로 답하느냐입니다
+      </div>
+    </div>
+
+    <!-- ─── MAIN ─── -->
+    <div class="page">
+      <div class="container">
+
+        <!-- Hero -->
+        <div class="hero">
+          <div class="hero-eyebrow">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+            </svg>
+            GEO 최적화 · AI 검색 출처 분석
+          </div>
+          <h1>AI 답변, 이미 충분합니다.<br>문제는 <em>출처</em>입니다</h1>
+          <p>세 AI 엔진 모두 괜찮은 답변을 줍니다. 하지만 출처를 보세요 —<br>공식 사이트인가요, 블로그인가요? 브랜드 메시지를 통제하고 있습니까? <br><span
+              style="font-size:11px; color:var(--ai-blue);">데이터 기준일: 2026-03-24</span></p>
+        </div>
+
+        <!-- Search bar -->
+        <div class="search-section">
+          <div class="search-bar">
+            <span class="search-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>
+            </span>
+            <input type="text" class="search-input" id="searchInput" value="그랜드호텔 월드 가족 여행 추천" readonly>
+            <button class="search-btn" id="searchBtn" onclick="runSearch()">
+              <svg id="searchBtnIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>
+              검색
+            </button>
+          </div>
+          <div class="search-note">
+            <span class="dot-status"></span>
+            Genspark · Perplexity · ChatGPT 동시 조회 시뮬레이션
+          </div>
+        </div>
+
+        <!-- Progress dots -->
+        <div class="card-count-bar" id="countBar">
+          <span>AI 응답 로딩</span>
+          <span class="count-dot" id="d1"></span>
+          <span class="count-dot" id="d2"></span>
+          <span class="count-dot" id="d3"></span>
+        </div>
+
+        <!-- Results Grid -->
+        <div class="results-grid">
+
+          <!-- ── GENSPARK (GOOD) ── -->
+          <div class="ai-card card-good" id="card-genspark">
+            <div class="card-chrome">
+              <div class="chrome-dots">
+                <span class="chrome-dot r"></span>
+                <span class="chrome-dot y"></span>
+                <span class="chrome-dot g"></span>
+              </div>
+              <div class="chrome-url"><span>https://</span>genspark.ai/search?q=그랜드호텔...</div>
+            </div>
+            <div class="platform-bar">
+              <div class="platform-info">
+                <div class="platform-icon icon-genspark">G</div>
+                <div>
+                  <div class="platform-name" style="color:var(--green)">Genspark</div>
+                  <div class="platform-sub">AI 검색 엔진 · Sparkpage</div>
+                </div>
+              </div>
+              <div class="quality-badge badge-good-q">
+                <span>🟢</span> 공식 출처
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Typing -->
+              <div class="typing-indicator" id="type-genspark">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+              </div>
+              <!-- Response -->
+              <div class="ai-response" id="resp-genspark">
+                <h3>그랜드호텔 월드 — 가족 여행 완벽 가이드 <span class="schema-pill">Hotel Schema</span></h3>
+                <div class="structured-block">
+                  <div class="sb-label">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                    </svg>
+                    Schema 적용 → AI가 공식 데이터를 쉽게 파싱 → 인용 확률 ↑
+                  </div>
+                  <table class="info-table">
+                    <tr>
+                      <td>공식명칭</td>
+                      <td>그랜드호텔 월드</td>
+                    </tr>
+                    <tr>
+                      <td>위치</td>
+                      <td>서울 강남권</td>
+                    </tr>
+                    <tr>
+                      <td>등급</td>
+                      <td>
+                        <div class="rating-row" style="margin:0">
+                          <span class="stars">★★★★★</span>
+                          <span class="rating-val">5성급</span>
+                          <span style="color:var(--gray); font-size:11px; margin-left:6px">· Google 평점 4.3</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>연락처</td>
+                      <td>+82-2-419-7000</td>
+                    </tr>
+                    <tr>
+                      <td>객실 요금</td>
+                      <td><span class="highlight">₩250,000 ~ ₩800,000</span> / 1박</td>
+                    </tr>
+                  </table>
+                </div>
+                <p style="margin-top:10px; font-size:12.5px; color:rgba(255,255,255,0.75)">투숙객 전용 <span
+                    class="highlight">테마파크 연결통로</span>로 어드벤처파크 직접 연결 — <span class="highlight">조기입장(Wonder
+                    Time)</span> 15분 + <span class="highlight">재입장 1회(재입장 혜택)</span> 혜택</p>
+                <ul>
+                  <li><span class="li-icon">🛏️</span><span>Deluxe Triple (29.7㎡, 3인) · <span class="highlight">Kakao
+                        Friends Family Twin</span> (29.7㎡, 어드벤처파크 뷰)</span></li>
+                  <li><span class="li-icon">🍽️</span><span>호텔 뷔페: 200여 가지 요리, 8개 라이브 섹션, <span class="highlight">키즈
+                        메뉴존 · 수유실</span> 완비</span></li>
+                  <li><span class="li-icon">🎡</span><span>주변: <span class="highlight">SEOUL SKY</span> 전망대(123층) ·
+                      아쿠아리움 · 석촌호수</span></li>
+                  <li><span class="li-icon">📋</span><span>1박 2일: Day1 테마파크 연결통로→어드벤처→야경 / Day2 아쿠아리움+서울스카이</span>
+                  </li>
+                </ul>
+                <div class="sources-row">
+                  <span class="source-chip green">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                    </svg>
+                    grandhotel-example.com
+                  </span>
+                  <span class="source-chip green">테마파크 연결통로 공식</span>
+                  <span class="source-chip green">SEOUL SKY 공식</span>
+                  <span class="source-chip green">호텔 레스토랑 공식</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── PERPLEXITY (BAD — 블로그/제3자 의존) ── -->
+          <div class="ai-card card-bad" id="card-perplexity">
+            <div class="card-chrome">
+              <div class="chrome-dots">
+                <span class="chrome-dot r"></span>
+                <span class="chrome-dot y"></span>
+                <span class="chrome-dot g"></span>
+              </div>
+              <div class="chrome-url"><span>https://</span>perplexity.ai/search?q=그랜드호텔...</div>
+            </div>
+            <div class="platform-bar">
+              <div class="platform-info">
+                <div class="platform-icon icon-perplexity">P</div>
+                <div>
+                  <div class="platform-name" style="color:var(--ai-blue)">Perplexity</div>
+                  <div class="platform-sub">AI 답변 엔진 · Pro Search</div>
+                </div>
+              </div>
+              <div class="quality-badge badge-bad-q">
+                <span>🟠</span> 제3자 의존
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="typing-indicator" id="type-perplexity">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+              </div>
+              <div class="ai-response" id="resp-perplexity">
+                <h3>그랜드호텔 월드 가족 여행 정보 <span class="schema-pill none">블로그 기반 답변</span></h3>
+                <p style="font-size:12.5px; color:rgba(255,255,255,0.75)">그랜드호텔 월드는 잠실 어드벤처파크와 바로 붙어 있어서 1박 2일 가족 여행지로 꽤
+                  좋은 선택이에요.</p>
+                <ul>
+                  <li><span class="li-icon">🚪</span><span>'원더도어'로 놀이공원 ↔ 객실 이동 편리 <span class="schema-pill warn">블로그
+                        출처</span></span></li>
+                  <li><span class="li-icon">🛏️</span><span>캐릭터룸 (브레드이발소, 카카오프렌즈, 로티·로리) — <span
+                        class="highlight-warn">후기 기반 정보</span></span></li>
+                  <li><span class="li-icon">👶</span><span>8층 키즈 라운지: 25개월~6세, 09:00~18:00 운영</span></li>
+                  <li><span class="li-icon">🏊</span><span>수영장: 전 연령 이용 가능, 키즈풀 별도 있음 (13세 미만 보호자 동반)</span></li>
+                  <li><span class="li-icon">📦</span><span>패키지: 월드 시그니처 · 테마파크 패키지 등 운영 <span
+                        class="schema-pill warn">가격 미명시</span></span></li>
+                </ul>
+                <div class="disclaimer-box">
+                  <strong>출처 안내:</strong> 이 답변은 <strong>네이버 블로그, 티스토리, 여기어때, 트립어드바이저</strong> 등 제3자 후기 기반으로 작성되었습니다. 공식
+                  사이트 직접 인용이 거의 없습니다.
+                </div>
+                <div class="sources-row">
+                  <span class="source-chip gray">네이버 블로그</span>
+                  <span class="source-chip gray">티스토리 블로그</span>
+                  <span class="source-chip yellow">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path d="M12 9v4" />
+                      <path d="M12 17h.01" />
+                      <path
+                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    </svg>
+                    여기어때
+                  </span>
+                  <span class="source-chip gray">tripadvisor</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── CHATGPT (MID — 공식 사이트 기반이나 비구조적) ── -->
+          <div class="ai-card card-mid" id="card-chatgpt">
+            <div class="card-chrome">
+              <div class="chrome-dots">
+                <span class="chrome-dot r"></span>
+                <span class="chrome-dot y"></span>
+                <span class="chrome-dot g"></span>
+              </div>
+              <div class="chrome-url"><span>https://</span>chatgpt.com/search?q=그랜드호텔...</div>
+            </div>
+            <div class="platform-bar">
+              <div class="platform-info">
+                <div class="platform-icon icon-chatgpt">C</div>
+                <div>
+                  <div class="platform-name" style="color:#74aa9c">ChatGPT</div>
+                  <div class="platform-sub">OpenAI · GPT-4o Search</div>
+                </div>
+              </div>
+              <div class="quality-badge badge-mid-q">
+                <span>🟡</span> 공식 사이트
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="typing-indicator" id="type-chatgpt">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+              </div>
+              <div class="ai-response" id="resp-chatgpt">
+                <h3>그랜드호텔 월드 가족 여행 추천 <span class="schema-pill warn">스키마 미활용</span></h3>
+                <p style="font-size:12.5px; color:rgba(255,255,255,0.75)">가족 여행이라면 그랜드호텔 월드는 꽤 좋은 선택입니다. <span
+                    class="highlight-warn">테마파크 연결통로</span>로 어드벤처파크와 직접 연결, 키즈 라운지·수영장·수유실 등 가족 편의시설도 갖추고 있습니다.</p>
+                <ul>
+                  <li><span class="li-icon">📦</span><span><span class="highlight-warn">패밀리 스테이</span>: 객실 + 호텔 조식 +
+                      테마파크 1일권 포함 패키지</span></li>
+                  <li><span class="li-icon">🛏️</span><span>카카오프렌즈 패밀리 트윈 · 캐릭터 스위트 (최대 4인, 거실+침실 분리)</span></li>
+                  <li><span class="li-icon">👶</span><span>패밀리 디럭스: 전자레인지, 세탁·건조기 — 유아 동반 실용적</span></li>
+                  <li><span class="li-icon">🏊</span><span>수영장 06:00~22:00 · 키즈풀 별도 · 키즈 라운지 25개월~6세</span></li>
+                </ul>
+                <p style="font-size:12px; color:rgba(255,255,255,0.7); margin-top:8px">추천: 가성비→패밀리 스테이 / 아이 만족→캐릭터룸
+                  / 유아 동반→패밀리 디럭스</p>
+                <div class="sources-row">
+                  <span class="source-chip green">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                    </svg>
+                    LOTTE HOTELS &amp; RESORTS
+                  </span>
+                  <span class="source-chip green">NOL (공식 예약)</span>
+                  <span class="source-chip"
+                    style="background:rgba(233,69,96,0.1); border-color:rgba(233,69,96,0.25); color:var(--accent)">스키마
+                    미활용</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /results-grid -->
+
+        <!-- ─── SUMMARY PANEL ─── -->
+        <div class="summary-panel" id="summaryPanel">
+          <div class="summary-head">
+            <h2>비교 분석 결과</h2>
+            <span class="section-badge">Comparison Summary</span>
+          </div>
+          <div class="summary-grid">
+            <div class="summary-case good">
+              <div class="case-head">
+                <div class="case-indicator ci-good">🏆</div>
+                <div>
+                  <div class="case-brand">Genspark — 공식 출처 중심</div>
+                  <div style="font-size:11px; color:var(--gray)">Schema 적용 사이트 → AI 파싱 용이 → 인용 확률 상승</div>
+                </div>
+                <div class="case-status-badge csb-green">양호 사례</div>
+              </div>
+              <div class="case-desc">
+                <strong style="color:var(--green)">Schema 적용 → 인용 가치 상승 → 공식 출처 선택 확률 ↑</strong><br>
+                grandhotel-example.com에 JSON-LD Schema가 적용되어 있으면 AI가 요금·시설·패키지를 기계적으로 파싱할 수 있습니다. 이는 블로그 대비 공식 사이트의 인용
+                가치를 높여,
+                공식 출처가 선택될 확률을 올립니다.
+              </div>
+              <div class="case-arrow">
+                <span class="arrow-from">Schema 적용</span>
+                <span class="arrow-icon">→</span>
+                <span class="arrow-to-good">공식 인용 확률 ↑</span>
+              </div>
+            </div>
+            <div class="summary-case bad">
+              <div class="case-head">
+                <div class="case-indicator ci-bad">⚠️</div>
+                <div>
+                  <div class="case-brand">Perplexity — 블로그·후기 의존</div>
+                  <div style="font-size:11px; color:var(--gray)">네이버 블로그, 티스토리, 여기어때 등 제3자 소스 중심</div>
+                </div>
+                <div class="case-status-badge csb-red">경고 사례</div>
+              </div>
+              <div class="case-desc">
+                <strong style="color:var(--accent)">Schema 미활용 → 블로그가 공식 사이트를 이김</strong><br>
+                한국 웹에서는 블로그·OTA 콘텐츠 양이 압도적입니다. 공식 사이트에 구조화 데이터가 없으면 AI가 파싱하기 어려워 블로그를 선택할 가능성이 높아집니다. 정보는 비슷해도 출처 통제가
+                불가능합니다.
+              </div>
+              <div class="case-arrow">
+                <span class="arrow-from">Schema 미적용</span>
+                <span class="arrow-icon">→</span>
+                <span class="arrow-to-bad">블로그가 공식을 이김</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── INSIGHT BOX ─── -->
+        <div class="insight-box" id="insightBox">
+          <div class="insight-icon">🎯</div>
+          <div class="insight-text">
+            <h3>AI 답변, 이미 충분합니다.<br><em>공식 출처의 선택 확률</em>을 높이세요</h3>
+            <p style="font-size:12.5px; color:rgba(255,255,255,0.8); margin-bottom:8px">GEO(Generative Engine
+              Optimization)의 핵심 흐름:</p>
+            <div
+              style="display:flex; align-items:center; gap:6px; font-size:12px; color:var(--ai-blue); flex-wrap:wrap; margin-bottom:8px">
+              <span
+                style="background:rgba(74,144,226,0.15); padding:3px 8px; border-radius:4px; white-space:nowrap">Schema
+                적용</span>
+              <span style="color:var(--gray)">→</span>
+              <span style="background:rgba(74,144,226,0.15); padding:3px 8px; border-radius:4px; white-space:nowrap">AI
+                파싱 용이</span>
+              <span style="color:var(--gray)">→</span>
+              <span style="background:rgba(74,144,226,0.15); padding:3px 8px; border-radius:4px; white-space:nowrap">인용
+                가치 ↑</span>
+              <span style="color:var(--gray)">→</span>
+              <span
+                style="background:rgba(46,204,113,0.2); padding:3px 8px; border-radius:4px; color:var(--green); white-space:nowrap; font-weight:600">공식
+                출처 선택 확률 ↑</span>
+            </div>
+            <p style="font-size:12px; color:rgba(255,255,255,0.6)">Schema가 공식 인용을 보장하진 않지만, 한국 웹처럼 블로그 콘텐츠가 압도적인 환경에서 공식
+              사이트가 블로그와 경쟁할 수 있는 무기가 됩니다.</p>
+          </div>
+          <div class="insight-stat">
+            <div class="big-num">확률↑</div>
+            <div class="big-label">구조화 데이터 적용 시<br>공식 출처 선택 확률</div>
+          </div>
+        </div>
+
+        <!-- ─── BOTTOM NOTE ─── -->
+        <div class="bottom-note">
+          <span class="note-icon">💡</span>
+          <span>이 데모는 실제 AI 검색 응답(2026-03-24)을 바탕으로 재구성한 <strong>시뮬레이션</strong>입니다. 세 엔진 모두 비슷한 내용을 답하지만, <strong>출처가
+              다릅니다</strong>. 구조화 데이터(Schema)가 공식 인용을 보장하진 않지만, AI가 공식 사이트를 쉽게 파싱할 수 있게 만들어 <strong>블로그 대비 공식 출처의 선택 확률을
+              높입니다</strong>.</span>
+        </div>
+
+      </div><!-- /container -->
+    </div><!-- /page -->
+  </div>
+
+
+  <div class="sp-balloon" id="spBalloon">
+    <div class="sp-balloon-hd">
+      <span class="sp-balloon-step" id="spStep">1/6</span>
+      <span class="sp-balloon-title" id="spTitle">스크립트</span>
+      <button class="sp-balloon-close" onclick="spHide()" title="닫기 (S)">&times;</button>
+    </div>
+    <div class="sp-balloon-body" id="spBody"></div>
+    <div class="sp-balloon-ft">
+      <button class="sp-balloon-nav" onclick="spPrev()">←</button>
+      <span id="spDots"></span>
+      <button class="sp-balloon-nav" onclick="spNext()">→</button>
+    </div>
+  </div>
+  <button class="sp-balloon-toggle" id="spToggle" onclick="spShow()" title="스크립트 보기 (S)">💬</button>
+
+
+  <script>// ── AI검색비교 (A) ──
+    (function () {
+
+      let hasRun = false;
+
+      function runSearch() {
+        if (hasRun) return;
+        hasRun = true;
+
+        const btn = document.getElementById('searchBtn');
+        const icon = document.getElementById('searchBtnIcon');
+        btn.classList.add('loading');
+        btn.innerHTML = `
+      <svg id="searchBtnIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="animation:spin 0.8s linear infinite">
+        <path d="M21 12a9 9 0 11-6.219-8.56"/>
+      </svg>
+      검색 중...
+    `;
+        spGo(1);
+
+        // Show typing for all three simultaneously
+        ['genspark', 'perplexity', 'chatgpt'].forEach(id => {
+          const t = document.getElementById('type-' + id);
+          if (t) t.classList.add('active');
+        });
+
+        // GENSPARK appears first — 1200ms
+        setTimeout(() => {
+          showCard('genspark', 1);
+          spGo(2);
+        }, 1200);
+
+        // PERPLEXITY — 2000ms
+        setTimeout(() => {
+          showCard('perplexity', 2);
+          spGo(3);
+        }, 2000);
+
+        // CHATGPT — 2900ms
+        setTimeout(() => {
+          showCard('chatgpt', 3);
+          spGo(4);
+        }, 2900);
+
+        // Summary + insight after all cards
+        setTimeout(() => {
+          const sp = document.getElementById('summaryPanel');
+          const ib = document.getElementById('insightBox');
+          if (sp) sp.classList.add('visible');
+          if (ib) ib.classList.add('visible');
+          spGo(5);
+
+          btn.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+        </svg>
+        완료
+      `;
+          btn.style.background = 'var(--green)';
+          btn.style.color = '#000';
+          btn.classList.remove('loading');
+        }, 3400);
+      }
+
+      function showCard(id, dotIndex) {
+        const card = document.getElementById('card-' + id);
+        const typing = document.getElementById('type-' + id);
+        const resp = document.getElementById('resp-' + id);
+        const dot = document.getElementById('d' + dotIndex);
+
+        if (typing) typing.classList.remove('active');
+        if (card) card.classList.add('visible');
+        if (resp) resp.classList.add('show');
+        if (dot) dot.classList.add('lit');
+      }
+
+      // Allow re-run by clicking the completed button
+      document.getElementById('searchBtn').addEventListener('click', function () {
+        if (hasRun && this.textContent.includes('완료')) {
+          resetDemo();
+        }
+      });
+
+      function resetDemo() {
+        hasRun = false;
+        const btn = document.getElementById('searchBtn');
+        btn.innerHTML = `
+      <svg id="searchBtnIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      검색
+    `;
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.classList.remove('loading');
+
+        ['genspark', 'perplexity', 'chatgpt'].forEach(id => {
+          const card = document.getElementById('card-' + id);
+          const typing = document.getElementById('type-' + id);
+          const resp = document.getElementById('resp-' + id);
+          if (card) card.classList.remove('visible');
+          if (typing) typing.classList.remove('active');
+          if (resp) resp.classList.remove('show');
+        });
+
+        ['d1', 'd2', 'd3'].forEach(id => {
+          const d = document.getElementById(id);
+          if (d) d.classList.remove('lit');
+        });
+
+        const sp = document.getElementById('summaryPanel');
+        const ib = document.getElementById('insightBox');
+        if (sp) sp.classList.remove('visible');
+        if (ib) ib.classList.remove('visible');
+
+        // Small delay then re-run
+        setTimeout(runSearch, 200);
+      }
+
+
+
+
+
+      // Expose to global
+      window.runSearch = runSearch;
+    })();</script>
+
+
+  <script>
+    const ALL_SP_STEPS = {
+      A: [
+        {
+          title: '오프닝 — AI 답변, 이미 충분합니다',
+          script: '자, 먼저 AI 검색의 현재 상태를 보겠습니다. 핵심 질문은 하나예요. <b>"AI가 잘 답하느냐?"가 아니라, "누구의 데이터로 답하느냐?"</b>입니다.'
+        },
+        {
+          title: '검색 실행',
+          script: '검색 버튼을 눌러볼게요. 세 가지 AI 엔진 — Genspark, Perplexity, ChatGPT — 이 동일한 질문에 어떻게 답하는지 바로 비교해보겠습니다.'
+        },
+        {
+          title: 'Genspark — 🟢 공식 출처',
+          script: '먼저 Genspark입니다. <b>공식 사이트(grandhotel-example.com)의 상품 페이지를 직접 인용</b>하고 있어요. 테마파크 연결통로, 호텔 레스토랑, 객실 상세까지 공식 데이터 기반이죠.'
+        },
+        {
+          title: 'Perplexity — 🟠 제3자 의존',
+          script: 'Perplexity를 보세요. 내용은 비슷하지만 출처가 전혀 다릅니다. <b>네이버 블로그, 티스토리, 여기어때, 트립어드바이저</b> — 전부 제3자 사이트예요. 브랜드가 통제할 수 없는 정보입니다.'
+        },
+        {
+          title: 'ChatGPT — 🟡 공식 사이트',
+          script: 'ChatGPT는 <b>GRAND HOTELS & RESORTS 공식 사이트</b>를 참조합니다. 하지만 Schema를 활용하지 않아 구조적 정밀도는 Genspark보다 떨어져요.'
+        },
+        {
+          title: '핵심 메시지',
+          script: '<b>AI 답변은 이미 충분합니다. 문제는 출처입니다.</b> Schema가 공식 인용을 보장하진 않지만, AI가 공식 사이트를 쉽게 파싱할 수 있게 만들어 <b>블로그 대비 공식 출처 선택 확률을 높입니다</b>.'
+        }
+      ],
+      B: [
+        {
+          title: '오프닝 — 왜 robots.txt인가?',
+          script: '<b>robots.txt</b> — AI 크롤러가 우리 사이트에 접근할 수 있는지를 결정하는 파일입니다. K그룹 8개 계열사의 현재 상태를 보겠습니다.'
+        },
+        {
+          title: '그랜드호텔 — 양호 사례',
+          script: '그랜드호텔을 클릭해보면 <b>GPTBot, ClaudeBot, Perplexity-Agent 모두 허용</b> 상태입니다. AI가 공식 사이트 데이터를 가져갈 수 있어요. 모범 사례죠.'
+        },
+        {
+          title: 'K시네마 — 전체 차단',
+          script: 'K시네마를 보시면 <b>User-agent: * / Disallow: / — 모든 크롤러 전체 차단</b>입니다. AI가 공식 정보를 못 가져가고 블로그를 인용하게 됩니다.'
+        },
+        {
+          title: 'K커머스 — 정교한 정책',
+          script: 'K커머스은 <b>크롤러별로 세분화된 정책</b>을 쓰고 있어요. Googlebot은 허용, GPTBot은 일부 제한. 가장 전략적인 접근법입니다.'
+        },
+        {
+          title: 'robots.txt 코드 확인',
+          script: '실제 코드를 보시죠. <b>한 줄의 코드가 AI 출처를 결정</b>하는 셈이에요.'
+        },
+        {
+          title: '핵심 메시지',
+          script: '같은 그룹사인데 정책이 전부 다릅니다. <b>GEO 최적화의 첫 단계는 AI 크롤러에 문을 여는 것</b>입니다.'
+        }
+      ],
+      C1: [
+        {
+          title: '오프닝 — AI 답변, 이미 충분합니다',
+          script: '초코스틱를 예로 들어볼게요. AI한테 물어보면 <b>이미 꽤 정확하게 소개합니다</b>. 54g, 250kcal, 가격까지 다 나와요. 그럼 뭐가 문제일까요?'
+        },
+        {
+          title: 'Before — 좋은 답변, 제3자 출처',
+          script: 'Before를 보세요. 답변 자체는 훌륭해요. 문제는 <b>출처가 FatSecret, 이마트몰, SSG.COM</b>이라는 거예요. 공식 브랜드 사이트가 출처에 없습니다.'
+        },
+        {
+          title: '문제 진단 — 출처 통제 불가',
+          script: '<b>채널별 가격이 다 다릅니다.</b> AI가 어떤 가격을 보여줄지는 그날그날 달라요. 브랜드 입장에선 통제 불가능한 상태입니다.'
+        },
+        {
+          title: 'GEO 적용 — JSON-LD Product Schema',
+          script: '<b>JSON-LD Product Schema</b>를 공식 사이트에 심으면, AI가 "이게 공식 데이터구나"하고 우선 인용합니다.'
+        },
+        {
+          title: 'After — 공식 출처 기반 답변',
+          script: 'After를 보시면 <b>출처가 전부 초록색</b>으로 바뀌었죠. 브랜드가 AI 답변의 출처를 통제하게 된 겁니다.'
+        },
+        {
+          title: '핵심 메시지',
+          script: '<b>같은 답변, 다른 신뢰도.</b> 구조화 데이터 하나로 AI의 출처가 제3자에서 공식 브랜드로 바뀝니다.'
+        }
+      ],
+      C2: [
+        {
+          title: '오프닝 — AI 추천, 이미 충분합니다',
+          script: '"그랜드호텔 월드 가족 여행 패키지" — AI한테 물어보면 <b>이미 상당히 정확하게 소개합니다</b>. 수영장 정보, 패키지 가격, 조식까지요.'
+        },
+        {
+          title: 'Before — 좋은 답변, 제3자 출처',
+          script: 'Before를 보세요. 답변 품질은 좋지만 일부 출처가 <b>NOL, KB카드, Visit Seoul</b> 등 혼합돼 있어요. 공식 사이트만으로는 충분하지 않습니다.'
+        },
+        {
+          title: '문제 진단 — 출처 통제 불가',
+          script: '<b>제3자 채널 가격은 수시로 변합니다.</b> 호텔이 직접 통제할 수 없는 정보가 고객한테 전달되는 겁니다.'
+        },
+        {
+          title: 'GEO 적용 — Hotel + FAQ Schema',
+          script: '<b>Hotel Schema와 FAQ Schema</b>를 함께 적용합니다. 객실 가격, 수영장 운영시간, 조식 가격을 구조화 데이터로 직접 제공합니다.'
+        },
+        {
+          title: 'After — 공식 출처 기반 답변',
+          script: 'After를 보세요. 같은 정보인데 <b>출처가 전부 초록색</b>이죠. 가격도 ₩290,000~로 공식가 기준입니다.'
+        },
+        {
+          title: '핵심 메시지',
+          script: '<b>Hotel + FAQ 스키마가 AI의 신뢰도와 정확성을 보장합니다.</b> OTA 가격 변동에 흔들리지 않는 브랜드 통제 정보.'
+        }
+      ],
+      D: [
+        {
+          title: '오프닝 — 직접 만들어보기',
+          script: '이번엔 <b>직접 만들어보겠습니다</b>. JSON-LD 코드를 몰라도 괜찮아요. 폼 입력만으로 자동 생성됩니다.'
+        },
+        {
+          title: 'Product 스키마 — 초코스틱 예시',
+          script: 'Product 탭에 초코스틱 정보가 입력되어 있어요. <b>오른쪽에서 JSON-LD 코드가 실시간으로 생성</b>되는 거 보이시죠?'
+        },
+        {
+          title: 'Hotel 스키마 — 그랜드호텔 예시',
+          script: 'Hotel 탭으로 넘어가볼게요. <b>체크박스 하나 클릭할 때마다 코드가 바로 업데이트</b>됩니다. 개발자 없이도 가능해요.'
+        },
+        {
+          title: 'FAQ 스키마',
+          script: 'FAQ 탭입니다. <b>자주 묻는 질문을 추가하면 FAQ Schema가 자동 생성</b>됩니다. AI 답변에 직접 반영돼요.'
+        },
+        {
+          title: '검증 & 복사',
+          script: '<b>검증 버튼으로 문법 체크</b>하고, 복사 버튼 한 번이면 끝입니다. HTML head에 붙여넣기만 하면 돼요.'
+        },
+        {
+          title: '핵심 메시지',
+          script: '<b>4가지 스키마로 GEO 최적화를 완성하세요.</b> 코딩 없이, 폼 입력만으로, 10분이면 됩니다.'
+        }
+      ]
+    };
+
+    let currentSection = 'A';
+    let SP_STEPS = ALL_SP_STEPS['A'];
+    let spIdx = 0, spVisible = true;
+
+    function renderSp() {
+      document.getElementById('spStep').textContent = `${spIdx + 1}/${SP_STEPS.length}`;
+      document.getElementById('spTitle').textContent = SP_STEPS[spIdx].title;
+      document.getElementById('spBody').innerHTML = SP_STEPS[spIdx].script;
+      const dots = document.getElementById('spDots');
+      dots.innerHTML = SP_STEPS.map((_, i) =>
+        `<span class="sp-dot-b ${i < spIdx ? 'done' : ''} ${i === spIdx ? 'now' : ''}" onclick="spGo(${i})"></span>`
+      ).join('');
+    }
+    function spShow() { spVisible = true; document.getElementById('spBalloon').classList.add('visible'); document.getElementById('spToggle').classList.remove('show'); }
+    function spHide() { spVisible = false; document.getElementById('spBalloon').classList.remove('visible'); document.getElementById('spToggle').classList.add('show'); }
+    function spGo(i) { spIdx = Math.max(0, Math.min(i, SP_STEPS.length - 1)); renderSp(); if (!spVisible) spShow(); }
+    function spNext() { spGo(spIdx + 1); }
+    function spPrev() { spGo(spIdx - 1); }
+
+    document.addEventListener('keydown', e => {
+      if (e.key.toLowerCase() === 's' && !e.ctrlKey && !e.metaKey && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault(); spVisible ? spHide() : spShow();
+      }
+    });
+
+    renderSp(); spShow();
+
+  </script>
+
+</body>
+</html>
