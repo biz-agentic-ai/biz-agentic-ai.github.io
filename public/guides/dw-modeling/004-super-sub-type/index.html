@@ -303,6 +303,10 @@
     background: #66bb6a;
   }
 
+  .sidebar-section-title--geo::before {
+    background: #ff7043;
+  }
+
   .sidebar-section li a {
     font-size: 0.82rem;
     padding: 7px 20px;
@@ -310,6 +314,28 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .sidebar-hidden-item {
+    display: none;
+  }
+
+  .sidebar-section.expanded .sidebar-hidden-item {
+    display: block;
+  }
+
+  .sidebar-more-link {
+    display: block;
+    padding: 4px 20px 8px;
+    font-size: 0.73rem;
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .sidebar-more-link:hover {
+    color: var(--sidebar-accent);
   }
 
    
@@ -458,7 +484,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0RS9ZG67P"></script>
       <script>
         var doNotTrack = false;
-        if ( true ) {
+        if ( false ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -523,8 +549,8 @@
   "keywords": [
     "dw-modeling", "erd"
   ],
-  "articleBody": "고객 테이블에 주민번호와 사업자번호가 같이 있다 기간계 시스템에서 흔히 보는 구조다. 고객 테이블 하나에 개인고객 속성(주민번호, 생년월일)과 법인고객 속성(사업자번호, 대표자명)이 섞여 있다. 개인고객이면 사업자번호가 NULL이고, 법인고객이면 주민번호가 NULL이다. 고객유형코드 컬럼 하나로 구분한다.\n데이터가 적을 때는 별 문제가 안 된다. 고객이 수천만 건이 되면 이야기가 달라진다. 개인고객에만 필요한 컬럼이 법인고객 행에도 자리를 차지하고, 법인고객에만 필요한 컬럼이 개인고객 행에서 NULL로 비어 있다. 컬럼이 늘어날수록 테이블이 와이드해지고 의미가 흐려진다. “이 컬럼이 어떤 고객 유형에 해당하는 건지\"를 DDL만 보고 알기 어렵다.\n수퍼-서브 타입은 이 문제를 논리 모델 단계에서 정리하는 방법이다.\n공통 속성과 고유 속성을 분리한다 수퍼-서브 타입의 원리는 간단하다. 공통 속성은 수퍼 타입(고객)에 두고, 유형별 고유 속성은 서브 타입(개인고객, 법인고객)에 둔다.\n[고객] ← 수퍼 타입: 고객ID, 고객명, 연락처 ├─ [개인고객] ← 서브 타입: 주민번호, 생년월일 └─ [법인고객] ← 서브 타입: 사업자번호, 대표자명 고객ID 하나로 수퍼 타입과 서브 타입이 연결된다. 개인고객 테이블에는 개인고객에만 해당하는 속성만 들어간다. NULL 투성이의 와이드 테이블이 사라진다.\n서브 타입을 나누는 또 다른 이유가 있다. 서브 타입별로 다른 엔터티와 독립적으로 관계를 맺을 수 있다. 법인고객만 여신한도와 관계를 가진다든지, 개인고객만 멤버십 등급과 관계를 가진다든지. 수퍼 타입 하나에 모든 관계를 매달면 관계의 의미가 모호해지는데, 서브 타입으로 나누면 “이 관계가 어떤 유형에 해당하는지\"가 모델에서 바로 읽힌다.\n배타적인가, 중복 가능한가 서브 타입을 설계할 때 반드시 먼저 따지는 게 있다. 하나의 인스턴스가 서브 타입 중 정확히 하나에만 속하는지(Exclusive), 여러 서브 타입에 동시에 속할 수 있는지(Inclusive)다.\nExclusive 가 압도적으로 많다. 고객은 개인 아니면 법인이다. 계좌는 보통예금, 적금, 정기예금 중 하나다. 상품은 실물이거나 디지털이다. 구분코드 하나로 분류가 끝난다.\nInclusive 는 드물지만 빠뜨리면 나중에 큰 수정이 필요하다. 서비스 상품 같은 경우가 해당된다. 하나의 상품이 B2B 대상이면서 동시에 B2C 대상일 수 있다. 직원 역할도 마찬가지다. 한 사람이 영업과 기술지원을 겸하는 경우, “직원역할” 서브 타입이 Inclusive가 된다.\n설계 초기에 “이 분류가 정말 배타적인가\"를 한 번 더 따져야 한다. Exclusive라고 전제하고 모델을 짠 뒤에 겹치는 케이스가 나오면 구분코드 체계부터 관계 구조까지 뜯어고쳐야 한다.\n물리 모델로 넘어갈 때의 선택지 논리 모델에서 수퍼-서브 타입은 깔끔하다. 물리 모델로 전환할 때 선택이 갈린다.\n통합 테이블. 수퍼 타입과 서브 타입을 하나의 테이블로 합친다. 처음에 문제라고 했던 그 와이드 테이블이 되지만, 조인이 없어서 쿼리가 단순하다. 서브 타입별 고유 속성이 적으면 실용적인 선택이다.\n개별 테이블. 수퍼 타입 테이블과 서브 타입 테이블을 각각 만든다. NULL이 없고 구조가 명확하지만, 고객 정보를 온전히 보려면 수퍼 타입과 서브 타입을 조인해야 한다.\n서브 타입만. 수퍼 타입 테이블 없이 개인고객 테이블, 법인고객 테이블만 만든다. 공통 속성을 각 테이블에 중복으로 가진다. 서브 타입별로 완전히 독립적인 분석을 하는 경우에 맞지만, 고객 전체를 보려면 UNION이 필요하다.\n정답은 없다. 서브 타입 수, 고유 속성의 양, 쿼리 패턴에 따라 달라진다.\nDW 차원 설계와의 연결 DW에서는 이 선택이 차원(Dimension) 설계와 직결된다. 2편에서 다뤘던 “접근 경로” 관점이 판단 기준이 된다.\n고객 차원을 설계한다고 하자. 개인고객과 법인고객을 별도 차원으로 나누면 팩트 테이블에 FK가 늘어나고, 분석할 때 어떤 차원을 조인할지 매번 선택해야 한다. 통합 차원으로 만들면 NULL이 많은 와이드 테이블이 되지만, 1편에서 다뤘던 것처럼 클라우드 Columnar Storage에서는 NULL 컬럼의 스캔 비용이 거의 없다.\n판단 기준은 분석 패턴이다. 개인고객 매출은 연령대와 지역으로 보고, 법인고객 매출은 산업군과 매출 규모로 본다면 차원 속성 자체가 다르니 나누는 게 낫다. 고객 전체를 하나의 축으로 놓고 보는 분석이 대부분이면 통합이 편하다.\n실무에서 많이 보는 절충안은 통합 차원을 기본으로 두되, 서브 타입별 분석이 빈번한 경우 별도 뷰나 마트를 추가하는 방식이다. 클라우드 환경에서 스토리지 비용이 낮으니 중복 저장의 부담이 작다.\n다음 글에서는 DW 설계의 두 가지 큰 흐름인 Inmon 방식과 Kimball 방식을 비교한다. 1편에서 간략히 언급했던 내용을 더 구체적으로 들어간다.\n",
-  "wordCount" : "547",
+  "articleBody": "고객 테이블에 주민번호와 사업자번호가 같이 있다 기간계 시스템에서 흔히 보는 구조다. 고객 테이블 하나에 개인고객 속성(주민번호, 생년월일)과 법인고객 속성(사업자번호, 대표자명)이 섞여 있다. 개인고객이면 사업자번호가 NULL이고, 법인고객이면 주민번호가 NULL이다. 고객유형코드 컬럼 하나로 구분한다.\n데이터가 적을 때는 별 문제가 안 된다. 고객이 수천만 건이 되면 이야기가 달라진다. 개인고객에만 필요한 컬럼이 법인고객 행에도 자리를 차지하고, 법인고객에만 필요한 컬럼이 개인고객 행에서 NULL로 비어 있다. 컬럼이 늘어날수록 테이블이 와이드해지고 의미가 흐려진다. “이 컬럼이 어떤 고객 유형에 해당하는 건지\"를 DDL만 보고 알기 어렵다.\n수퍼-서브 타입은 이 문제를 논리 모델 단계에서 정리하는 방법이다.\n공통 속성과 고유 속성을 분리한다 수퍼-서브 타입의 원리는 간단하다. 공통 속성은 수퍼 타입(고객)에 두고, 유형별 고유 속성은 서브 타입(개인고객, 법인고객)에 둔다.\n[ 고 객 ├ └ ] ─ ─ [ [ 개 법 인 인 고 고 객 객 ] ] ← ← ← 서 서 브 브 수 퍼 타 타 입 입 타 : : 입 : 주 사 민 업 고 번 자 객 호 번 I , 호 D , , 생 년 대 고 월 표 객 일 자 명 명 , 연 락 처 고객ID 하나로 수퍼 타입과 서브 타입이 연결된다. 개인고객 테이블에는 개인고객에만 해당하는 속성만 들어간다. NULL 투성이의 와이드 테이블이 사라진다.\n서브 타입을 나누는 또 다른 이유가 있다. 서브 타입별로 다른 엔터티와 독립적으로 관계를 맺을 수 있다. 법인고객만 여신한도와 관계를 가진다든지, 개인고객만 멤버십 등급과 관계를 가진다든지. 수퍼 타입 하나에 모든 관계를 매달면 관계의 의미가 모호해지는데, 서브 타입으로 나누면 “이 관계가 어떤 유형에 해당하는지\"가 모델에서 바로 읽힌다.\n배타적인가, 중복 가능한가 서브 타입을 설계할 때 반드시 먼저 따지는 게 있다. 하나의 인스턴스가 서브 타입 중 정확히 하나에만 속하는지(Exclusive), 여러 서브 타입에 동시에 속할 수 있는지(Inclusive)다.\nExclusive 가 압도적으로 많다. 고객은 개인 아니면 법인이다. 계좌는 보통예금, 적금, 정기예금 중 하나다. 상품은 실물이거나 디지털이다. 구분코드 하나로 분류가 끝난다.\nInclusive 는 드물지만 빠뜨리면 나중에 큰 수정이 필요하다. 서비스 상품 같은 경우가 해당된다. 하나의 상품이 B2B 대상이면서 동시에 B2C 대상일 수 있다. 직원 역할도 마찬가지다. 한 사람이 영업과 기술지원을 겸하는 경우, “직원역할” 서브 타입이 Inclusive가 된다.\n설계 초기에 “이 분류가 정말 배타적인가\"를 한 번 더 따져야 한다. Exclusive라고 전제하고 모델을 짠 뒤에 겹치는 케이스가 나오면 구분코드 체계부터 관계 구조까지 뜯어고쳐야 한다.\n물리 모델로 넘어갈 때의 선택지 논리 모델에서 수퍼-서브 타입은 깔끔하다. 물리 모델로 전환할 때 선택이 갈린다.\n통합 테이블. 수퍼 타입과 서브 타입을 하나의 테이블로 합친다. 처음에 문제라고 했던 그 와이드 테이블이 되지만, 조인이 없어서 쿼리가 단순하다. 서브 타입별 고유 속성이 적으면 실용적인 선택이다.\n개별 테이블. 수퍼 타입 테이블과 서브 타입 테이블을 각각 만든다. NULL이 없고 구조가 명확하지만, 고객 정보를 온전히 보려면 수퍼 타입과 서브 타입을 조인해야 한다.\n서브 타입만. 수퍼 타입 테이블 없이 개인고객 테이블, 법인고객 테이블만 만든다. 공통 속성을 각 테이블에 중복으로 가진다. 서브 타입별로 완전히 독립적인 분석을 하는 경우에 맞지만, 고객 전체를 보려면 UNION이 필요하다.\n정답은 없다. 서브 타입 수, 고유 속성의 양, 쿼리 패턴에 따라 달라진다.\nDW 차원 설계와의 연결 DW에서는 이 선택이 차원(Dimension) 설계와 직결된다. 2편에서 다뤘던 “접근 경로” 관점이 판단 기준이 된다.\n고객 차원을 설계한다고 하자. 개인고객과 법인고객을 별도 차원으로 나누면 팩트 테이블에 FK가 늘어나고, 분석할 때 어떤 차원을 조인할지 매번 선택해야 한다. 통합 차원으로 만들면 NULL이 많은 와이드 테이블이 되지만, 1편에서 다뤘던 것처럼 클라우드 Columnar Storage에서는 NULL 컬럼의 스캔 비용이 거의 없다.\n판단 기준은 분석 패턴이다. 개인고객 매출은 연령대와 지역으로 보고, 법인고객 매출은 산업군과 매출 규모로 본다면 차원 속성 자체가 다르니 나누는 게 낫다. 고객 전체를 하나의 축으로 놓고 보는 분석이 대부분이면 통합이 편하다.\n실무에서 많이 보는 절충안은 통합 차원을 기본으로 두되, 서브 타입별 분석이 빈번한 경우 별도 뷰나 마트를 추가하는 방식이다. 클라우드 환경에서 스토리지 비용이 낮으니 중복 저장의 부담이 작다.\n다음 글에서는 DW 설계의 두 가지 큰 흐름인 Inmon 방식과 Kimball 방식을 비교한다. 1편에서 간략히 언급했던 내용을 더 구체적으로 들어간다.\n",
+  "wordCount" : "595",
   "inLanguage": "en",
   "datePublished": "2026-02-22T00:00:00Z",
   "dateModified": "2026-02-22T00:00:00Z",
@@ -631,7 +657,23 @@
           </a>
         </li>
       </ul>
-    </div><div class="sidebar-stats" id="sidebar-stats">
+    </div>
+    <div class="sidebar-section">
+      <h3 class="sidebar-section-title sidebar-section-title--geo">GEO 최적화 Guide</h3>
+      <ul>
+        <li>
+          <a href="https://biz-agentic-ai.github.io/guides/geo-optimization/001-what-is-geo/" title="1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략" >
+            1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략
+          </a>
+        </li>
+      </ul>
+    </div><script>
+      function toggleSidebarMore(el) {
+        var section = el.closest('.sidebar-section');
+        var isExpanded = section.classList.toggle('expanded');
+        el.textContent = isExpanded ? el.dataset.expandedText : el.dataset.collapsedText;
+      }
+    </script><div class="sidebar-stats" id="sidebar-stats">
       <div class="sidebar-stat-pill" id="gc-container-pv" style="display:none;">
         <span class="stat-dot stat-dot--pv"></span>
         <span class="sidebar-stat-value" id="gc-value-pv">-</span>
@@ -783,17 +825,17 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">홈</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/guides/">기술 가이드</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/guides/dw-modeling/">DW 모델링</a></div>
+    <div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/guides/">기술 가이드</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/guides/dw-modeling/">DW 모델링</a></div>
     <h1 class="post-title entry-hint-parent">
       4. 수퍼-서브 타입 - 고객이 개인이면서 법인일 수 있는가
     </h1>
-    <div class="post-meta"><span title='2026-02-22 00:00:00 +0000 UTC'>February 22, 2026</span>&nbsp;·&nbsp;3 분&nbsp;·&nbsp;Junho Lee
+    <div class="post-meta"><span title='2026-02-22 00:00:00 +0000 UTC'>February 22, 2026</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Junho Lee
 
 </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">목차</span>
+            <span class="details">Table of Contents</span>
         </summary>
 
         <div class="inner"><ul>
@@ -819,10 +861,93 @@
 <p>수퍼-서브 타입은 이 문제를 논리 모델 단계에서 정리하는 방법이다.</p>
 <h2 id="공통-속성과-고유-속성을-분리한다">공통 속성과 고유 속성을 분리한다<a hidden class="anchor" aria-hidden="true" href="#공통-속성과-고유-속성을-분리한다">#</a></h2>
 <p>수퍼-서브 타입의 원리는 간단하다. 공통 속성은 수퍼 타입(고객)에 두고, 유형별 고유 속성은 서브 타입(개인고객, 법인고객)에 둔다.</p>
-<div class="highlight"><pre tabindex="0" style="color:#c0caf5;background-color:#1a1b26;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[고객]                    ← 수퍼 타입: 고객ID, 고객명, 연락처
-</span></span><span style="display:flex;"><span>  ├─ [개인고객]           ← 서브 타입: 주민번호, 생년월일
-</span></span><span style="display:flex;"><span>  └─ [법인고객]           ← 서브 타입: 사업자번호, 대표자명
-</span></span></code></pre></div><p>고객ID 하나로 수퍼 타입과 서브 타입이 연결된다. 개인고객 테이블에는 개인고객에만 해당하는 속성만 들어간다. NULL 투성이의 와이드 테이블이 사라진다.</p>
+
+
+
+<div class="goat svg-container ">
+  
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      font-family="Menlo,Lucida Console,monospace"
+      
+        viewBox="0 0 384 57"
+      >
+      <g transform='translate(8,16)'>
+<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>[</text>
+<text text-anchor='middle' x='8' y='4' fill='currentColor' style='font-size:1em'>고</text>
+<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>객</text>
+<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>├</text>
+<text text-anchor='middle' x='16' y='36' fill='currentColor' style='font-size:1em'>└</text>
+<text text-anchor='middle' x='24' y='4' fill='currentColor' style='font-size:1em'>]</text>
+<text text-anchor='middle' x='24' y='20' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='24' y='36' fill='currentColor' style='font-size:1em'>─</text>
+<text text-anchor='middle' x='40' y='20' fill='currentColor' style='font-size:1em'>[</text>
+<text text-anchor='middle' x='40' y='36' fill='currentColor' style='font-size:1em'>[</text>
+<text text-anchor='middle' x='48' y='20' fill='currentColor' style='font-size:1em'>개</text>
+<text text-anchor='middle' x='48' y='36' fill='currentColor' style='font-size:1em'>법</text>
+<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>인</text>
+<text text-anchor='middle' x='56' y='36' fill='currentColor' style='font-size:1em'>인</text>
+<text text-anchor='middle' x='64' y='20' fill='currentColor' style='font-size:1em'>고</text>
+<text text-anchor='middle' x='64' y='36' fill='currentColor' style='font-size:1em'>고</text>
+<text text-anchor='middle' x='72' y='20' fill='currentColor' style='font-size:1em'>객</text>
+<text text-anchor='middle' x='72' y='36' fill='currentColor' style='font-size:1em'>객</text>
+<text text-anchor='middle' x='80' y='20' fill='currentColor' style='font-size:1em'>]</text>
+<text text-anchor='middle' x='80' y='36' fill='currentColor' style='font-size:1em'>]</text>
+<text text-anchor='middle' x='176' y='20' fill='currentColor' style='font-size:1em'>←</text>
+<text text-anchor='middle' x='176' y='36' fill='currentColor' style='font-size:1em'>←</text>
+<text text-anchor='middle' x='192' y='4' fill='currentColor' style='font-size:1em'>←</text>
+<text text-anchor='middle' x='192' y='20' fill='currentColor' style='font-size:1em'>서</text>
+<text text-anchor='middle' x='192' y='36' fill='currentColor' style='font-size:1em'>서</text>
+<text text-anchor='middle' x='200' y='20' fill='currentColor' style='font-size:1em'>브</text>
+<text text-anchor='middle' x='200' y='36' fill='currentColor' style='font-size:1em'>브</text>
+<text text-anchor='middle' x='208' y='4' fill='currentColor' style='font-size:1em'>수</text>
+<text text-anchor='middle' x='216' y='4' fill='currentColor' style='font-size:1em'>퍼</text>
+<text text-anchor='middle' x='216' y='20' fill='currentColor' style='font-size:1em'>타</text>
+<text text-anchor='middle' x='216' y='36' fill='currentColor' style='font-size:1em'>타</text>
+<text text-anchor='middle' x='224' y='20' fill='currentColor' style='font-size:1em'>입</text>
+<text text-anchor='middle' x='224' y='36' fill='currentColor' style='font-size:1em'>입</text>
+<text text-anchor='middle' x='232' y='4' fill='currentColor' style='font-size:1em'>타</text>
+<text text-anchor='middle' x='232' y='20' fill='currentColor' style='font-size:1em'>:</text>
+<text text-anchor='middle' x='232' y='36' fill='currentColor' style='font-size:1em'>:</text>
+<text text-anchor='middle' x='240' y='4' fill='currentColor' style='font-size:1em'>입</text>
+<text text-anchor='middle' x='248' y='4' fill='currentColor' style='font-size:1em'>:</text>
+<text text-anchor='middle' x='248' y='20' fill='currentColor' style='font-size:1em'>주</text>
+<text text-anchor='middle' x='248' y='36' fill='currentColor' style='font-size:1em'>사</text>
+<text text-anchor='middle' x='256' y='20' fill='currentColor' style='font-size:1em'>민</text>
+<text text-anchor='middle' x='256' y='36' fill='currentColor' style='font-size:1em'>업</text>
+<text text-anchor='middle' x='264' y='4' fill='currentColor' style='font-size:1em'>고</text>
+<text text-anchor='middle' x='264' y='20' fill='currentColor' style='font-size:1em'>번</text>
+<text text-anchor='middle' x='264' y='36' fill='currentColor' style='font-size:1em'>자</text>
+<text text-anchor='middle' x='272' y='4' fill='currentColor' style='font-size:1em'>객</text>
+<text text-anchor='middle' x='272' y='20' fill='currentColor' style='font-size:1em'>호</text>
+<text text-anchor='middle' x='272' y='36' fill='currentColor' style='font-size:1em'>번</text>
+<text text-anchor='middle' x='280' y='4' fill='currentColor' style='font-size:1em'>I</text>
+<text text-anchor='middle' x='280' y='20' fill='currentColor' style='font-size:1em'>,</text>
+<text text-anchor='middle' x='280' y='36' fill='currentColor' style='font-size:1em'>호</text>
+<text text-anchor='middle' x='288' y='4' fill='currentColor' style='font-size:1em'>D</text>
+<text text-anchor='middle' x='288' y='36' fill='currentColor' style='font-size:1em'>,</text>
+<text text-anchor='middle' x='296' y='4' fill='currentColor' style='font-size:1em'>,</text>
+<text text-anchor='middle' x='296' y='20' fill='currentColor' style='font-size:1em'>생</text>
+<text text-anchor='middle' x='304' y='20' fill='currentColor' style='font-size:1em'>년</text>
+<text text-anchor='middle' x='304' y='36' fill='currentColor' style='font-size:1em'>대</text>
+<text text-anchor='middle' x='312' y='4' fill='currentColor' style='font-size:1em'>고</text>
+<text text-anchor='middle' x='312' y='20' fill='currentColor' style='font-size:1em'>월</text>
+<text text-anchor='middle' x='312' y='36' fill='currentColor' style='font-size:1em'>표</text>
+<text text-anchor='middle' x='320' y='4' fill='currentColor' style='font-size:1em'>객</text>
+<text text-anchor='middle' x='320' y='20' fill='currentColor' style='font-size:1em'>일</text>
+<text text-anchor='middle' x='320' y='36' fill='currentColor' style='font-size:1em'>자</text>
+<text text-anchor='middle' x='328' y='4' fill='currentColor' style='font-size:1em'>명</text>
+<text text-anchor='middle' x='328' y='36' fill='currentColor' style='font-size:1em'>명</text>
+<text text-anchor='middle' x='336' y='4' fill='currentColor' style='font-size:1em'>,</text>
+<text text-anchor='middle' x='352' y='4' fill='currentColor' style='font-size:1em'>연</text>
+<text text-anchor='middle' x='360' y='4' fill='currentColor' style='font-size:1em'>락</text>
+<text text-anchor='middle' x='368' y='4' fill='currentColor' style='font-size:1em'>처</text>
+</g>
+
+    </svg>
+  
+</div>
+<p>고객ID 하나로 수퍼 타입과 서브 타입이 연결된다. 개인고객 테이블에는 개인고객에만 해당하는 속성만 들어간다. NULL 투성이의 와이드 테이블이 사라진다.</p>
 <p>서브 타입을 나누는 또 다른 이유가 있다. 서브 타입별로 다른 엔터티와 독립적으로 관계를 맺을 수 있다. 법인고객만 여신한도와 관계를 가진다든지, 개인고객만 멤버십 등급과 관계를 가진다든지. 수퍼 타입 하나에 모든 관계를 매달면 관계의 의미가 모호해지는데, 서브 타입으로 나누면 &ldquo;이 관계가 어떤 유형에 해당하는지&quot;가 모델에서 바로 읽힌다.</p>
 <h2 id="배타적인가-중복-가능한가">배타적인가, 중복 가능한가<a hidden class="anchor" aria-hidden="true" href="#배타적인가-중복-가능한가">#</a></h2>
 <p>서브 타입을 설계할 때 반드시 먼저 따지는 게 있다. 하나의 인스턴스가 서브 타입 중 정확히 하나에만 속하는지(Exclusive), 여러 서브 타입에 동시에 속할 수 있는지(Inclusive)다.</p>
@@ -852,14 +977,14 @@
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://biz-agentic-ai.github.io/guides/dw-modeling/003-erd-notation/">
-    <span class="title">« 이전 페이지</span>
+    <span class="title">« Prev</span>
     <br>
     <span>3. ERD 표기법 - 같은 그림, 다른 해석</span>
   </a>
-  <a class="next" href="https://biz-agentic-ai.github.io/guides/etl-design/001-medallion-architecture/">
-    <span class="title">다음 페이지 »</span>
+  <a class="next" href="https://biz-agentic-ai.github.io/guides/geo-optimization/001-what-is-geo/">
+    <span class="title">Next »</span>
     <br>
-    <span>1. 메달리온 아키텍처 - 데이터를 세 겹으로 쌓는 이유</span>
+    <span>1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략</span>
   </a>
 </nav>
 
@@ -961,12 +1086,12 @@
 
         const copybutton = document.createElement('button');
         copybutton.classList.add('copy-code');
-        copybutton.innerHTML = '복사';
+        copybutton.innerHTML = 'copy';
 
         function copyingDone() {
-            copybutton.innerHTML = '복사 완료!';
+            copybutton.innerHTML = 'copied!';
             setTimeout(() => {
-                copybutton.innerHTML = '복사';
+                copybutton.innerHTML = 'copy';
             }, 2000);
         }
 

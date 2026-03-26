@@ -1,0 +1,25 @@
+{{- $currentPage := .Page -}}
+{{- $currentDir := replace .Page.File.Dir "\\" "/" -}}
+{{- $sectionPages := slice -}}
+{{- range site.RegularPages -}}
+  {{- if eq (replace .File.Dir "\\" "/") $currentDir -}}
+    {{- $sectionPages = $sectionPages | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- if $sectionPages -}}
+{{- $sorted := sort $sectionPages "Params.series_order" "asc" -}}
+{{- $parent := .Page.Parent -}}
+<blockquote class="series-toc">
+<p><strong>{{ with $parent }}{{ .Title }}{{ end }} — 전체 시리즈</strong></p>
+<ol>
+{{- range $sorted }}
+{{- if eq .Permalink $currentPage.Permalink }}
+<li><strong>{{ .Title }}</strong> ← 현재 글</li>
+{{- else }}
+<li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+{{- end }}
+{{- end }}
+</ol>
+</blockquote>
+<hr>
+{{- end -}}

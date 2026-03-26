@@ -20,17 +20,25 @@
     {{- end }}
     {{- end }}
     {{- if $dnPages }}
-    <div class="sidebar-section">
+    {{- $dnSorted := sort $dnPages "Date" "desc" }}
+    {{- $dnLimit := 5 }}
+    {{- $dnTotal := len $dnSorted }}
+    {{- $dnExpand := false }}
+    {{- range $i, $p := $dnSorted }}{{- if and (ge $i $dnLimit) (eq $p.Permalink $currentPage.Permalink) }}{{- $dnExpand = true }}{{- end }}{{- end }}
+    <div class="sidebar-section{{ if $dnExpand }} expanded{{ end }}">
       <h3 class="sidebar-section-title sidebar-section-title--datanexus">DataNexus Series</h3>
       <ul>
-        {{- range sort $dnPages "Date" "desc" }}
-        <li>
-          <a href="{{ .Permalink }}" title="{{ .Title }}" {{ if eq .Permalink $currentPage.Permalink }} class="active" {{ end }}>
-            {{ .Title }}
+        {{- range $i, $p := $dnSorted }}
+        <li{{ if ge $i $dnLimit }} class="sidebar-hidden-item"{{ end }}>
+          <a href="{{ $p.Permalink }}" title="{{ $p.Title }}" {{ if eq $p.Permalink $currentPage.Permalink }} class="active" {{ end }}>
+            {{ $p.Title }}
           </a>
         </li>
         {{- end }}
       </ul>
+      {{- if gt $dnTotal $dnLimit }}
+      <a href="javascript:void(0)" class="sidebar-more-link" data-collapsed-text="more ({{ sub $dnTotal $dnLimit }})" data-expanded-text="less" onclick="toggleSidebarMore(this)">{{ if $dnExpand }}less{{ else }}more ({{ sub $dnTotal $dnLimit }}){{ end }}</a>
+      {{- end }}
     </div>
     {{- end }}
 
@@ -43,17 +51,25 @@
     {{- end }}
     {{- end }}
     {{- if $dwPages }}
-    <div class="sidebar-section">
+    {{- $dwSorted := sort $dwPages "Date" "desc" }}
+    {{- $dwLimit := 5 }}
+    {{- $dwTotal := len $dwSorted }}
+    {{- $dwExpand := false }}
+    {{- range $i, $p := $dwSorted }}{{- if and (ge $i $dwLimit) (eq $p.Permalink $currentPage.Permalink) }}{{- $dwExpand = true }}{{- end }}{{- end }}
+    <div class="sidebar-section{{ if $dwExpand }} expanded{{ end }}">
       <h3 class="sidebar-section-title sidebar-section-title--dw">DW 모델링 Guide</h3>
       <ul>
-        {{- range sort $dwPages "Date" "desc" }}
-        <li>
-          <a href="{{ .Permalink }}" title="{{ .Title }}" {{ if eq .Permalink $currentPage.Permalink }} class="active" {{ end }}>
-            {{ .Title }}
+        {{- range $i, $p := $dwSorted }}
+        <li{{ if ge $i $dwLimit }} class="sidebar-hidden-item"{{ end }}>
+          <a href="{{ $p.Permalink }}" title="{{ $p.Title }}" {{ if eq $p.Permalink $currentPage.Permalink }} class="active" {{ end }}>
+            {{ $p.Title }}
           </a>
         </li>
         {{- end }}
       </ul>
+      {{- if gt $dwTotal $dwLimit }}
+      <a href="javascript:void(0)" class="sidebar-more-link" data-collapsed-text="more ({{ sub $dwTotal $dwLimit }})" data-expanded-text="less" onclick="toggleSidebarMore(this)">{{ if $dwExpand }}less{{ else }}more ({{ sub $dwTotal $dwLimit }}){{ end }}</a>
+      {{- end }}
     </div>
     {{- end }}
 
@@ -65,19 +81,66 @@
     {{- end }}
     {{- end }}
     {{- if $etlPages }}
-    <div class="sidebar-section">
+    {{- $etlSorted := sort $etlPages "Date" "desc" }}
+    {{- $etlLimit := 5 }}
+    {{- $etlTotal := len $etlSorted }}
+    {{- $etlExpand := false }}
+    {{- range $i, $p := $etlSorted }}{{- if and (ge $i $etlLimit) (eq $p.Permalink $currentPage.Permalink) }}{{- $etlExpand = true }}{{- end }}{{- end }}
+    <div class="sidebar-section{{ if $etlExpand }} expanded{{ end }}">
       <h3 class="sidebar-section-title sidebar-section-title--etl">ETL 설계 Guide</h3>
       <ul>
-        {{- range sort $etlPages "Date" "desc" }}
-        <li>
-          <a href="{{ .Permalink }}" title="{{ .Title }}" {{ if eq .Permalink $currentPage.Permalink }} class="active" {{ end }}>
-            {{ .Title }}
+        {{- range $i, $p := $etlSorted }}
+        <li{{ if ge $i $etlLimit }} class="sidebar-hidden-item"{{ end }}>
+          <a href="{{ $p.Permalink }}" title="{{ $p.Title }}" {{ if eq $p.Permalink $currentPage.Permalink }} class="active" {{ end }}>
+            {{ $p.Title }}
           </a>
         </li>
         {{- end }}
       </ul>
+      {{- if gt $etlTotal $etlLimit }}
+      <a href="javascript:void(0)" class="sidebar-more-link" data-collapsed-text="more ({{ sub $etlTotal $etlLimit }})" data-expanded-text="less" onclick="toggleSidebarMore(this)">{{ if $etlExpand }}less{{ else }}more ({{ sub $etlTotal $etlLimit }}){{ end }}</a>
+      {{- end }}
     </div>
     {{- end }}
+
+    {{- /* GEO 최적화 Guide */ -}}
+    {{- $geoPages := slice }}
+    {{- range $guidePages }}
+    {{- if eq (replace .File.Dir "\\" "/") "guides/geo-optimization/" }}
+    {{- $geoPages = $geoPages | append . }}
+    {{- end }}
+    {{- end }}
+    {{- if $geoPages }}
+    {{- $geoSorted := sort $geoPages "Date" "desc" }}
+    {{- $geoLimit := 5 }}
+    {{- $geoTotal := len $geoSorted }}
+    {{- $geoExpand := false }}
+    {{- range $i, $p := $geoSorted }}{{- if and (ge $i $geoLimit) (eq $p.Permalink $currentPage.Permalink) }}{{- $geoExpand = true }}{{- end }}{{- end }}
+    <div class="sidebar-section{{ if $geoExpand }} expanded{{ end }}">
+      <h3 class="sidebar-section-title sidebar-section-title--geo">GEO 최적화 Guide</h3>
+      <ul>
+        {{- range $i, $p := $geoSorted }}
+        <li{{ if ge $i $geoLimit }} class="sidebar-hidden-item"{{ end }}>
+          <a href="{{ $p.Permalink }}" title="{{ $p.Title }}" {{ if eq $p.Permalink $currentPage.Permalink }} class="active" {{ end }}>
+            {{ $p.Title }}
+          </a>
+        </li>
+        {{- end }}
+      </ul>
+      {{- if gt $geoTotal $geoLimit }}
+      <a href="javascript:void(0)" class="sidebar-more-link" data-collapsed-text="more ({{ sub $geoTotal $geoLimit }})" data-expanded-text="less" onclick="toggleSidebarMore(this)">{{ if $geoExpand }}less{{ else }}more ({{ sub $geoTotal $geoLimit }}){{ end }}</a>
+      {{- end }}
+    </div>
+    {{- end }}
+
+    {{- /* More/Less toggle */ -}}
+    <script>
+      function toggleSidebarMore(el) {
+        var section = el.closest('.sidebar-section');
+        var isExpanded = section.classList.toggle('expanded');
+        el.textContent = isExpanded ? el.dataset.expandedText : el.dataset.collapsedText;
+      }
+    </script>
 
     {{- /* Visitor Stats (GoatCounter) */ -}}
     <div class="sidebar-stats" id="sidebar-stats">

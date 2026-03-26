@@ -277,6 +277,10 @@
     background: #66bb6a;
   }
 
+  .sidebar-section-title--geo::before {
+    background: #ff7043;
+  }
+
   .sidebar-section li a {
     font-size: 0.82rem;
     padding: 7px 20px;
@@ -284,6 +288,28 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .sidebar-hidden-item {
+    display: none;
+  }
+
+  .sidebar-section.expanded .sidebar-hidden-item {
+    display: block;
+  }
+
+  .sidebar-more-link {
+    display: block;
+    padding: 4px 20px 8px;
+    font-size: 0.73rem;
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .sidebar-more-link:hover {
+    color: var(--sidebar-accent);
   }
 
    
@@ -432,7 +458,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0RS9ZG67P"></script>
       <script>
         var doNotTrack = false;
-        if ( true ) {
+        if ( false ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -537,7 +563,23 @@
           </a>
         </li>
       </ul>
-    </div><div class="sidebar-stats" id="sidebar-stats">
+    </div>
+    <div class="sidebar-section">
+      <h3 class="sidebar-section-title sidebar-section-title--geo">GEO 최적화 Guide</h3>
+      <ul>
+        <li>
+          <a href="https://biz-agentic-ai.github.io/guides/geo-optimization/001-what-is-geo/" title="1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략" >
+            1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략
+          </a>
+        </li>
+      </ul>
+    </div><script>
+      function toggleSidebarMore(el) {
+        var section = el.closest('.sidebar-section');
+        var isExpanded = section.classList.toggle('expanded');
+        el.textContent = isExpanded ? el.dataset.expandedText : el.dataset.collapsedText;
+      }
+    </script><div class="sidebar-stats" id="sidebar-stats">
       <div class="sidebar-stat-pill" id="gc-container-pv" style="display:none;">
         <span class="stat-dot stat-dot--pv"></span>
         <span class="sidebar-stat-value" id="gc-value-pv">-</span>
@@ -686,7 +728,7 @@
     </nav>
 </header>
 <main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">홈</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/tags/">Tags</a></div>
+<header class="page-header"><div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/tags/">Tags</a></div>
   <h1>
     Kimball
   </h1>
@@ -700,7 +742,7 @@
   <div class="entry-content">
     <p>Synapse, BigQuery, Redshift로 오면서 DW 모델링 관점이 어떻게 달라졌는지. Kimball, Data Vault, One Big Table - 실무에서의 판단 기준.</p>
   </div>
-  <footer class="entry-footer"><span title='2026-02-19 00:00:00 +0000 UTC'>February 19, 2026</span>&nbsp;·&nbsp;5 분&nbsp;·&nbsp;Junho Lee</footer>
+  <footer class="entry-footer"><span title='2026-02-19 00:00:00 +0000 UTC'>February 19, 2026</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Junho Lee</footer>
   <a class="entry-link" aria-label="post link to 1. 클라우드 DW에서 Kimball은 여전히 유효한가" href="https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/"></a>
 </article>
         </main>

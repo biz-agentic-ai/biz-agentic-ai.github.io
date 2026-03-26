@@ -285,6 +285,10 @@
     background: #66bb6a;
   }
 
+  .sidebar-section-title--geo::before {
+    background: #ff7043;
+  }
+
   .sidebar-section li a {
     font-size: 0.82rem;
     padding: 7px 20px;
@@ -292,6 +296,28 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .sidebar-hidden-item {
+    display: none;
+  }
+
+  .sidebar-section.expanded .sidebar-hidden-item {
+    display: block;
+  }
+
+  .sidebar-more-link {
+    display: block;
+    padding: 4px 20px 8px;
+    font-size: 0.73rem;
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .sidebar-more-link:hover {
+    color: var(--sidebar-accent);
   }
 
   /* Stats */

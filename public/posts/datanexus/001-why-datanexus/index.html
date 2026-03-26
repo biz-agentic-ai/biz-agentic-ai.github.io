@@ -303,6 +303,10 @@
     background: #66bb6a;
   }
 
+  .sidebar-section-title--geo::before {
+    background: #ff7043;
+  }
+
   .sidebar-section li a {
     font-size: 0.82rem;
     padding: 7px 20px;
@@ -310,6 +314,28 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .sidebar-hidden-item {
+    display: none;
+  }
+
+  .sidebar-section.expanded .sidebar-hidden-item {
+    display: block;
+  }
+
+  .sidebar-more-link {
+    display: block;
+    padding: 4px 20px 8px;
+    font-size: 0.73rem;
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .sidebar-more-link:hover {
+    color: var(--sidebar-accent);
   }
 
    
@@ -458,7 +484,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0RS9ZG67P"></script>
       <script>
         var doNotTrack = false;
-        if ( true ) {
+        if ( false ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -630,7 +656,23 @@
           </a>
         </li>
       </ul>
-    </div><div class="sidebar-stats" id="sidebar-stats">
+    </div>
+    <div class="sidebar-section">
+      <h3 class="sidebar-section-title sidebar-section-title--geo">GEO 최적화 Guide</h3>
+      <ul>
+        <li>
+          <a href="https://biz-agentic-ai.github.io/guides/geo-optimization/001-what-is-geo/" title="1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략" >
+            1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략
+          </a>
+        </li>
+      </ul>
+    </div><script>
+      function toggleSidebarMore(el) {
+        var section = el.closest('.sidebar-section');
+        var isExpanded = section.classList.toggle('expanded');
+        el.textContent = isExpanded ? el.dataset.expandedText : el.dataset.collapsedText;
+      }
+    </script><div class="sidebar-stats" id="sidebar-stats">
       <div class="sidebar-stat-pill" id="gc-container-pv" style="display:none;">
         <span class="stat-dot stat-dot--pv"></span>
         <span class="sidebar-stat-value" id="gc-value-pv">-</span>
@@ -782,20 +824,20 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">홈</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/posts/">Posts</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/posts/datanexus/">DataNexus 구축기</a></div>
+    <div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/posts/">Posts</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/posts/datanexus/">DataNexus 구축기</a></div>
     <h1 class="post-title entry-hint-parent">
       1. 왜 DataNexus를 만드는가
     </h1>
     <div class="post-description">
       엔터프라이즈 데이터 분석의 구조적 문제와 온톨로지 기반 데이터 에이전트 플랫폼을 만들게 된 배경
     </div>
-    <div class="post-meta"><span title='2026-02-16 00:00:00 +0000 UTC'>February 16, 2026</span>&nbsp;·&nbsp;4 분&nbsp;·&nbsp;Junho Lee
+    <div class="post-meta"><span title='2026-02-16 00:00:00 +0000 UTC'>February 16, 2026</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Junho Lee
 
 </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">목차</span>
+            <span class="details">Table of Contents</span>
         </summary>
 
         <div class="inner"><ul>
@@ -838,7 +880,7 @@
 <p>대화형 BI에서 프롬프트 엔지니어링을 아무리 최적화해도 DDL만으로는 한계가 뚜렷했다. 멀티에이전트 아키텍처도 설계해 봤는데, 근본 문제는 같았다. LLM에게 줄 맥락 자체가 없다.</p>
 <p>온톨로지를 붙이기로 했다.</p>
 <p>거창한 얘기가 아니다. 실용적으로 보면 이런 것이다:</p>
-<div class="highlight"><pre tabindex="0" style="color:#c0caf5;background-color:#1a1b26;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#414868;font-style:italic"># 순매출 용어 정의</span>
+<div class="highlight"><pre tabindex="0" style="color:#c0caf5;background-color:#1a1b26;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#414868;font-style:italic"># 순매출 용어 정의</span>
 </span></span><span style="display:flex;"><span>- <span style="color:#bb9af7">term</span>: 순매출
 </span></span><span style="display:flex;"><span>  <span style="color:#bb9af7">definition</span>: 총매출에서 반품과 에누리를 차감한 금액
 </span></span><span style="display:flex;"><span>  <span style="color:#bb9af7">formula</span>: SUM(SALE_AMT) - SUM(RTN_AMT) - SUM(DC_AMT)
@@ -907,7 +949,7 @@
     </ul>
 <nav class="paginav">
   <a class="next" href="https://biz-agentic-ai.github.io/posts/datanexus/002-architecture-decisions/">
-    <span class="title">다음 페이지 »</span>
+    <span class="title">Next »</span>
     <br>
     <span>2. 4개의 오픈소스를 이 조합으로 결정하기까지</span>
   </a>
@@ -1011,12 +1053,12 @@
 
         const copybutton = document.createElement('button');
         copybutton.classList.add('copy-code');
-        copybutton.innerHTML = '복사';
+        copybutton.innerHTML = 'copy';
 
         function copyingDone() {
-            copybutton.innerHTML = '복사 완료!';
+            copybutton.innerHTML = 'copied!';
             setTimeout(() => {
-                copybutton.innerHTML = '복사';
+                copybutton.innerHTML = 'copy';
             }, 2000);
         }
 

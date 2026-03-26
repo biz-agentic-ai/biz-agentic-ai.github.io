@@ -277,6 +277,10 @@
     background: #66bb6a;
   }
 
+  .sidebar-section-title--geo::before {
+    background: #ff7043;
+  }
+
   .sidebar-section li a {
     font-size: 0.82rem;
     padding: 7px 20px;
@@ -284,6 +288,28 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .sidebar-hidden-item {
+    display: none;
+  }
+
+  .sidebar-section.expanded .sidebar-hidden-item {
+    display: block;
+  }
+
+  .sidebar-more-link {
+    display: block;
+    padding: 4px 20px 8px;
+    font-size: 0.73rem;
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .sidebar-more-link:hover {
+    color: var(--sidebar-accent);
   }
 
    
@@ -432,7 +458,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0RS9ZG67P"></script>
       <script>
         var doNotTrack = false;
-        if ( true ) {
+        if ( false ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -537,7 +563,23 @@
           </a>
         </li>
       </ul>
-    </div><div class="sidebar-stats" id="sidebar-stats">
+    </div>
+    <div class="sidebar-section">
+      <h3 class="sidebar-section-title sidebar-section-title--geo">GEO 최적화 Guide</h3>
+      <ul>
+        <li>
+          <a href="https://biz-agentic-ai.github.io/guides/geo-optimization/001-what-is-geo/" title="1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략" >
+            1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략
+          </a>
+        </li>
+      </ul>
+    </div><script>
+      function toggleSidebarMore(el) {
+        var section = el.closest('.sidebar-section');
+        var isExpanded = section.classList.toggle('expanded');
+        el.textContent = isExpanded ? el.dataset.expandedText : el.dataset.collapsedText;
+      }
+    </script><div class="sidebar-stats" id="sidebar-stats">
       <div class="sidebar-stat-pill" id="gc-container-pv" style="display:none;">
         <span class="stat-dot stat-dot--pv"></span>
         <span class="sidebar-stat-value" id="gc-value-pv">-</span>
@@ -686,7 +728,7 @@
     </nav>
 </header>
 <main class="main"> 
-<header class="page-header"><div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">홈</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/categories/">Categories</a></div>
+<header class="page-header"><div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/categories/">Categories</a></div>
   <h1>
     Ontology
   </h1>
@@ -700,7 +742,7 @@
   <div class="entry-content">
     <p>DataNexus 온톨로지를 외부와 연결하기 위해 SKOS를 선택한 이유. LPG와 RDF, 두 그래프 모델을 잇는 호환 레이어 설계.</p>
   </div>
-  <footer class="entry-footer"><span title='2026-02-20 00:00:00 +0000 UTC'>February 20, 2026</span>&nbsp;·&nbsp;8 분&nbsp;·&nbsp;Junho Lee</footer>
+  <footer class="entry-footer"><span title='2026-02-20 00:00:00 +0000 UTC'>February 20, 2026</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;Junho Lee</footer>
   <a class="entry-link" aria-label="post link to 4. SKOS 호환 레이어를 왜 넣었는가" href="https://biz-agentic-ai.github.io/posts/datanexus/004-skos-compatibility-layer/"></a>
 </article>
 
@@ -712,7 +754,7 @@
   <div class="entry-content">
     <p>DataHub의 Business Glossary를 온톨로지 저장소로 쓰려고 했다. 되는 것과 안 되는 것, 그리고 우회한 방법.</p>
   </div>
-  <footer class="entry-footer"><span title='2026-02-18 00:00:00 +0000 UTC'>February 18, 2026</span>&nbsp;·&nbsp;6 분&nbsp;·&nbsp;Junho Lee</footer>
+  <footer class="entry-footer"><span title='2026-02-18 00:00:00 +0000 UTC'>February 18, 2026</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Junho Lee</footer>
   <a class="entry-link" aria-label="post link to 3. DataHub Glossary를 온톨로지로 쓸 수 있을까" href="https://biz-agentic-ai.github.io/posts/datanexus/003-datahub-glossary-as-ontology/"></a>
 </article>
         </main>

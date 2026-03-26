@@ -4,10 +4,17 @@
     <title>Categories on Junho Lee | DataNexus 구축 과정</title>
     <link>https://biz-agentic-ai.github.io/categories/</link>
     <description>Recent content in Categories on Junho Lee | DataNexus 구축 과정</description>
-    <generator>Hugo -- 0.155.3</generator>
+    <generator>Hugo -- 0.146.0</generator>
     <language>ko</language>
-    <lastBuildDate>Sun, 22 Feb 2026 13:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 26 Mar 2026 10:00:00 +0900</lastBuildDate>
     <atom:link href="https://biz-agentic-ai.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GEO 최적화</title>
+      <link>https://biz-agentic-ai.github.io/categories/geo-%EC%B5%9C%EC%A0%81%ED%99%94/</link>
+      <pubDate>Thu, 26 Mar 2026 10:00:00 +0900</pubDate>
+      <guid>https://biz-agentic-ai.github.io/categories/geo-%EC%B5%9C%EC%A0%81%ED%99%94/</guid>
+      <description></description>
+    </item>
     <item>
       <title>ETL 설계</title>
       <link>https://biz-agentic-ai.github.io/categories/etl-%EC%84%A4%EA%B3%84/</link>

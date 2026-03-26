@@ -303,6 +303,10 @@
     background: #66bb6a;
   }
 
+  .sidebar-section-title--geo::before {
+    background: #ff7043;
+  }
+
   .sidebar-section li a {
     font-size: 0.82rem;
     padding: 7px 20px;
@@ -310,6 +314,28 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .sidebar-hidden-item {
+    display: none;
+  }
+
+  .sidebar-section.expanded .sidebar-hidden-item {
+    display: block;
+  }
+
+  .sidebar-more-link {
+    display: block;
+    padding: 4px 20px 8px;
+    font-size: 0.73rem;
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .sidebar-more-link:hover {
+    color: var(--sidebar-accent);
   }
 
    
@@ -458,7 +484,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0RS9ZG67P"></script>
       <script>
         var doNotTrack = false;
-        if ( true ) {
+        if ( false ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -631,7 +657,23 @@
           </a>
         </li>
       </ul>
-    </div><div class="sidebar-stats" id="sidebar-stats">
+    </div>
+    <div class="sidebar-section">
+      <h3 class="sidebar-section-title sidebar-section-title--geo">GEO 최적화 Guide</h3>
+      <ul>
+        <li>
+          <a href="https://biz-agentic-ai.github.io/guides/geo-optimization/001-what-is-geo/" title="1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략" >
+            1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략
+          </a>
+        </li>
+      </ul>
+    </div><script>
+      function toggleSidebarMore(el) {
+        var section = el.closest('.sidebar-section');
+        var isExpanded = section.classList.toggle('expanded');
+        el.textContent = isExpanded ? el.dataset.expandedText : el.dataset.collapsedText;
+      }
+    </script><div class="sidebar-stats" id="sidebar-stats">
       <div class="sidebar-stat-pill" id="gc-container-pv" style="display:none;">
         <span class="stat-dot stat-dot--pv"></span>
         <span class="sidebar-stat-value" id="gc-value-pv">-</span>
@@ -783,17 +825,17 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">홈</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/guides/">기술 가이드</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/guides/dw-modeling/">DW 모델링</a></div>
+    <div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/guides/">기술 가이드</a>&nbsp;»&nbsp;<a href="https://biz-agentic-ai.github.io/guides/dw-modeling/">DW 모델링</a></div>
     <h1 class="post-title entry-hint-parent">
       3. ERD 표기법 - 같은 그림, 다른 해석
     </h1>
-    <div class="post-meta"><span title='2026-02-21 00:00:00 +0000 UTC'>February 21, 2026</span>&nbsp;·&nbsp;3 분&nbsp;·&nbsp;Junho Lee
+    <div class="post-meta"><span title='2026-02-21 00:00:00 +0000 UTC'>February 21, 2026</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Junho Lee
 
 </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">목차</span>
+            <span class="details">Table of Contents</span>
         </summary>
 
         <div class="inner"><ul>
@@ -879,12 +921,12 @@
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://biz-agentic-ai.github.io/guides/dw-modeling/002-oltp-vs-dw-model/">
-    <span class="title">« 이전 페이지</span>
+    <span class="title">« Prev</span>
     <br>
     <span>2. OLTP vs DW 모델 - 목적이 다르면 설계도 다르다</span>
   </a>
   <a class="next" href="https://biz-agentic-ai.github.io/guides/dw-modeling/004-super-sub-type/">
-    <span class="title">다음 페이지 »</span>
+    <span class="title">Next »</span>
     <br>
     <span>4. 수퍼-서브 타입 - 고객이 개인이면서 법인일 수 있는가</span>
   </a>
@@ -988,12 +1030,12 @@
 
         const copybutton = document.createElement('button');
         copybutton.classList.add('copy-code');
-        copybutton.innerHTML = '복사';
+        copybutton.innerHTML = 'copy';
 
         function copyingDone() {
-            copybutton.innerHTML = '복사 완료!';
+            copybutton.innerHTML = 'copied!';
             setTimeout(() => {
-                copybutton.innerHTML = '복사';
+                copybutton.innerHTML = 'copy';
             }, 2000);
         }
 

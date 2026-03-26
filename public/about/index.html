@@ -303,6 +303,10 @@
     background: #66bb6a;
   }
 
+  .sidebar-section-title--geo::before {
+    background: #ff7043;
+  }
+
   .sidebar-section li a {
     font-size: 0.82rem;
     padding: 7px 20px;
@@ -310,6 +314,28 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .sidebar-hidden-item {
+    display: none;
+  }
+
+  .sidebar-section.expanded .sidebar-hidden-item {
+    display: block;
+  }
+
+  .sidebar-more-link {
+    display: block;
+    padding: 4px 20px 8px;
+    font-size: 0.73rem;
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .sidebar-more-link:hover {
+    color: var(--sidebar-accent);
   }
 
    
@@ -458,7 +484,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0RS9ZG67P"></script>
       <script>
         var doNotTrack = false;
-        if ( true ) {
+        if ( false ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -611,7 +637,23 @@
           </a>
         </li>
       </ul>
-    </div><div class="sidebar-stats" id="sidebar-stats">
+    </div>
+    <div class="sidebar-section">
+      <h3 class="sidebar-section-title sidebar-section-title--geo">GEO 최적화 Guide</h3>
+      <ul>
+        <li>
+          <a href="https://biz-agentic-ai.github.io/guides/geo-optimization/001-what-is-geo/" title="1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략" >
+            1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략
+          </a>
+        </li>
+      </ul>
+    </div><script>
+      function toggleSidebarMore(el) {
+        var section = el.closest('.sidebar-section');
+        var isExpanded = section.classList.toggle('expanded');
+        el.textContent = isExpanded ? el.dataset.expandedText : el.dataset.collapsedText;
+      }
+    </script><div class="sidebar-stats" id="sidebar-stats">
       <div class="sidebar-stat-pill" id="gc-container-pv" style="display:none;">
         <span class="stat-dot stat-dot--pv"></span>
         <span class="sidebar-stat-value" id="gc-value-pv">-</span>
@@ -763,11 +805,11 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">홈</a></div>
+    <div class="breadcrumbs"><a href="https://biz-agentic-ai.github.io/">Home</a></div>
     <h1 class="post-title entry-hint-parent">
       About
     </h1>
-    <div class="post-meta">2 분&nbsp;·&nbsp;Junho Lee
+    <div class="post-meta">2 min&nbsp;·&nbsp;Junho Lee
 
 </div>
   </header> 
@@ -782,8 +824,7 @@
 <hr>
 <h3 id="datanexus">DataNexus<a hidden class="anchor" aria-hidden="true" href="#datanexus">#</a></h3>
 <blockquote>
-<p><em>&ldquo;Everyone is an Analyst.&rdquo;</em></p>
-</blockquote>
+<p><em>&ldquo;Everyone is an Analyst.&rdquo;</em></p></blockquote>
 <p>엔터프라이즈 데이터 분석의 구조적 문제를 풀기 위한 플랫폼입니다. 자연어로 사내 데이터를 탐색하고 분석하는 AI 에이전트 -말은 쉬운데, 실환경에서는 테이블명이 <code>T_CUST_MST</code> 같은 약어 투성이고, &ldquo;순매출&quot;이라는 단어 하나에도 부서마다 계산 로직이 다릅니다. DDL만으로는 LLM이 비즈니스 맥락을 이해할 수 없습니다.</p>
 <p>DataNexus는 온톨로지 기반 NL2SQL 엔진, GraphRAG, Data Catalog를 결합해서 이 문제를 풀어갑니다. 오픈소스를 조합한 아키텍처로, 비정형 문서와 정형 DB를 하나의 인터페이스로 다루는 구조입니다.</p>
 <p>이 블로그는 DataNexus를 만들어가는 과정을 기록합니다. 아키텍처 결정, 기술 선택의 이유, 삽질과 해결 과정을 있는 그대로 남깁니다.</p>
@@ -909,12 +950,12 @@
 
         const copybutton = document.createElement('button');
         copybutton.classList.add('copy-code');
-        copybutton.innerHTML = '복사';
+        copybutton.innerHTML = 'copy';
 
         function copyingDone() {
-            copybutton.innerHTML = '복사 완료!';
+            copybutton.innerHTML = 'copied!';
             setTimeout(() => {
-                copybutton.innerHTML = '복사';
+                copybutton.innerHTML = 'copy';
             }, 2000);
         }
 
