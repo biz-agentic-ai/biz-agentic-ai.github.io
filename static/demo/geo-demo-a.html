@@ -22,102 +22,6 @@
       padding: 0
     }
 
-    /* ── Section Switcher TNB ── */
-    .geo-tnb {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 36px;
-      background: rgba(10, 10, 24, 0.98);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      z-index: 99999;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 0 12px
-    }
-
-    .geo-tnb-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-right: auto;
-      padding-left: 10px;
-      white-space: nowrap
-    }
-
-    .geo-tnb-brand-icon {
-      width: 26px;
-      height: 26px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center
-    }
-
-    .geo-tnb-brand-text {
-      font-size: 14px;
-      font-weight: 800;
-      color: rgba(255, 255, 255, 0.92);
-      letter-spacing: -0.3px
-    }
-
-    .geo-tnb-brand-text em {
-      font-style: normal;
-      color: #CD4A4A
-    }
-
-    .geo-tnb-nav {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      margin: 0 auto
-    }
-
-    .geo-tnb-link {
-      color: rgba(255, 255, 255, 0.45);
-      text-decoration: none;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 6px;
-      transition: all .2s;
-      cursor: pointer;
-      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      white-space: nowrap
-    }
-
-    .geo-tnb-link:hover {
-      color: rgba(255, 255, 255, 0.8);
-      background: rgba(255, 255, 255, 0.05)
-    }
-
-    .geo-tnb-link.active {
-      color: #fff;
-      background: rgba(74, 144, 226, 0.2)
-    }
-
-    .tnb-key {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 18px;
-      height: 18px;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.08);
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: .5px
-    }
-
-    .geo-tnb-link.active .tnb-key {
-      background: rgba(74, 144, 226, 0.4)
-    }
 
     /* ── Demo Section Container ── */
     .demo-section {
@@ -1451,19 +1355,6 @@
 </head>
 <body>
 
-  <div class="geo-tnb">
-    <div class="geo-tnb-brand">
-      <div class="geo-tnb-brand-icon"><svg viewBox="0 0 100 100" width="26" height="26"><rect x="14" y="14" width="72" height="72" rx="18" transform="rotate(45 50 50)" fill="#4A90E2"/><path d="M35 55 L45 45 L55 55 L65 45" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="geo-tnb-brand-text">GEO 최적화 데모</div>
-    </div>
-    <div class="geo-tnb-nav">
-      <a class="geo-tnb-link active" href="javascript:void(0)"><span class="tnb-key">A</span>AI검색비교</a>
-      <a class="geo-tnb-link" href="geo-demo-b.html"><span class="tnb-key">B</span>robots.txt</a>
-      <a class="geo-tnb-link" href="geo-demo-c1.html"><span class="tnb-key">C1</span>초코스틱 B/A</a>
-      <a class="geo-tnb-link" href="geo-demo-c2.html"><span class="tnb-key">C2</span>호텔 B/A</a>
-      <a class="geo-tnb-link" href="geo-demo-d.html"><span class="tnb-key">D</span>JSON-LD 빌더</a>
-    </div>
-  </div>
 
   <div id="section-A" class="demo-section active">
     <!-- ─── FIXED TOP BAR ─── -->

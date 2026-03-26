@@ -64,6 +64,51 @@
 <meta name="geo.placename" content="Seoul"><meta property="og:type" content="website">
 <meta property="og:site_name" content="Junho Lee | DataNexus 구축 과정">
 <meta property="og:locale" content="ko_KR"><style>
+  .demo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+  .demo-btn svg { flex-shrink: 0; }
+  .demo-btn--primary {
+    background: #e8710a;
+    color: #fff;
+  }
+  .demo-btn--primary:hover {
+    background: #cf6509;
+    color: #fff;
+  }
+  .demo-btn--outline {
+    background: transparent;
+    color: #e8710a;
+    border-color: #e8710a;
+  }
+  .demo-btn--outline:hover {
+    background: rgba(232, 113, 10, 0.08);
+    color: #e8710a;
+  }
+  .dark .demo-btn--outline {
+    color: #f0a050;
+    border-color: #f0a050;
+  }
+  .dark .demo-btn--outline:hover {
+    background: rgba(240, 160, 80, 0.1);
+    color: #f0a050;
+  }
+  .demo-btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+</style><style>
   :root {
     --sidebar-width: 260px;
     --sidebar-bg: #1a1a2e;
