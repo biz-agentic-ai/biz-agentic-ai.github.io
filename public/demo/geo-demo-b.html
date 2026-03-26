@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -192,7 +193,11 @@
 
 
 
-    .demo-section { display: block; min-height: 100vh; }
+    .demo-section {
+      display: block;
+      min-height: 100vh;
+    }
+
     /* ── robots.txt (B) ── */
 
     #section-B {
@@ -1415,12 +1420,9 @@
       background: rgba(74, 144, 226, 0.25);
       color: rgba(74, 144, 226, 0.8);
     }
-
-
-
-
   </style>
 </head>
+
 <body>
 
 
@@ -1683,7 +1685,7 @@
     (function () {
 
       /* ================================================================
-         데이터베이스 — 계열사별 실제 확인 결과 (2026-03-24)
+         데이터베이스 — 계열사별 실제 확인 결과
          ================================================================ */
       const COMPANIES = {
         grandhotel: {
@@ -1701,7 +1703,7 @@
             { key: 'perplexity', allowed: true },
             { key: 'ccbot', allowed: true },
           ],
-          robotsSnippet: `# 그랜드호텔 robots.txt (2026-03-24 실제 확인)
+          robotsSnippet: `# 그랜드호텔 robots.txt
 # https://www.grandhotel-example.com/robots.txt
 #
 # [해석] AI 크롤러(GPTBot, ClaudeBot 등)를 별도로 차단하지 않음.
@@ -1733,7 +1735,7 @@ Sitemap: https://www.grandhotel-example.com/sitemap.xml`,
             { key: 'perplexity', allowed: true },
             { key: 'ccbot', allowed: true },
           ],
-          robotsSnippet: `# K식품 robots.txt (2026-03-24 실제 확인)
+          robotsSnippet: `# K식품 robots.txt
 # https://www.kfood.com/robots.txt
 #
 # [해석] robots.txt 파일이 존재하지 않음 (HTTP 404).
@@ -1759,7 +1761,7 @@ Sitemap: https://www.grandhotel-example.com/sitemap.xml`,
             { key: 'perplexity', allowed: true },
             { key: 'ccbot', allowed: true },
           ],
-          robotsSnippet: `# K음료 robots.txt (2026-03-24 실제 확인)
+          robotsSnippet: `# K음료 robots.txt
 # https://company.kbeverage.co.kr/robots.txt
 #
 # [해석] Googlebot에만 일부 경로(뉴스, 방문예약, 신문고, 문의)를 제한.
@@ -1794,7 +1796,7 @@ Allow: /`,
             { key: 'perplexity', allowed: true },
             { key: 'ccbot', allowed: true },
           ],
-          robotsSnippet: `# K백화점 robots.txt (2026-03-24 실제 확인)
+          robotsSnippet: `# K백화점 robots.txt
 # https://www.kdept.com/robots.txt
 #
 # [해석] 주요 페이지(메인, 매장, 콘텐츠, 멤버십, 검색)를 명시적 허용.
@@ -1829,7 +1831,7 @@ Sitemap: https://www.kdept.com/sitemap.xml`,
             { key: 'perplexity', allowed: true },
             { key: 'ccbot', allowed: true },
           ],
-          robotsSnippet: `# K마트 robots.txt (2026-03-24 실제 확인)
+          robotsSnippet: `# K마트 robots.txt
 # kmart.com → kmartzetta.com 리다이렉트
 #
 # [해석] kmart.com이 kmartzetta.com으로 리다이렉트됨.
@@ -1857,7 +1859,7 @@ Disallow: /events/`,
             { key: 'perplexity', allowed: true },
             { key: 'ccbot', allowed: false },
           ],
-          robotsSnippet: `# K커머스 robots.txt (2026-03-24 실제 확인)
+          robotsSnippet: `# K커머스 robots.txt
 # https://www.kcommerce.com/robots.txt
 #
 # [해석] AI 크롤러별로 세분화된 정책을 적용한 사례.
@@ -1909,7 +1911,7 @@ Disallow: /`,
             { key: 'perplexity', allowed: false },
             { key: 'ccbot', allowed: false },
           ],
-          robotsSnippet: `# K시네마 robots.txt (2026-03-24 실제 확인)
+          robotsSnippet: `# K시네마 robots.txt
 # https://www.kcinema.co.kr/robots.txt
 #
 # [해석] User-agent: * 에서 Disallow: / → 모든 크롤러 전면 차단.
@@ -1940,7 +1942,7 @@ Disallow: /`,
             { key: 'perplexity', allowed: true },
             { key: 'ccbot', allowed: true },
           ],
-          robotsSnippet: `# K렌탈 robots.txt (2026-03-24 실제 확인)
+          robotsSnippet: `# K렌탈 robots.txt
 # https://www.krental.com/robots.txt
 #
 # [해석] 전체 허용(Allow: /) 기반, 채용·로그인·마이페이지·예약 등
@@ -2445,4 +2447,5 @@ Allow: /`,
   </script>
 
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -192,7 +193,11 @@
 
 
 
-    .demo-section { display: block; min-height: 100vh; }
+    .demo-section {
+      display: block;
+      min-height: 100vh;
+    }
+
     /* ── 호텔 B/A (C2) ── */
 
     #section-C2 {
@@ -1268,12 +1273,9 @@
         display: none;
       }
     }
-
-
-
-
   </style>
 </head>
+
 <body>
 
 
@@ -1324,7 +1326,6 @@
           <p class="intro-sub">
             소비자가 AI에게 호텔 추천을 요청하면, 이미 좋은 답변이 나옵니다.<br>
             문제는 그 답변의 <strong>출처</strong>입니다 — 공식 사이트인가요, OTA·블로그인가요?
-            <br><span style="font-size:11px; color:var(--hotel-gold, var(--yellow));">데이터 기준일: 2026-03-24</span>
           </p>
 
           <div class="intro-tags">
@@ -1434,7 +1435,7 @@
                 </div>
               </div>
 
-              <!-- 메시지 2: AI 답변 (실제 ChatGPT 2026-03-24) -->
+              <!-- 메시지 2: AI 답변 -->
               <div class="chat-msg" id="c2-before-ai-msg" style="display:none;">
                 <div class="chat-avatar ai-avatar">✨</div>
                 <div class="chat-bubble" style="max-width:90%;">
@@ -1459,7 +1460,7 @@
                 </div>
               </div>
 
-              <!-- 메시지 4: AI 답변 2 (실제 ChatGPT 2026-03-24) -->
+              <!-- 메시지 4: AI 답변 2 -->
               <div class="chat-msg" id="c2-before-ai2" style="display:none;">
                 <div class="chat-avatar ai-avatar">✨</div>
                 <div class="chat-bubble" style="max-width:90%;">
@@ -2533,4 +2534,5 @@
   </script>
 
 </body>
+
 </html>
