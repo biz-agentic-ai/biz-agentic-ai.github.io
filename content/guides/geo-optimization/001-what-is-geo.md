@@ -45,7 +45,7 @@ SEO는 사람이 클릭하게 만드는 거였다. GEO는 AI가 우리를 출처
 
 ## 왜 지금인가
 
-이미 숫자가 움직이고 있다.
+데이터를 보면 이미 흐름이 바뀌고 있다.
 
 - **ChatGPT WAU 8억 이상**, 일 25억 쿼리 처리 (OpenAI 공식, 2025.2)
 - 한국은 세계 2위 ChatGPT 유료 구독 시장. 경제활동인구 30% 이상이 AI 활용
@@ -138,7 +138,7 @@ Schema가 공식 인용을 보장하진 않는다. AI가 공식 사이트를 쉽
 <a href="/demo/geo-demo-a.html" target="_blank" rel="noopener" onclick="window.open(this.href,'geo-a','width=1200,height=800,scrollbars=yes,resizable=yes');return false;" class="demo-btn demo-btn--primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Demo - AI 검색 비교</a>
 </div>
 
-## 학술 근거
+## 연구 결과가 말해주는 것
 
 Princeton대와 Georgia Tech 연구팀이 ACM SIGKDD 2024에서 GEO 관련 논문을 발표했다. 10,000개 쿼리를 분석한 결과가 꽤 뚜렷하다:
 
@@ -151,7 +151,7 @@ SEO에서 통하던 키워드 반복이 GEO에서는 오히려 깎인다. AI는 
 
 구조화 데이터의 실증 효과도 쌓이고 있다:
 
-- AI Overview에 인용된 브랜드: 오가닉 CTR +35%, 유료 CTR +91% - Seer Interactive, 2,510만 노출 분석
+- AI Overview에 인용된 브랜드: 자연 검색 클릭률 +35%, 유료 광고 클릭률 +91% - Seer Interactive, 2,510만 노출 분석
 - 구조화 데이터 적용 시 AI Overview 출현 확률 **36% 증가** - GrackerAI, 6.8억 인용 분석
 - 완전한 Schema 적용 시 ChatGPT 노출 확률 **80%** vs 기본 Schema 20% - Search Engine Land, 2025.10
 
