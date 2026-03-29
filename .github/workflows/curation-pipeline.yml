@@ -48,7 +48,12 @@ jobs:
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         working-directory: scripts/curation
-        run: python main.py
+        run: |
+          if [ -z "$GOOGLE_SHEETS_CREDENTIALS" ]; then
+            echo "GOOGLE_SHEETS_CREDENTIALS not configured, skipping pipeline"
+            exit 0
+          fi
+          python main.py
 
       - name: Check for new content
         id: check_changes
