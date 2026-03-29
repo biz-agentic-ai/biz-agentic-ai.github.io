@@ -1,0 +1,121 @@
+baseURL = "https://biz-agentic-ai.github.io/"
+languageCode = "ko"
+title = "Junho Lee | DataNexus 구축 과정"
+theme = "PaperMod"
+googleAnalytics = "G-Q0RS9ZG67P"
+
+[params]
+  author = "Junho Lee"
+  description = "Data & AI Architect가 온톨로지 기반 데이터 에이전트를 만드는 과정"
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowToc = true
+  TocOpen = false
+  comments = true
+  mainSections = ["posts", "guides"]
+
+  [params.homeInfoParams]
+    Title = "DataNexus 구축 과정"
+    Content = "엔터프라이즈 데이터를 자연어로 탐색하는 AI 에이전트, DataNexus를 만드는 과정을 기록합니다."
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/biz-agentic-ai"
+
+  [[params.socialIcons]]
+    name = "linkedin"
+    url = "https://www.linkedin.com/in/leejuno/"
+
+  [[params.socialIcons]]
+    name = "rss"
+    url = "/index.xml"
+
+  [params.schema]
+    publisherType = "Person"
+    sameAs = [
+      "https://github.com/biz-agentic-ai",
+      "https://www.linkedin.com/in/leejuno/"
+    ]
+
+  [params.assets]
+    favicon = "/favicon.svg"
+    favicon16x16 = "/favicon.svg"
+    favicon32x32 = "/favicon.svg"
+    apple_touch_icon = "/favicon.svg"
+    safari_pinned_tab = "/favicon.svg"
+    theme_color = "#2e2e33"
+    msapplication_TileColor = "#2e2e33"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  series = "series"
+
+# 메뉴 설정
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 10
+  [[menu.main]]
+    identifier = "guides"
+    name = "Guides"
+    url = "/guides/"
+    weight = 15
+  [[menu.main]]
+    identifier = "curations"
+    name = "Curations"
+    url = "/curations/"
+    weight = 18
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 20
+  [[menu.main]]
+    identifier = "categories"
+    name = "Categories"
+    url = "/categories/"
+    weight = 30
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 40
+
+# 마크업 설정
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions.cjk]
+      enable = true
+      eastAsianLineBreaks = true
+      escapedSpace = true
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    style = "tokyonight-night"
+
+# SEO 최적화를 위한 추가 설정
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# 사이트맵 설정
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+# RSS 피드 설정
+[outputFormats]
+  [outputFormats.RSS]
+    mediaType = "application/rss+xml"
+    baseName = "index"
+    isPlainText = true
+    notAlternative = true
