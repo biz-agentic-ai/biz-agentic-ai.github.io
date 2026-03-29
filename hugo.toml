@@ -1,6 +1,6 @@
 baseURL = "https://biz-agentic-ai.github.io/"
 languageCode = "ko"
-title = "Junho Lee | DataNexus 구축 과정"
+title = "Junho Lee"
 theme = "PaperMod"
 googleAnalytics = "G-Q0RS9ZG67P"
 
@@ -18,7 +18,7 @@ googleAnalytics = "G-Q0RS9ZG67P"
   mainSections = ["posts", "guides"]
 
   [params.homeInfoParams]
-    Title = "DataNexus 구축 과정"
+    Title = ""
     Content = "엔터프라이즈 데이터를 자연어로 탐색하는 AI 에이전트, DataNexus를 만드는 과정을 기록합니다."
 
   [[params.socialIcons]]
