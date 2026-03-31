@@ -1,19 +1,32 @@
 User-agent: *
 Allow: /
 
-# Sitemap
+# AI Search Engine Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
 Sitemap: https://biz-agentic-ai.github.io/sitemap.xml
-
-# Disallow admin and private areas
-Disallow: /admin/
-Disallow: /private/
-Disallow: /tmp/
-
-# Allow important directories
-Allow: /posts/
-Allow: /categories/
-Allow: /tags/
-Allow: /about/
-
-# Crawl delay (optional)
-Crawl-delay: 1
