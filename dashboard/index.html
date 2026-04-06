@@ -1,346 +1,774 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DataNexus - Development Roadmap</title>
-<meta name="description" content="DataNexus 엔터프라이즈 온톨로지 기반 NL2SQL 자율 데이터 에이전트 플랫폼 개발 로드맵 및 실시간 진행 현황">
-<style>
-:root{--bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--text:#e6edf3;--text2:#8b949e;--text3:#484f58;--border:#30363d;--purple:#8b5cf6;--purple2:#a78bfa;--blue:#58a6ff;--teal:#3fb950;--amber:#d29922;--coral:#f85149;--green:#3fb950;--pink:#db61a2;--radius:10px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
-a{color:var(--blue);text-decoration:none}
-a:hover{text-decoration:underline}
-.container{max-width:960px;margin:0 auto;padding:24px 16px}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DataNexus - Development Roadmap</title>
+  <meta name="description" content="DataNexus 엔터프라이즈 온톨로지 기반 NL2SQL 자율 데이터 에이전트 플랫폼 개발 로드맵 및 실시간 진행 현황">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --bg3: #21262d;
+      --text: #e6edf3;
+      --text2: #8b949e;
+      --text3: #484f58;
+      --border: #30363d;
+      --purple: #8b5cf6;
+      --purple2: #a78bfa;
+      --blue: #58a6ff;
+      --teal: #3fb950;
+      --amber: #d29922;
+      --coral: #f85149;
+      --green: #3fb950;
+      --pink: #db61a2;
+      --radius: 10px
+    }
 
-/* Header */
-.header{text-align:center;padding:48px 0 32px;border-bottom:1px solid var(--border);margin-bottom:32px}
-.header .badge{display:inline-block;font-size:11px;font-weight:600;color:var(--purple);background:var(--purple)18;padding:4px 14px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
-.header h1{font-size:28px;font-weight:800;margin-bottom:4px}
-.header .sub{font-size:14px;color:var(--text2)}
-.header .links{margin-top:16px;display:flex;justify-content:center;gap:20px;font-size:13px}
-.header .links a{color:var(--text2);display:flex;align-items:center;gap:4px}
-.header .links a:hover{color:var(--text)}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-/* Stats bar */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
-.stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;text-align:center}
-.stat .val{font-size:24px;font-weight:800}
-.stat .lbl{font-size:11px;color:var(--text2);margin-top:2px}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased
+    }
 
-/* Progress bar */
-.pbar-wrap{background:var(--bg3);border-radius:6px;height:10px;overflow:hidden;margin-bottom:6px}
-.pbar{height:100%;border-radius:6px;transition:width .6s ease}
-.pbar-label{font-size:11px;color:var(--text3);display:flex;justify-content:space-between}
+    a {
+      color: var(--blue);
+      text-decoration: none
+    }
 
-/* Tabs */
-.tabs{display:flex;gap:4px;background:var(--bg2);border-radius:8px;padding:3px;margin-bottom:20px;border:1px solid var(--border)}
-.tab{flex:1;padding:8px 0;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--text3);transition:all .2s}
-.tab.active{background:var(--bg3);color:var(--text)}
-.tab:hover:not(.active){color:var(--text2)}
-.tab-content{display:none}
-.tab-content.active{display:block}
+    a:hover {
+      text-decoration: underline
+    }
 
-/* Phase cards */
-.phase{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;transition:border-color .2s}
-.phase:hover{border-color:var(--text3)}
-.phase.current{border-color:var(--purple);box-shadow:0 0 0 1px var(--purple)40}
-.phase-head{padding:16px 20px;cursor:pointer;display:flex;align-items:center;gap:14px;user-select:none}
-.phase-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
-.phase-info{flex:1;min-width:0}
-.phase-name{font-weight:700;font-size:14px}
-.phase-title{font-size:12px;color:var(--text2);margin-top:1px}
-.phase-pct{font-size:18px;font-weight:800;min-width:48px;text-align:right}
-.phase-timeline{font-size:11px;color:var(--text3);margin-left:8px}
-.phase-bar{padding:0 20px 12px}
-.phase-detail{display:none;padding:0 20px 20px;border-top:1px solid var(--border)}
-.phase-detail.open{display:block}
-.phase-section{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin:12px 0 6px}
-.phase-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;font-size:13px}
-.phase-item input{margin-top:3px;accent-color:var(--purple)}
-.phase-item.done{color:var(--text3);text-decoration:line-through}
-.milestone-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-right:4px}
-.tag-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
-.tag{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--bg3);color:var(--text2)}
-.tag-key{background:var(--blue)18;color:var(--blue)}
-.tag-new{background:var(--purple)18;color:var(--purple2)}
-.tag-bi{background:var(--amber)18;color:var(--amber)}
-.tag-std{background:var(--teal)18;color:var(--teal)}
-.tag-rd{background:var(--coral)18;color:var(--coral)}
-.chevron{font-size:14px;color:var(--text3);transition:transform .2s}
-.chevron.open{transform:rotate(180deg)}
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px
+    }
 
-/* Roadmap timeline */
-.timeline{position:relative;padding-left:28px}
-.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--border)}
-.tl-dot{position:absolute;left:3px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg);z-index:1}
-.tl-item{position:relative;margin-bottom:16px}
-.tl-phase{font-weight:700;font-size:13px}
-.tl-time{font-size:11px;color:var(--text3)}
-.tl-desc{font-size:12px;color:var(--text2);margin-top:2px;line-height:1.4}
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px
+    }
 
-/* Artifacts */
-.artifact{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:6px;margin-bottom:3px}
-.artifact .status{font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;min-width:40px;text-align:center}
-.artifact .status.done{background:var(--teal)20;color:var(--teal)}
-.artifact .status.todo{background:var(--amber)20;color:var(--amber)}
-.artifact .name{font-size:13px}
+    .header .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--purple);
+      background: var(--purple)18;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px
+    }
 
-/* Strategy */
-.strategy-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:24px}
-.strategy-card h3{font-size:15px;font-weight:700;margin-bottom:4px}
-.strategy-card .principle{font-size:12px;color:var(--purple2);margin-bottom:12px}
-.defense{border-left:3px solid;padding:10px 16px;margin-bottom:8px;border-radius:0 6px 6px 0;background:var(--bg3)}
-.defense .d-phase{font-size:12px;font-weight:700}
-.defense .d-title{font-size:13px;font-weight:600;color:var(--text)}
-.defense .d-desc{font-size:11px;color:var(--text2);margin-top:2px}
-.deadline{text-align:center;margin-top:16px;padding:10px;background:var(--coral)15;border:1px solid var(--coral)30;border-radius:6px;font-size:12px;font-weight:600;color:var(--coral)}
+    .header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 4px
+    }
 
-/* Footer */
-.footer{text-align:center;margin-top:48px;padding:24px 0;border-top:1px solid var(--border);font-size:12px;color:var(--text3)}
+    .header .sub {
+      font-size: 14px;
+      color: var(--text2)
+    }
 
-/* Mobile */
-@media(max-width:640px){
-  .stats{grid-template-columns:repeat(2,1fr)}
-  .header h1{font-size:22px}
-  .phase-head{padding:12px 14px}
-}
-</style>
+    .header .links {
+      margin-top: 16px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      font-size: 13px
+    }
+
+    .header .links a {
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 4px
+    }
+
+    .header .links a:hover {
+      color: var(--text)
+    }
+
+    /* Stats bar */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 24px
+    }
+
+    .stat {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      text-align: center
+    }
+
+    .stat .val {
+      font-size: 24px;
+      font-weight: 800
+    }
+
+    .stat .lbl {
+      font-size: 11px;
+      color: var(--text2);
+      margin-top: 2px
+    }
+
+    /* Progress bar */
+    .pbar-wrap {
+      background: var(--bg3);
+      border-radius: 6px;
+      height: 10px;
+      overflow: hidden;
+      margin-bottom: 6px
+    }
+
+    .pbar {
+      height: 100%;
+      border-radius: 6px;
+      transition: width .6s ease
+    }
+
+    .pbar-label {
+      font-size: 11px;
+      color: var(--text3);
+      display: flex;
+      justify-content: space-between
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--bg2);
+      border-radius: 8px;
+      padding: 3px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border)
+    }
+
+    .tab {
+      flex: 1;
+      padding: 8px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text3);
+      transition: all .2s
+    }
+
+    .tab.active {
+      background: var(--bg3);
+      color: var(--text)
+    }
+
+    .tab:hover:not(.active) {
+      color: var(--text2)
+    }
+
+    .tab-content {
+      display: none
+    }
+
+    .tab-content.active {
+      display: block
+    }
+
+    /* Phase cards */
+    .phase {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: border-color .2s
+    }
+
+    .phase:hover {
+      border-color: var(--text3)
+    }
+
+    .phase.current {
+      border-color: var(--purple);
+      box-shadow: 0 0 0 1px var(--purple)40
+    }
+
+    .phase-head {
+      padding: 16px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      user-select: none
+    }
+
+    .phase-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .phase-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .phase-name {
+      font-weight: 700;
+      font-size: 14px
+    }
+
+    .phase-title {
+      font-size: 12px;
+      color: var(--text2);
+      margin-top: 1px
+    }
+
+    .phase-pct {
+      font-size: 18px;
+      font-weight: 800;
+      min-width: 48px;
+      text-align: right
+    }
+
+    .phase-timeline {
+      font-size: 11px;
+      color: var(--text3);
+      margin-left: 8px
+    }
+
+    .phase-bar {
+      padding: 0 20px 12px
+    }
+
+    .phase-detail {
+      display: none;
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--border)
+    }
+
+    .phase-detail.open {
+      display: block
+    }
+
+    .phase-section {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 12px 0 6px
+    }
+
+    .phase-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 5px 0;
+      font-size: 13px
+    }
+
+    .phase-item input {
+      margin-top: 3px;
+      accent-color: var(--purple)
+    }
+
+    .phase-item.done {
+      color: var(--text3);
+      text-decoration: line-through
+    }
+
+    .milestone-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-right: 4px
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 8px
+    }
+
+    .tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: var(--bg3);
+      color: var(--text2)
+    }
+
+    .tag-key {
+      background: var(--blue)18;
+      color: var(--blue)
+    }
+
+    .tag-new {
+      background: var(--purple)18;
+      color: var(--purple2)
+    }
+
+    .tag-bi {
+      background: var(--amber)18;
+      color: var(--amber)
+    }
+
+    .tag-std {
+      background: var(--teal)18;
+      color: var(--teal)
+    }
+
+    .tag-rd {
+      background: var(--coral)18;
+      color: var(--coral)
+    }
+
+    .chevron {
+      font-size: 14px;
+      color: var(--text3);
+      transition: transform .2s
+    }
+
+    .chevron.open {
+      transform: rotate(180deg)
+    }
+
+    /* Roadmap timeline */
+    .timeline {
+      position: relative;
+      padding-left: 28px
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border)
+    }
+
+    .tl-dot {
+      position: absolute;
+      left: 3px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      z-index: 1
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 16px
+    }
+
+    .tl-phase {
+      font-weight: 700;
+      font-size: 13px
+    }
+
+    .tl-time {
+      font-size: 11px;
+      color: var(--text3)
+    }
+
+    .tl-desc {
+      font-size: 12px;
+      color: var(--text2);
+      margin-top: 2px;
+      line-height: 1.4
+    }
+
+    /* Artifacts */
+    .artifact {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 3px
+    }
+
+    .artifact .status {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      min-width: 40px;
+      text-align: center
+    }
+
+    .artifact .status.done {
+      background: var(--teal)20;
+      color: var(--teal)
+    }
+
+    .artifact .status.todo {
+      background: var(--amber)20;
+      color: var(--amber)
+    }
+
+    .artifact .name {
+      font-size: 13px
+    }
+
+    /* Strategy */
+    .strategy-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-top: 24px
+    }
+
+    .strategy-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px
+    }
+
+    .strategy-card .principle {
+      font-size: 12px;
+      color: var(--purple2);
+      margin-bottom: 12px
+    }
+
+    .defense {
+      border-left: 3px solid;
+      padding: 10px 16px;
+      margin-bottom: 8px;
+      border-radius: 0 6px 6px 0;
+      background: var(--bg3)
+    }
+
+    .defense .d-phase {
+      font-size: 12px;
+      font-weight: 700
+    }
+
+    .defense .d-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text)
+    }
+
+    .defense .d-desc {
+      font-size: 11px;
+      color: var(--text2);
+      margin-top: 2px
+    }
+
+    .deadline {
+      text-align: center;
+      margin-top: 16px;
+      padding: 10px;
+      background: var(--coral)15;
+      border: 1px solid var(--coral)30;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--coral)
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 48px;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text3)
+    }
+
+    /* Mobile */
+    @media(max-width:640px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .header h1 {
+        font-size: 22px
+      }
+
+      .phase-head {
+        padding: 12px 14px
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="container">
+  <div class="container">
 
-<div class="header">
-  <div class="badge">Development Roadmap</div>
-  <h1>DataNexus</h1>
-  <div class="sub">Enterprise Ontology-based NL2SQL Autonomous Data Agent Platform</div>
-  <div class="links">
-    <a href="https://biz-agentic-ai.github.io/">Blog</a>
-    <a href="https://github.com/biz-agentic-ai">GitHub</a>
-    <a href="https://www.linkedin.com/in/leejuno/">LinkedIn</a>
+    <div class="header">
+      <div class="badge">Development Roadmap</div>
+      <h1>DataNexus</h1>
+      <div class="sub">Enterprise Ontology-based NL2SQL Autonomous Data Agent Platform</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="val" id="s-pct" style="color:var(--purple)">0%</div>
+        <div class="lbl">전체 진행률</div>
+      </div>
+      <div class="stat">
+        <div class="val" id="s-tasks">0/0</div>
+        <div class="lbl">태스크</div>
+      </div>
+      <div class="stat">
+        <div class="val" id="s-ms">0/0</div>
+        <div class="lbl">마일스톤</div>
+      </div>
+      <div class="stat">
+        <div class="val" style="color:var(--teal)">24/24</div>
+        <div class="lbl">PRD 문서</div>
+      </div>
+    </div>
+
+    <div class="pbar-wrap">
+      <div class="pbar" id="main-bar" style="width:0%;background:linear-gradient(90deg,var(--purple),var(--blue))">
+      </div>
+    </div>
+    <div class="pbar-label"><span id="current-phase-label">Phase 0 시작 전</span><span id="updated-label">-</span></div>
+
+    <!-- Tabs -->
+    <div class="tabs" style="margin-top:24px">
+      <button class="tab active" onclick="switchTab('progress')">진행 현황</button>
+      <button class="tab" onclick="switchTab('roadmap')">전체 로드맵</button>
+      <button class="tab" onclick="switchTab('artifacts')">산출물</button>
+      <button class="tab" onclick="switchTab('strategy')">방어선 전략</button>
+    </div>
+
+    <!-- Tab: Progress -->
+    <div class="tab-content active" id="tab-progress">
+      <div id="phases-container"></div>
+    </div>
+
+    <!-- Tab: Roadmap -->
+    <div class="tab-content" id="tab-roadmap">
+      <div class="timeline" id="roadmap-timeline"></div>
+    </div>
+
+    <!-- Tab: Artifacts -->
+    <div class="tab-content" id="tab-artifacts">
+      <div id="artifacts-container"></div>
+    </div>
+
+    <!-- Tab: Strategy -->
+    <div class="tab-content" id="tab-strategy">
+      <div class="strategy-card">
+        <h3>방어선 전략</h3>
+        <div class="principle">핵심 원칙: 데이터 축적 속도 > 모델 일반화 속도 (PRD S9.4)</div>
+        <div class="defense" style="border-color:var(--purple)">
+          <div class="d-phase" style="color:var(--purple)">Phase 0.5 - 1.0</div>
+          <div class="d-title">핵심 루프 가동</div>
+          <div class="d-desc">도메인 전문가 용어 정제 → NL2SQL 정확도 개선 → 사용 확대의 선순환 시작</div>
+        </div>
+        <div class="defense" style="border-color:var(--amber)">
+          <div class="d-phase" style="color:var(--amber)">Phase 1.5 - 2.0</div>
+          <div class="d-title">축적 속도 가속</div>
+          <div class="d-desc">Query Log 자동 수집 + Shaper BI Push 기반 접점 확대 + Glossary-Dashboard 정합성 유지</div>
+        </div>
+        <div class="defense" style="border-color:var(--coral)">
+          <div class="d-phase" style="color:var(--coral)">Phase 3.0</div>
+          <div class="d-title">시간적 맥락 확보</div>
+          <div class="d-desc">Graphiti Episode 기반 실시간 지식 축적 → 범용 모델이 접근 불가능한 시간축 데이터 자산화</div>
+        </div>
+        <div class="deadline">Phase 1.0 MVP가 2026 Q2를 초과하면 방어선 구축 시간 부족 (Hard Deadline)</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      DataNexus Development Roadmap · Junho Lee · <span id="footer-update"></span>
+    </div>
+
   </div>
-</div>
 
-<!-- Stats -->
-<div class="stats">
-  <div class="stat"><div class="val" id="s-pct" style="color:var(--purple)">0%</div><div class="lbl">전체 진행률</div></div>
-  <div class="stat"><div class="val" id="s-tasks">0/0</div><div class="lbl">태스크</div></div>
-  <div class="stat"><div class="val" id="s-ms">0/0</div><div class="lbl">마일스톤</div></div>
-  <div class="stat"><div class="val" style="color:var(--teal)">24/24</div><div class="lbl">PRD 문서</div></div>
-</div>
+  <script>
+    const PHASES_DEF = [
+      {
+        id: "phase0", name: "Phase 0", title: "로컬 환경 준비", timeline: "Day 1-2", color: "#6366f1",
+        milestones: [
+          { id: "M0", name: "로컬 환경 기동", desc: "Docker postgres/redis/qdrant 헬스체크 통과" },
+          { id: "M1", name: "Context-as-Code 구조", desc: ".claude/ 4계층 + CLAUDE.md 규칙 작성" }
+        ],
+        tasks: [
+          "Homebrew + Python 3.11 + Node.js 20 설치",
+          "Docker Desktop ARM64 설치",
+          "Claude Code CLI + Agent Teams 활성화",
+          "프로젝트 스캐폴딩 (Appendix F.1)",
+          ".claude/ 4계층 디렉토리 생성",
+          "docker-compose up postgres/redis/qdrant",
+          "CLAUDE.md 핵심 규칙 초안 작성"
+        ],
+        tags: [["Context-as-Code", ""], ["Docker 환경", ""]]
+      },
+      {
+        id: "phase05", name: "Phase 0.5", title: "Foundation + 온톨로지 PoC", timeline: "Day 3-10", color: "#8b5cf6",
+        milestones: [
+          { id: "M2", name: "PoC DB 구축", desc: "sql-tutorial PostgreSQL 로드 + 23만 행 확인" },
+          { id: "M3", name: "Baseline EX 측정", desc: "Vanna DDL-only 학습 + 30문항 EX 결과" },
+          { id: "M4", name: "Treatment EX 측정", desc: "Glossary 적용 + A/B 비교 보고서" },
+          { id: "M5", name: "CQ 테스트 통과", desc: "18문항 pytest (Critical CQ 100%)" },
+          { id: "M8", name: "bkit PDCA 설계", desc: "4개 모듈 PLAN.md + DESIGN.md" }
+        ],
+        tasks: [
+          "bkit + ralph 플러그인 설치",
+          "sql-tutorial 레포 클론",
+          "SQLite → PostgreSQL DDL 변환",
+          "Glossary YAML 배치 (25개 용어)",
+          "Vanna Baseline 학습 + EX 측정",
+          "Vanna Treatment 학습 + A/B 비교",
+          "CQ 매트릭스 pytest 구현",
+          "bkit PDCA: 온톨로지 엔진",
+          "bkit PDCA: Multi-Agent Router",
+          "bkit PDCA: NL2SQL (Vanna 2.0)",
+          "bkit PDCA: 하이브리드 검색"
+        ],
+        tags: [["PoC A/B 실험", "new"], ["Glossary 25개", "new"], ["CQ 검증", "key"]]
+      },
+      {
+        id: "phase07", name: "Phase 0.7", title: "NL2SQL 벤치마크 검증", timeline: "Day 11-14", color: "#a855f7",
+        milestones: [
+          { id: "M6", name: "BIRD Baseline 측정", desc: "BIRD dev set EX 측정 완료" },
+          { id: "M7", name: "BIRD + 온톨로지 EX", desc: "온톨로지 적용 후 EX 개선폭 확인" }
+        ],
+        tasks: [
+          "BIRD dev set 다운로드 + 준비",
+          "BIRD Baseline 측정 (온톨로지 미적용)",
+          "BIRD Treatment 측정 (온톨로지 적용)",
+          "Spider 1.0 dev set 실행 (선택)",
+          "벤치마크 종합 비교 보고서 생성",
+          "약점 분석 → Phase 1 피드백 반영"
+        ],
+        tags: [["BIRD dev EX", "new"], ["Spider EX", "new"], ["벤치마크 보고서", ""]]
+      },
+      {
+        id: "phase1", name: "Phase 1.0", title: "MVP 핵심 개발", timeline: "Week 3-6 (Q1-Q2)", color: "#2563eb",
+        milestones: [
+          { id: "M9", name: "스캐폴딩 + DB", desc: "FastAPI 기동 + Alembic 성공" },
+          { id: "M10", name: "Integration Clients", desc: "DataHub/Vanna/AGE Client 테스트 통과" },
+          { id: "M11", name: "Core Services", desc: "QueryRouter + SchemaEnforcer + CQValidator" },
+          { id: "M12", name: "MVP Quality Gate", desc: "EX >= 0.80, Router >= 0.95" }
+        ],
+        tasks: [
+          "FastAPI 기본 설정 + Dockerfile",
+          "Alembic 초기화 + SQLAlchemy 모델",
+          "DataHub Client 구현",
+          "Vanna Client (2.0 Agent API)",
+          "Apache AGE Client 구현",
+          "QueryRouter 구현 (S3.4-3.5)",
+          "SchemaEnforcer 구현 (S4.4.2)",
+          "CQValidator 구현 (S5.3.3)",
+          "Query / Ontology / Schema API",
+          "Unit Tests + Integration Tests",
+          "Quality Gate 통과 확인"
+        ],
+        tags: [["Query Router", "key"], ["SchemaEnforcer", "key"], ["Vanna 2.0", "key"], ["KanVibe", ""], ["AGE PoC 병행", ""]]
+      }
+    ];
 
-<div class="pbar-wrap"><div class="pbar" id="main-bar" style="width:0%;background:linear-gradient(90deg,var(--purple),var(--blue))"></div></div>
-<div class="pbar-label"><span id="current-phase-label">Phase 0 시작 전</span><span id="updated-label">-</span></div>
+    const ROADMAP_FULL = [
+      { phase: "Phase 0 + 0.5", time: "Day 1-10 · Q1", color: "#8b5cf6", desc: "로컬 환경 준비 + CQ 기반 검증 + 온톨로지 PoC (sql-tutorial 21 tables, 23만 행)" },
+      { phase: "Phase 0.7", time: "Day 11-14 · Q1", color: "#a855f7", desc: "NL2SQL 벤치마크 검증 -- BIRD(Primary) + Spider(Secondary) + 자체 PoC 교차 검증" },
+      { phase: "Phase 1.0", time: "Week 3-6 · Q1-Q2", color: "#2563eb", desc: "MVP 핵심 개발 -- QueryRouter, SchemaEnforcer, Vanna 2.0 NL2SQL, Agent Teams 병렬 개발. Hard Deadline: Q2" },
+      { phase: "Phase 1.5", time: "Q2", color: "#0d9488", desc: "표준 호환성(SKOS, GS1/GoodRelations) + Shaper BI 도입 + Dashboard Promotion + alive-analysis Quick 모드" },
+      { phase: "Phase 2.0", time: "Q2-Q3", color: "#d97706", desc: "자동화 고도화 -- Query Log 자동 수집, 온톨로지 버전 관리 UI, Shaper PDF/Excel 자동 보고, Full Lineage + Drift, Agentation 통합" },
+      { phase: "Phase 3.0", time: "Q4+", color: "#ef4444", desc: "확장성 강화 -- Apache AGE 완전 전환, OWL/RDF 호환, Graphiti Temporal KG (Episode 기반 실시간 지식 축적)" },
+      { phase: "R&D", time: "지속", color: "#6b7280", desc: "LLM 자동 관계 추천, Federated Ontology (그룹사 분산 연합 질의), Multi-Language 온톨로지" }
+    ];
 
-<!-- Tabs -->
-<div class="tabs" style="margin-top:24px">
-  <button class="tab active" onclick="switchTab('progress')">진행 현황</button>
-  <button class="tab" onclick="switchTab('roadmap')">전체 로드맵</button>
-  <button class="tab" onclick="switchTab('artifacts')">산출물</button>
-  <button class="tab" onclick="switchTab('strategy')">방어선 전략</button>
-</div>
+    const ARTIFACTS_DEF = [
+      { id: "glossary_yaml", name: "Glossary YAML (25개 용어)" },
+      { id: "cq_matrix", name: "CQ 매트릭스 (18문항)" },
+      { id: "nl2sql_test_set", name: "NL2SQL 테스트 셋 (30문항)" },
+      { id: "postgresql_ddl", name: "PostgreSQL DDL 변환" },
+      { id: "baseline_ex", name: "Baseline EX 결과" },
+      { id: "treatment_ex", name: "Treatment EX 결과" },
+      { id: "ab_report", name: "A/B 비교 보고서" },
+      { id: "cq_pytest", name: "CQ pytest" },
+      { id: "bird_baseline", name: "BIRD Baseline 결과" },
+      { id: "bird_treatment", name: "BIRD Treatment 결과" },
+      { id: "benchmark_report", name: "벤치마크 종합 보고서" }
+    ];
 
-<!-- Tab: Progress -->
-<div class="tab-content active" id="tab-progress">
-  <div id="phases-container"></div>
-</div>
+    let progressData = null;
 
-<!-- Tab: Roadmap -->
-<div class="tab-content" id="tab-roadmap">
-  <div class="timeline" id="roadmap-timeline"></div>
-</div>
+    async function init() {
+      try {
+        const resp = await fetch('./progress.json?' + Date.now());
+        progressData = await resp.json();
+      } catch (e) {
+        progressData = { lastUpdated: "2026-04-06", currentPhase: "phase0", phases: {}, age: {}, artifacts: {} };
+      }
+      render();
+    }
 
-<!-- Tab: Artifacts -->
-<div class="tab-content" id="tab-artifacts">
-  <div id="artifacts-container"></div>
-</div>
+    function render() {
+      renderStats();
+      renderPhases();
+      renderRoadmap();
+      renderArtifacts();
+      document.getElementById('updated-label').textContent = '갱신: ' + progressData.lastUpdated;
+      document.getElementById('footer-update').textContent = 'Last updated: ' + progressData.lastUpdated;
+    }
 
-<!-- Tab: Strategy -->
-<div class="tab-content" id="tab-strategy">
-  <div class="strategy-card">
-    <h3>방어선 전략</h3>
-    <div class="principle">핵심 원칙: 데이터 축적 속도 > 모델 일반화 속도 (PRD S9.4)</div>
-    <div class="defense" style="border-color:var(--purple)">
-      <div class="d-phase" style="color:var(--purple)">Phase 0.5 - 1.0</div>
-      <div class="d-title">핵심 루프 가동</div>
-      <div class="d-desc">도메인 전문가 용어 정제 → NL2SQL 정확도 개선 → 사용 확대의 선순환 시작</div>
-    </div>
-    <div class="defense" style="border-color:var(--amber)">
-      <div class="d-phase" style="color:var(--amber)">Phase 1.5 - 2.0</div>
-      <div class="d-title">축적 속도 가속</div>
-      <div class="d-desc">Query Log 자동 수집 + Shaper BI Push 기반 접점 확대 + Glossary-Dashboard 정합성 유지</div>
-    </div>
-    <div class="defense" style="border-color:var(--coral)">
-      <div class="d-phase" style="color:var(--coral)">Phase 3.0</div>
-      <div class="d-title">시간적 맥락 확보</div>
-      <div class="d-desc">Graphiti Episode 기반 실시간 지식 축적 → 범용 모델이 접근 불가능한 시간축 데이터 자산화</div>
-    </div>
-    <div class="deadline">Phase 1.0 MVP가 2026 Q2를 초과하면 방어선 구축 시간 부족 (Hard Deadline)</div>
-  </div>
-</div>
+    function renderStats() {
+      let totalTasks = 0, doneTasks = 0, totalMs = 0, doneMs = 0;
+      PHASES_DEF.forEach(p => {
+        const pd = progressData.phases[p.id] || {};
+        p.tasks.forEach((_, i) => { totalTasks++; if (pd.tasks && pd.tasks[i]) doneTasks++; });
+        p.milestones.forEach((_, i) => { totalMs++; if (pd.milestones && pd.milestones[i]) doneMs++; });
+      });
+      const pct = totalTasks ? Math.round(doneTasks / totalTasks * 100) : 0;
+      document.getElementById('s-pct').textContent = pct + '%';
+      document.getElementById('s-tasks').textContent = doneTasks + '/' + totalTasks;
+      document.getElementById('s-ms').textContent = doneMs + '/' + totalMs;
+      document.getElementById('main-bar').style.width = pct + '%';
+      const cur = PHASES_DEF.find(p => p.id === progressData.currentPhase) || PHASES_DEF[0];
+      document.getElementById('current-phase-label').textContent = '현재: ' + cur.name + ' ' + cur.title;
+    }
 
-<div class="footer">
-  DataNexus Development Roadmap · Junho Lee · <span id="footer-update"></span>
-</div>
+    function renderPhases() {
+      const container = document.getElementById('phases-container');
+      container.innerHTML = '';
+      PHASES_DEF.forEach(p => {
+        const pd = progressData.phases[p.id] || { tasks: {}, milestones: {} };
+        const doneT = p.tasks.filter((_, i) => pd.tasks && pd.tasks[i]).length;
+        const pct = p.tasks.length ? Math.round(doneT / p.tasks.length * 100) : 0;
+        const doneM = p.milestones.filter((_, i) => pd.milestones && pd.milestones[i]).length;
+        const isCurrent = p.id === progressData.currentPhase;
 
-</div>
-
-<script>
-const PHASES_DEF = [
-  {
-    id:"phase0", name:"Phase 0", title:"로컬 환경 준비", timeline:"Day 1-2", color:"#6366f1",
-    milestones:[
-      {id:"M0",name:"로컬 환경 기동",desc:"Docker postgres/redis/qdrant 헬스체크 통과"},
-      {id:"M1",name:"Context-as-Code 구조",desc:".claude/ 4계층 + CLAUDE.md 규칙 작성"}
-    ],
-    tasks:[
-      "Homebrew + Python 3.11 + Node.js 20 설치",
-      "Docker Desktop ARM64 설치",
-      "Claude Code CLI + Agent Teams 활성화",
-      "프로젝트 스캐폴딩 (Appendix F.1)",
-      ".claude/ 4계층 디렉토리 생성",
-      "docker-compose up postgres/redis/qdrant",
-      "CLAUDE.md 핵심 규칙 초안 작성"
-    ],
-    tags:[["Context-as-Code",""],["Docker 환경",""]]
-  },
-  {
-    id:"phase05", name:"Phase 0.5", title:"Foundation + 온톨로지 PoC", timeline:"Day 3-10", color:"#8b5cf6",
-    milestones:[
-      {id:"M2",name:"PoC DB 구축",desc:"sql-tutorial PostgreSQL 로드 + 23만 행 확인"},
-      {id:"M3",name:"Baseline EX 측정",desc:"Vanna DDL-only 학습 + 30문항 EX 결과"},
-      {id:"M4",name:"Treatment EX 측정",desc:"Glossary 적용 + A/B 비교 보고서"},
-      {id:"M5",name:"CQ 테스트 통과",desc:"18문항 pytest (Critical CQ 100%)"},
-      {id:"M8",name:"bkit PDCA 설계",desc:"4개 모듈 PLAN.md + DESIGN.md"}
-    ],
-    tasks:[
-      "bkit + ralph 플러그인 설치",
-      "sql-tutorial 레포 클론",
-      "SQLite → PostgreSQL DDL 변환",
-      "Glossary YAML 배치 (25개 용어)",
-      "Vanna Baseline 학습 + EX 측정",
-      "Vanna Treatment 학습 + A/B 비교",
-      "CQ 매트릭스 pytest 구현",
-      "bkit PDCA: 온톨로지 엔진",
-      "bkit PDCA: Multi-Agent Router",
-      "bkit PDCA: NL2SQL (Vanna 2.0)",
-      "bkit PDCA: 하이브리드 검색"
-    ],
-    tags:[["PoC A/B 실험","new"],["Glossary 25개","new"],["CQ 검증","key"]]
-  },
-  {
-    id:"phase07", name:"Phase 0.7", title:"NL2SQL 벤치마크 검증", timeline:"Day 11-14", color:"#a855f7",
-    milestones:[
-      {id:"M6",name:"BIRD Baseline 측정",desc:"BIRD dev set EX 측정 완료"},
-      {id:"M7",name:"BIRD + 온톨로지 EX",desc:"온톨로지 적용 후 EX 개선폭 확인"}
-    ],
-    tasks:[
-      "BIRD dev set 다운로드 + 준비",
-      "BIRD Baseline 측정 (온톨로지 미적용)",
-      "BIRD Treatment 측정 (온톨로지 적용)",
-      "Spider 1.0 dev set 실행 (선택)",
-      "벤치마크 종합 비교 보고서 생성",
-      "약점 분석 → Phase 1 피드백 반영"
-    ],
-    tags:[["BIRD dev EX","new"],["Spider EX","new"],["벤치마크 보고서",""]]
-  },
-  {
-    id:"phase1", name:"Phase 1.0", title:"MVP 핵심 개발", timeline:"Week 3-6 (Q1-Q2)", color:"#2563eb",
-    milestones:[
-      {id:"M9",name:"스캐폴딩 + DB",desc:"FastAPI 기동 + Alembic 성공"},
-      {id:"M10",name:"Integration Clients",desc:"DataHub/Vanna/AGE Client 테스트 통과"},
-      {id:"M11",name:"Core Services",desc:"QueryRouter + SchemaEnforcer + CQValidator"},
-      {id:"M12",name:"MVP Quality Gate",desc:"EX >= 0.80, Router >= 0.95"}
-    ],
-    tasks:[
-      "FastAPI 기본 설정 + Dockerfile",
-      "Alembic 초기화 + SQLAlchemy 모델",
-      "DataHub Client 구현",
-      "Vanna Client (2.0 Agent API)",
-      "Apache AGE Client 구현",
-      "QueryRouter 구현 (S3.4-3.5)",
-      "SchemaEnforcer 구현 (S4.4.2)",
-      "CQValidator 구현 (S5.3.3)",
-      "Query / Ontology / Schema API",
-      "Unit Tests + Integration Tests",
-      "Quality Gate 통과 확인"
-    ],
-    tags:[["Query Router","key"],["SchemaEnforcer","key"],["Vanna 2.0","key"],["KanVibe",""],["AGE PoC 병행",""]]
-  }
-];
-
-const ROADMAP_FULL = [
-  {phase:"Phase 0 + 0.5",time:"Day 1-10 · Q1",color:"#8b5cf6",desc:"로컬 환경 준비 + CQ 기반 검증 + 온톨로지 PoC (sql-tutorial 21 tables, 23만 행)"},
-  {phase:"Phase 0.7",time:"Day 11-14 · Q1",color:"#a855f7",desc:"NL2SQL 벤치마크 검증 -- BIRD(Primary) + Spider(Secondary) + 자체 PoC 교차 검증"},
-  {phase:"Phase 1.0",time:"Week 3-6 · Q1-Q2",color:"#2563eb",desc:"MVP 핵심 개발 -- QueryRouter, SchemaEnforcer, Vanna 2.0 NL2SQL, Agent Teams 병렬 개발. Hard Deadline: Q2"},
-  {phase:"Phase 1.5",time:"Q2",color:"#0d9488",desc:"표준 호환성(SKOS, GS1/GoodRelations) + Shaper BI 도입 + Dashboard Promotion + alive-analysis Quick 모드"},
-  {phase:"Phase 2.0",time:"Q2-Q3",color:"#d97706",desc:"자동화 고도화 -- Query Log 자동 수집, 온톨로지 버전 관리 UI, Shaper PDF/Excel 자동 보고, Full Lineage + Drift, Agentation 통합"},
-  {phase:"Phase 3.0",time:"Q4+",color:"#ef4444",desc:"확장성 강화 -- Apache AGE 완전 전환, OWL/RDF 호환, Graphiti Temporal KG (Episode 기반 실시간 지식 축적)"},
-  {phase:"R&D",time:"지속",color:"#6b7280",desc:"LLM 자동 관계 추천, Federated Ontology (그룹사 분산 연합 질의), Multi-Language 온톨로지"}
-];
-
-const ARTIFACTS_DEF = [
-  {id:"glossary_yaml",name:"Glossary YAML (25개 용어)"},
-  {id:"cq_matrix",name:"CQ 매트릭스 (18문항)"},
-  {id:"nl2sql_test_set",name:"NL2SQL 테스트 셋 (30문항)"},
-  {id:"postgresql_ddl",name:"PostgreSQL DDL 변환"},
-  {id:"baseline_ex",name:"Baseline EX 결과"},
-  {id:"treatment_ex",name:"Treatment EX 결과"},
-  {id:"ab_report",name:"A/B 비교 보고서"},
-  {id:"cq_pytest",name:"CQ pytest"},
-  {id:"bird_baseline",name:"BIRD Baseline 결과"},
-  {id:"bird_treatment",name:"BIRD Treatment 결과"},
-  {id:"benchmark_report",name:"벤치마크 종합 보고서"}
-];
-
-let progressData = null;
-
-async function init() {
-  try {
-    const resp = await fetch('./progress.json?' + Date.now());
-    progressData = await resp.json();
-  } catch(e) {
-    progressData = {lastUpdated:"2026-04-06",currentPhase:"phase0",phases:{},age:{},artifacts:{}};
-  }
-  render();
-}
-
-function render() {
-  renderStats();
-  renderPhases();
-  renderRoadmap();
-  renderArtifacts();
-  document.getElementById('updated-label').textContent = '갱신: ' + progressData.lastUpdated;
-  document.getElementById('footer-update').textContent = 'Last updated: ' + progressData.lastUpdated;
-}
-
-function renderStats() {
-  let totalTasks=0, doneTasks=0, totalMs=0, doneMs=0;
-  PHASES_DEF.forEach(p => {
-    const pd = progressData.phases[p.id] || {};
-    p.tasks.forEach((_,i) => { totalTasks++; if(pd.tasks && pd.tasks[i]) doneTasks++; });
-    p.milestones.forEach((_,i) => { totalMs++; if(pd.milestones && pd.milestones[i]) doneMs++; });
-  });
-  const pct = totalTasks ? Math.round(doneTasks/totalTasks*100) : 0;
-  document.getElementById('s-pct').textContent = pct + '%';
-  document.getElementById('s-tasks').textContent = doneTasks + '/' + totalTasks;
-  document.getElementById('s-ms').textContent = doneMs + '/' + totalMs;
-  document.getElementById('main-bar').style.width = pct + '%';
-  const cur = PHASES_DEF.find(p => p.id === progressData.currentPhase) || PHASES_DEF[0];
-  document.getElementById('current-phase-label').textContent = '현재: ' + cur.name + ' ' + cur.title;
-}
-
-function renderPhases() {
-  const container = document.getElementById('phases-container');
-  container.innerHTML = '';
-  PHASES_DEF.forEach(p => {
-    const pd = progressData.phases[p.id] || {tasks:{},milestones:{}};
-    const doneT = p.tasks.filter((_,i) => pd.tasks && pd.tasks[i]).length;
-    const pct = p.tasks.length ? Math.round(doneT/p.tasks.length*100) : 0;
-    const doneM = p.milestones.filter((_,i) => pd.milestones && pd.milestones[i]).length;
-    const isCurrent = p.id === progressData.currentPhase;
-
-    let html = `<div class="phase${isCurrent?' current':''}" id="pc-${p.id}">
+        let html = `<div class="phase${isCurrent ? ' current' : ''}" id="pc-${p.id}">
       <div class="phase-head" onclick="togglePhase('${p.id}')">
         <div class="phase-dot" style="background:${p.color}"></div>
         <div class="phase-info">
@@ -356,88 +784,89 @@ function renderPhases() {
       </div>
       <div class="phase-detail" id="det-${p.id}">`;
 
-    if(p.milestones.length) {
-      html += '<div class="phase-section">마일스톤</div>';
-      p.milestones.forEach((m,i) => {
-        const done = pd.milestones && pd.milestones[i];
-        html += `<div class="phase-item${done?' done':''}">
+        if (p.milestones.length) {
+          html += '<div class="phase-section">마일스톤</div>';
+          p.milestones.forEach((m, i) => {
+            const done = pd.milestones && pd.milestones[i];
+            html += `<div class="phase-item${done ? ' done' : ''}">
           <span class="milestone-badge" style="background:${p.color}20;color:${p.color}">${m.id}</span>
           <span><strong>${m.name}</strong> — ${m.desc}</span></div>`;
-      });
-    }
-    html += '<div class="phase-section">태스크</div>';
-    p.tasks.forEach((t,i) => {
-      const done = pd.tasks && pd.tasks[i];
-      html += `<div class="phase-item${done?' done':''}">
-        <span style="color:${done?'var(--teal)':'var(--text3)'}">${done?'●':'○'}</span>
+          });
+        }
+        html += '<div class="phase-section">태스크</div>';
+        p.tasks.forEach((t, i) => {
+          const done = pd.tasks && pd.tasks[i];
+          html += `<div class="phase-item${done ? ' done' : ''}">
+        <span style="color:${done ? 'var(--teal)' : 'var(--text3)'}">${done ? '●' : '○'}</span>
         <span>${t}</span></div>`;
-    });
+        });
 
-    if(p.tags && p.tags.length) {
-      html += '<div class="tag-row">';
-      p.tags.forEach(([label,type]) => {
-        const cls = type ? ' tag-'+type : '';
-        html += `<span class="tag${cls}">${label}</span>`;
+        if (p.tags && p.tags.length) {
+          html += '<div class="tag-row">';
+          p.tags.forEach(([label, type]) => {
+            const cls = type ? ' tag-' + type : '';
+            html += `<span class="tag${cls}">${label}</span>`;
+          });
+          html += '</div>';
+        }
+
+        html += '</div></div>';
+        container.innerHTML += html;
       });
-      html += '</div>';
     }
 
-    html += '</div></div>';
-    container.innerHTML += html;
-  });
-}
-
-function renderRoadmap() {
-  const container = document.getElementById('roadmap-timeline');
-  container.innerHTML = '';
-  ROADMAP_FULL.forEach((r,i) => {
-    const isCurrent = i <= 1;
-    container.innerHTML += `<div class="tl-item">
+    function renderRoadmap() {
+      const container = document.getElementById('roadmap-timeline');
+      container.innerHTML = '';
+      ROADMAP_FULL.forEach((r, i) => {
+        const isCurrent = i <= 1;
+        container.innerHTML += `<div class="tl-item">
       <div class="tl-dot" style="background:${r.color};top:4px"></div>
       <div class="tl-phase" style="color:${r.color}">${r.phase} <span class="tl-time">${r.time}</span></div>
       <div class="tl-desc">${r.desc}</div>
     </div>`;
-  });
-}
+      });
+    }
 
-function renderArtifacts() {
-  const container = document.getElementById('artifacts-container');
-  const arts = progressData.artifacts || {};
-  let doneCount = 0, todoCount = 0;
-  ARTIFACTS_DEF.forEach(a => { if(arts[a.id]==='done') doneCount++; else todoCount++; });
+    function renderArtifacts() {
+      const container = document.getElementById('artifacts-container');
+      const arts = progressData.artifacts || {};
+      let doneCount = 0, todoCount = 0;
+      ARTIFACTS_DEF.forEach(a => { if (arts[a.id] === 'done') doneCount++; else todoCount++; });
 
-  let html = `<div style="display:flex;gap:10px;margin-bottom:16px">
+      let html = `<div style="display:flex;gap:10px;margin-bottom:16px">
     <div class="stat" style="flex:1"><div class="val" style="color:var(--teal)">${doneCount}</div><div class="lbl">완료</div></div>
     <div class="stat" style="flex:1"><div class="val" style="color:var(--amber)">${todoCount}</div><div class="lbl">TODO</div></div>
   </div>`;
 
-  ARTIFACTS_DEF.forEach(a => {
-    const st = arts[a.id] || 'todo';
-    html += `<div class="artifact">
-      <span class="status ${st}">${st==='done'?'완료':'TODO'}</span>
-      <span class="name" style="${st==='done'?'opacity:.6':''}">${a.name}</span>
+      ARTIFACTS_DEF.forEach(a => {
+        const st = arts[a.id] || 'todo';
+        html += `<div class="artifact">
+      <span class="status ${st}">${st === 'done' ? '완료' : 'TODO'}</span>
+      <span class="name" style="${st === 'done' ? 'opacity:.6' : ''}">${a.name}</span>
     </div>`;
-  });
-  container.innerHTML = html;
-}
+      });
+      container.innerHTML = html;
+    }
 
-function togglePhase(id) {
-  const det = document.getElementById('det-'+id);
-  const chev = document.getElementById('chev-'+id);
-  det.classList.toggle('open');
-  chev.classList.toggle('open');
-}
+    function togglePhase(id) {
+      const det = document.getElementById('det-' + id);
+      const chev = document.getElementById('chev-' + id);
+      det.classList.toggle('open');
+      chev.classList.toggle('open');
+    }
 
-function switchTab(name) {
-  document.querySelectorAll('.tab').forEach((t,i) => {
-    const tabs = ['progress','roadmap','artifacts','strategy'];
-    t.classList.toggle('active', tabs[i]===name);
-  });
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-}
+    function switchTab(name) {
+      document.querySelectorAll('.tab').forEach((t, i) => {
+        const tabs = ['progress', 'roadmap', 'artifacts', 'strategy'];
+        t.classList.toggle('active', tabs[i] === name);
+      });
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+    }
 
-init();
-</script>
+    init();
+  </script>
 </body>
+
 </html>
