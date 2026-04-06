@@ -1,0 +1,38 @@
+{
+  "lastUpdated": "2026-04-06",
+  "currentPhase": "phase0",
+  "phases": {
+    "phase0": {
+      "milestones": {},
+      "tasks": {}
+    },
+    "phase05": {
+      "milestones": {},
+      "tasks": {
+        "3": true
+      }
+    },
+    "phase07": {
+      "milestones": {},
+      "tasks": {}
+    },
+    "phase1": {
+      "milestones": {},
+      "tasks": {}
+    }
+  },
+  "age": {},
+  "artifacts": {
+    "glossary_yaml": "done",
+    "cq_matrix": "done",
+    "nl2sql_test_set": "done",
+    "postgresql_ddl": "todo",
+    "baseline_ex": "todo",
+    "treatment_ex": "todo",
+    "ab_report": "todo",
+    "cq_pytest": "todo",
+    "bird_baseline": "todo",
+    "bird_treatment": "todo",
+    "benchmark_report": "todo"
+  }
+}
