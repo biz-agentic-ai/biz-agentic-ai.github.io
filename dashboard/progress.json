@@ -1,38 +1,127 @@
 {
-  "lastUpdated": "2026-04-06",
-  "currentPhase": "phase0",
-  "phases": {
-    "phase0": {
-      "milestones": {},
-      "tasks": {}
-    },
-    "phase05": {
-      "milestones": {},
-      "tasks": {
-        "3": true
-      }
-    },
-    "phase07": {
-      "milestones": {},
-      "tasks": {}
-    },
-    "phase1": {
-      "milestones": {},
-      "tasks": {}
-    }
+  "project": "DataNexus",
+  "updated_at": "2026-04-07T09:31:48.115599+09:00",
+  "repo": "https://github.com/biz-agentic-ai/datanexus",
+  "commit": "d857f5c",
+  "branch": "main",
+  "summary": {
+    "total_tasks": 16,
+    "completed": 5,
+    "in_progress": 1,
+    "blocked": 0,
+    "completion_pct": 31.2
   },
-  "age": {},
-  "artifacts": {
-    "glossary_yaml": "done",
-    "cq_matrix": "done",
-    "nl2sql_test_set": "done",
-    "postgresql_ddl": "todo",
-    "baseline_ex": "todo",
-    "treatment_ex": "todo",
-    "ab_report": "todo",
-    "cq_pytest": "todo",
-    "bird_baseline": "todo",
-    "bird_treatment": "todo",
-    "benchmark_report": "todo"
+  "phases": [
+    {
+      "id": "phase-0",
+      "name": "Phase 0: 환경 준비",
+      "status": "done",
+      "progress_pct": 100.0,
+      "tasks": [
+        {
+          "name": "Docker 인프라 기동",
+          "status": "done",
+          "date": "2026-04-07"
+        },
+        {
+          "name": "Context-as-Code 구조 생성",
+          "status": "done",
+          "date": "2026-04-07"
+        },
+        {
+          "name": "CLAUDE.md 규칙 작성",
+          "status": "done",
+          "date": "2026-04-08"
+        }
+      ]
+    },
+    {
+      "id": "phase-0.5",
+      "name": "Phase 0.5: Foundation + PoC (2/5 완료)",
+      "status": "in_progress",
+      "progress_pct": 40.0,
+      "tasks": [
+        {
+          "name": "sql-tutorial DB 구축",
+          "status": "done",
+          "date": "2026-04-09"
+        },
+        {
+          "name": "Glossary YAML 배치",
+          "status": "done",
+          "date": "2026-04-09"
+        },
+        {
+          "name": "Vanna Baseline EX 측정",
+          "status": "in_progress"
+        },
+        {
+          "name": "Vanna Treatment EX 측정",
+          "status": "todo"
+        },
+        {
+          "name": "CQ 자동화 테스트",
+          "status": "todo"
+        }
+      ]
+    },
+    {
+      "id": "phase-0.7",
+      "name": "Phase 0.7: 벤치마크 검증",
+      "status": "todo",
+      "progress_pct": 0.0,
+      "tasks": [
+        {
+          "name": "BIRD Baseline 측정",
+          "status": "todo"
+        },
+        {
+          "name": "BIRD Treatment 측정",
+          "status": "todo"
+        },
+        {
+          "name": "벤치마크 종합 보고서",
+          "status": "todo"
+        }
+      ]
+    },
+    {
+      "id": "phase-1",
+      "name": "Phase 1: MVP 핵심 개발",
+      "status": "todo",
+      "progress_pct": 0.0,
+      "tasks": [
+        {
+          "name": "FastAPI 스캐폴딩",
+          "status": "todo"
+        },
+        {
+          "name": "Integration Clients",
+          "status": "todo"
+        },
+        {
+          "name": "Core Services",
+          "status": "todo"
+        },
+        {
+          "name": "API Layer",
+          "status": "todo"
+        },
+        {
+          "name": "Quality Gate 통과 (EX>=0.80)",
+          "status": "todo"
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "poc_baseline_ex": null,
+    "poc_treatment_ex": null,
+    "poc_improvement": null,
+    "bird_baseline_ex": null,
+    "bird_treatment_ex": null,
+    "cq_pass_rate": null,
+    "glossary_terms": 25,
+    "test_queries": 30
   }
 }
