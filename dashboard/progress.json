@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-09",
+  "lastUpdated": "2026-04-10",
   "currentPhase": "phase05",
   "phases": {
     "phase0": {
@@ -19,8 +19,8 @@
     },
     "phase05": {
       "tasks": {
-        "0": false,
-        "1": false,
+        "0": true,
+        "1": true,
         "2": false,
         "3": false,
         "4": false,
