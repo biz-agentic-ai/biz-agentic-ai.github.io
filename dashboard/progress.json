@@ -79,5 +79,14 @@
       }
     }
   },
-  "artifacts": {}
+  "artifacts": {
+    "ontology_engine_plan": "done",
+    "ontology_engine_design": "done",
+    "multi_agent_router_plan": "done",
+    "multi_agent_router_design": "done",
+    "hybrid_search_plan": "done",
+    "hybrid_search_design": "done",
+    "nl2sql_vanna_plan": "done",
+    "nl2sql_vanna_design": "done"
+  }
 }
