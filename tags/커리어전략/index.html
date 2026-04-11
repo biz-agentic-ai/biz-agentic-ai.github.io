@@ -176,7 +176,7 @@
 </style><style>
   :root {
     --sidebar-width: 260px;
-    --sidebar-bg: #1a1a2e;
+    --sidebar-bg: #1d1e20;
     --sidebar-text: #e0e0e0;
     --sidebar-accent: #667eea;
     --sidebar-hover: rgba(102, 126, 234, 0.15);
@@ -349,8 +349,16 @@
 
    
   .sidebar-section {
-    padding: 8px 0;
+    padding: 0;
     margin-top: 4px;
+  }
+
+  .sidebar-section > ul {
+    display: none;
+  }
+
+  .sidebar-section.expanded > ul {
+    display: block;
   }
 
   .sidebar-section-title {
@@ -364,6 +372,24 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+  }
+
+  .sidebar-section-title:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .sidebar-section-title::after {
+    content: "\25B8";
+    margin-left: 4px;
+    font-size: 0.6rem;
+    transition: transform 0.2s;
+  }
+
+  .sidebar-section.expanded .sidebar-section-title::after {
+    transform: rotate(90deg);
   }
 
   .sidebar-section-title::before {
@@ -949,11 +975,16 @@
         aria-label="English"><svg class="lang-flag" viewBox="0 0 36 24" width="22" height="15"><rect width="36" height="24" fill="#B22234"/><rect y="1.85" width="36" height="1.85" fill="#fff"/><rect y="5.54" width="36" height="1.85" fill="#fff"/><rect y="9.23" width="36" height="1.85" fill="#fff"/><rect y="12.92" width="36" height="1.85" fill="#fff"/><rect y="16.62" width="36" height="1.85" fill="#fff"/><rect y="20.31" width="36" height="1.85" fill="#fff"/><rect width="14.4" height="12.92" fill="#3C3B6E"/></svg>
       </a>
     </div>
-    <div class="sidebar-section">
-      <h3 class="sidebar-section-title sidebar-section-title--datanexus">DataNexus Series
-        <a href="/posts/datanexus/" class="sidebar-more-link">more</a>
+    <div class="sidebar-section expanded">
+      <h3 class="sidebar-section-title sidebar-section-title--datanexus" onclick="toggleSidebarSection(this)">DataNexus Series
+        <a href="/posts/datanexus/" class="sidebar-more-link" onclick="event.stopPropagation()">more</a>
       </h3>
       <ul>
+        <li>
+          <a href="https://biz-agentic-ai.github.io/posts/datanexus/007-multi-agent-router/" title="7. 질문 하나가 들어오면, 어디로 보내야 하는가" >
+            7. 질문 하나가 들어오면, 어디로 보내야 하는가
+          </a>
+        </li>
         <li>
           <a href="https://biz-agentic-ai.github.io/posts/datanexus/006-managed-agents-and-ontology/" title="6. 에이전트 인프라를 직접 안 만들어도 될 때, 하네스는 점점 무효화된다. 그러면 온톨로지는?" >
             6. 에이전트 인프라를 직접 안 만들어도 될 때, 하네스는 점점 무효화된다. 그러면 온톨로지는?
@@ -969,7 +1000,7 @@
             4. SKOS 호환 레이어를 왜 넣었는가
           </a>
         </li>
-        <li class="sidebar-hidden-item">
+        <li>
           <a href="https://biz-agentic-ai.github.io/posts/datanexus/003-datahub-glossary-as-ontology/" title="3. DataHub Glossary를 온톨로지로 쓸 수 있을까" >
             3. DataHub Glossary를 온톨로지로 쓸 수 있을까
           </a>
@@ -987,8 +1018,8 @@
       </ul>
     </div>
     <div class="sidebar-section">
-      <h3 class="sidebar-section-title sidebar-section-title--dw">DW 모델링 Guide
-        <a href="/guides/dw-modeling/" class="sidebar-more-link">more</a>
+      <h3 class="sidebar-section-title sidebar-section-title--dw" onclick="toggleSidebarSection(this)">DW 모델링 Guide
+        <a href="/guides/dw-modeling/" class="sidebar-more-link" onclick="event.stopPropagation()">more</a>
       </h3>
       <ul>
         <li>
@@ -1006,7 +1037,7 @@
             2. OLTP vs DW 모델 - 목적이 다르면 설계도 다르다
           </a>
         </li>
-        <li class="sidebar-hidden-item">
+        <li>
           <a href="https://biz-agentic-ai.github.io/guides/dw-modeling/001-cloud-era-dw-modeling/" title="1. 클라우드 DW에서 Kimball은 여전히 유효한가" >
             1. 클라우드 DW에서 Kimball은 여전히 유효한가
           </a>
@@ -1014,8 +1045,8 @@
       </ul>
     </div>
     <div class="sidebar-section">
-      <h3 class="sidebar-section-title sidebar-section-title--etl">ETL 설계 Guide
-        <a href="/guides/etl-design/" class="sidebar-more-link">more</a>
+      <h3 class="sidebar-section-title sidebar-section-title--etl" onclick="toggleSidebarSection(this)">ETL 설계 Guide
+        <a href="/guides/etl-design/" class="sidebar-more-link" onclick="event.stopPropagation()">more</a>
       </h3>
       <ul>
         <li>
@@ -1033,7 +1064,7 @@
             2. Bronze 레이어 - 원본을 있는 그대로 쌓는다
           </a>
         </li>
-        <li class="sidebar-hidden-item">
+        <li>
           <a href="https://biz-agentic-ai.github.io/guides/etl-design/001-medallion-architecture/" title="1. 메달리온 아키텍처 - 데이터를 세 겹으로 쌓는 이유" >
             1. 메달리온 아키텍처 - 데이터를 세 겹으로 쌓는 이유
           </a>
@@ -1041,8 +1072,8 @@
       </ul>
     </div>
     <div class="sidebar-section">
-      <h3 class="sidebar-section-title sidebar-section-title--geo">GEO 최적화 Guide
-        <a href="/guides/geo-optimization/" class="sidebar-more-link">more</a>
+      <h3 class="sidebar-section-title sidebar-section-title--geo" onclick="toggleSidebarSection(this)">GEO 최적화 Guide
+        <a href="/guides/geo-optimization/" class="sidebar-more-link" onclick="event.stopPropagation()">more</a>
       </h3>
       <ul>
         <li>
@@ -1060,17 +1091,21 @@
             2. AI마다 인용하는 소스가 다르다
           </a>
         </li>
-        <li class="sidebar-hidden-item">
+        <li>
           <a href="https://biz-agentic-ai.github.io/guides/geo-optimization/001-what-is-geo/" title="1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략" >
             1. GEO란 무엇인가 - SEO 너머의 AI 인용 전략
           </a>
         </li>
       </ul>
     </div><script>
-      function toggleSidebarMore(el) {
-        var section = el.closest('.sidebar-section');
-        var isExpanded = section.classList.toggle('expanded');
-        el.textContent = isExpanded ? el.dataset.expandedText : el.dataset.collapsedText;
+      function toggleSidebarSection(titleEl) {
+        var section = titleEl.closest('.sidebar-section');
+        var wasExpanded = section.classList.contains('expanded');
+        var allSections = document.querySelectorAll('.sidebar-section');
+        allSections.forEach(function(s) { s.classList.remove('expanded'); });
+        if (!wasExpanded) {
+          section.classList.add('expanded');
+        }
       }
     </script><div class="sidebar-stats" id="sidebar-stats">
       <div class="sidebar-stat-pill" id="gc-container-pv" style="display:none;">
