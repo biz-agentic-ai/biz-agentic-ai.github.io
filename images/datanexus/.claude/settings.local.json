@@ -7,7 +7,7 @@
       "Bash(hugo:*)",
       "Bash(cmd.exe /c \"where hugo\")",
       "Bash(gh run list:*)",
-      "WebFetch(domain:biz-agentic-ai.github.io)",
+      "WebFetch(domain:datanexus-kr.github.io)",
       "WebFetch(domain:api.github.com)",
       "Bash(claude mcp list:*)",
       "mcp__plugin_oh-my-claudecode_x__ask_codex",
