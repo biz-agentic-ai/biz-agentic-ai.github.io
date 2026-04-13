@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
-  "lastUpdated": "2026-04-13",
-  "currentPhase": "phase1",
-=======
   "lastUpdated": "2026-04-14",
   "currentPhase": "phase05",
->>>>>>> 146f85cce411a93851801b9287fd683d554bd80c
   "phases": {
     "phase0": {
       "tasks": {
@@ -30,11 +25,7 @@
         "3": true,
         "4": true,
         "5": true,
-<<<<<<< HEAD
-        "6": false,
-=======
         "6": true,
->>>>>>> 146f85cce411a93851801b9287fd683d554bd80c
         "7": true,
         "8": true,
         "9": false,
