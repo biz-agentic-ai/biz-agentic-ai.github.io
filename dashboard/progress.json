@@ -1,6 +1,6 @@
 {
   "lastUpdated": "2026-04-14",
-  "currentPhase": "phase05",
+  "currentPhase": "phase1",
   "phases": {
     "phase0": {
       "tasks": {
@@ -25,25 +25,21 @@
         "3": true,
         "4": true,
         "5": true,
-        "6": true,
+        "6": false,
         "7": true,
         "8": true,
-        "9": false,
-        "10": false,
-        "11": true,
-        "12": true,
-        "13": true,
-        "14": true,
-        "15": true
+        "9": true,
+        "10": true
       },
       "milestones": {
         "0": true,
         "1": true,
         "2": true,
-        "3": true,
+        "3": false,
         "4": true
       }
     },
+<<<<<<< HEAD
     "phase1": {
       "tasks": {
         "0": true,
@@ -67,6 +63,8 @@
         "3": false
       }
     },
+=======
+>>>>>>> ae401ce1 (chore(dashboard): phase1 진행율 업데이트 — QueryRouter v3.1 + DataHub Client 반영 (2026-04-14))
     "phase07": {
       "tasks": {
         "0": false,
@@ -80,6 +78,27 @@
         "0": false,
         "1": false
       }
+    },
+    "phase1": {
+      "tasks": {
+        "0": true,
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": false,
+        "5": true,
+        "6": false,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": false
+      },
+      "milestones": {
+        "0": true,
+        "1": true,
+        "2": true,
+        "3": false
+      }
     }
   },
   "artifacts": {
@@ -87,6 +106,8 @@
     "multi_agent_router_pdca": "done",
     "hybrid_search_pdca": "done",
     "nl2sql_vanna_pdca": "done",
-    "phase1_glossary_rag": "done"
+    "phase1_glossary_rag": "done",
+    "phase1_query_router_v3_1": "done",
+    "phase1_datahub_client": "done"
   }
 }
