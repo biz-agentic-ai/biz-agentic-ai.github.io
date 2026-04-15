@@ -6,8 +6,15 @@
     <description>Recent content in 큐레이션 on Junho Lee</description>
     <generator>Hugo -- 0.160.0</generator>
     <language>ko</language>
-    <lastBuildDate>Tue, 07 Apr 2026 04:10:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 15 Apr 2026 01:45:23 +0000</lastBuildDate>
     <atom:link href="https://datanexus-kr.github.io/categories/%ED%81%90%EB%A0%88%EC%9D%B4%EC%85%98/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Claude Code 성능을 높이는 설정과 설계의 본질</title>
+      <link>https://datanexus-kr.github.io/curations/2026-04/2026-04-15-claude-code-performance-optimization-settings/</link>
+      <pubDate>Wed, 15 Apr 2026 01:45:23 +0000</pubDate>
+      <guid>https://datanexus-kr.github.io/curations/2026-04/2026-04-15-claude-code-performance-optimization-settings/</guid>
+      <description>Claude Code의 순정 상태를 유지하고 추론 설정을 최적화하여 환각을 방지하며, 아키텍처 중심의 개발 환경을 구축하는 방법을 제안한다.</description>
+    </item>
     <item>
       <title>LLM이 바로 알아듣는 32가지 프롬프트 숏컷 명령어</title>
       <link>https://datanexus-kr.github.io/curations/2026-04/2026-04-07-llm-prompt-slash-command-shortcuts/</link>
