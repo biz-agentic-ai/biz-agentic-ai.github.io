@@ -13,7 +13,7 @@
       <link>https://datanexus-kr.github.io/curations/2026-04/2026-04-15-claude-code-performance-optimization-settings/</link>
       <pubDate>Wed, 15 Apr 2026 01:45:23 +0000</pubDate>
       <guid>https://datanexus-kr.github.io/curations/2026-04/2026-04-15-claude-code-performance-optimization-settings/</guid>
-      <description>Claude Code의 순정 상태를 유지하고 추론 설정을 최적화하여 환각을 방지하며, 아키텍처 중심의 개발 환경을 구축하는 방법을 제안한다.</description>
+      <description>순정 상태 유지, settings.json 3줄로 풀 추론 강제, 시스템 아키텍처 설계에 집중하는 것이 Claude Code 성능을 실질적으로 높이는 방법이다.</description>
     </item>
     <item>
       <title>LLM이 바로 알아듣는 32가지 프롬프트 숏컷 명령어</title>

@@ -6,8 +6,15 @@
     <description>Recent content in GEO 최적화 on Junho Lee</description>
     <generator>Hugo -- 0.160.0</generator>
     <language>ko</language>
-    <lastBuildDate>Sat, 04 Apr 2026 14:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 17 Apr 2026 10:00:00 +0900</lastBuildDate>
     <atom:link href="https://datanexus-kr.github.io/categories/geo-%EC%B5%9C%EC%A0%81%ED%99%94/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>5. AEO - 코딩 에이전트가 읽는 문서는 왜 다른가</title>
+      <link>https://datanexus-kr.github.io/guides/geo-optimization/005-what-is-aeo/</link>
+      <pubDate>Fri, 17 Apr 2026 10:00:00 +0900</pubDate>
+      <guid>https://datanexus-kr.github.io/guides/geo-optimization/005-what-is-aeo/</guid>
+      <description>GEO가 소비자 AI를 위한 최적화였다면 AEO는 코딩 에이전트를 위한 최적화다. 문서 길이 제약, llms.txt, skill.md, AGENTS.md까지 필요한 파일들을 정리한다.</description>
+    </item>
     <item>
       <title>4. Off-Site GEO - 공식 사이트를 안 보는 AI에게 선택받는 법</title>
       <link>https://datanexus-kr.github.io/guides/geo-optimization/004-offsite-geo-strategy/</link>
