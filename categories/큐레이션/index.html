@@ -11,7 +11,7 @@
 <meta name="author" content="Junho Lee">
 <link rel="canonical"
     href="https://datanexus-kr.github.io/categories/%ED%81%90%EB%A0%88%EC%9D%B4%EC%85%98/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.c75cdb1f99ebf4f1be35064fcc7f842d4579d45b6ccfdad1e7f62ea64565b492.css" integrity="sha256-x1zbH5nr9PG&#43;NQZPzH&#43;ELUV51Ftsz9rR5/YupkVltJI="
+<link crossorigin="anonymous" href="/assets/css/stylesheet.ac5da8dcbaf6eb1648aff71b80f1a849e670999c19d2ca7fc2f0d708cd494a3b.css" integrity="sha256-rF2o3Lr26xZIr/cbgPGoSeZwmZwZ0sp/wvDXCM1JSjs="
     rel="preload stylesheet" as="style">
 <link rel="icon" href="https://datanexus-kr.github.io/favicon.svg">
 <link rel="icon" type="image/svg+xml" sizes="16x16" href="https://datanexus-kr.github.io/favicon.svg">
@@ -985,28 +985,28 @@
       </h3>
       <ul>
         <li>
-          <a href="https://datanexus-kr.github.io/posts/datanexus/008-pdca-ex-80/" title="8. NL2SQL 정확도 66%에서 80%까지, 4번의 측정-개선 루프" >
-            8. NL2SQL 정확도 66%에서 80%까지, 4번의 측정-개선 루프
+          <a href="https://datanexus-kr.github.io/posts/datanexus/000-architecture/" title="DataNexus 아키텍처: 4개 레이어와 두 가지 흐름" >
+            DataNexus 아키텍처: 4개 레이어와 두 가지 흐름
+          </a>
+        </li>
+        <li>
+          <a href="https://datanexus-kr.github.io/posts/datanexus/010-error-taxonomy-spider/" title="10. Spider 72%, 모델보다 데이터셋이 오답을 결정" >
+            10. Spider 72%, 모델보다 데이터셋이 오답을 결정
+          </a>
+        </li>
+        <li>
+          <a href="https://datanexus-kr.github.io/posts/datanexus/009-multi-candidate-seal/" title="9. BIRD 56%, 9번 실험하고 접은 것들" >
+            9. BIRD 56%, 9번 실험하고 접은 것들
+          </a>
+        </li>
+        <li>
+          <a href="https://datanexus-kr.github.io/posts/datanexus/008-pdca-ex-80/" title="8. 유통 샘플 30문항 80%, 4번의 PDCA" >
+            8. 유통 샘플 30문항 80%, 4번의 PDCA
           </a>
         </li>
         <li>
           <a href="https://datanexus-kr.github.io/posts/datanexus/007-multi-agent-router/" title="7. 질문이 들어오면, 라우팅은 누가 결정하나" >
             7. 질문이 들어오면, 라우팅은 누가 결정하나
-          </a>
-        </li>
-        <li>
-          <a href="https://datanexus-kr.github.io/posts/datanexus/006-managed-agents-and-ontology/" title="6. 에이전트 인프라를 직접 안 만들어도 될 때, 하네스는 점점 무효화된다. 그러면 온톨로지는?" >
-            6. 에이전트 인프라를 직접 안 만들어도 될 때, 하네스는 점점 무효화된다. 그러면 온톨로지는?
-          </a>
-        </li>
-        <li>
-          <a href="https://datanexus-kr.github.io/posts/datanexus/005-llm-wiki-and-metadata-maintenance/" title="5. 메타데이터 유지보수를 자동화하는 방법: Karpathy의 LLM Wiki 구조" >
-            5. 메타데이터 유지보수를 자동화하는 방법: Karpathy의 LLM Wiki 구조
-          </a>
-        </li>
-        <li>
-          <a href="https://datanexus-kr.github.io/posts/datanexus/004-skos-compatibility-layer/" title="4. SKOS 호환 레이어를 왜 넣었는가" >
-            4. SKOS 호환 레이어를 왜 넣었는가
           </a>
         </li>
       </ul>
@@ -1138,7 +1138,7 @@
           section.classList.add('expanded');
         }
       }
-    </script><div class="sidebar-stats" id="sidebar-stats">
+    </script><div class="sidebar-stats dn-admin-only" id="sidebar-stats" style="display:none;">
       <div class="sidebar-stat-pill" id="gc-container-pv" style="display:none;">
         <span class="stat-dot stat-dot--pv"></span>
         <span class="sidebar-stat-value" id="gc-value-pv">-</span>
@@ -1149,25 +1149,7 @@
         <span class="sidebar-stat-value" id="gc-value-uv">-</span>
         <span class="sidebar-stat-label">visitors</span>
       </div>
-    </div>
-    <script>
-      (function () {
-        var p = encodeURIComponent(location.pathname);
-        fetch('https://datanexus-kr.goatcounter.com/counter/' + p + '.json')
-          .then(function (r) { return r.json(); })
-          .then(function (d) {
-            if (d.count) {
-              document.getElementById('gc-value-pv').textContent = d.count;
-              document.getElementById('gc-container-pv').style.display = '';
-            }
-            if (d.count_unique) {
-              document.getElementById('gc-value-uv').textContent = d.count_unique;
-              document.getElementById('gc-container-uv').style.display = '';
-            }
-          })
-          .catch(function () { });
-      })();
-    </script><div class="sidebar-dashboard-links" id="dashboard-links">
+    </div><div class="sidebar-dashboard-links dn-admin-only" id="dashboard-links" style="display:none;">
       <a href="https://datanexus-kr.goatcounter.com/" target="_blank" rel="noopener">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1185,8 +1167,56 @@
         </svg>
         GA4 Dashboard
       </a>
+    </div><script>
+      (function () {
+        var ADMIN = "\"datanexus-kr\"";
+        var KEY = 'dn-admin';
 
-  </div>
+        function showAdmin() {
+          document.querySelectorAll('.dn-admin-only').forEach(function (el) {
+            el.style.display = '';
+          });
+          var p = encodeURIComponent(location.pathname);
+          fetch('https://datanexus-kr.goatcounter.com/counter/' + p + '.json')
+            .then(function (r) { return r.json(); })
+            .then(function (d) {
+              if (d.count) {
+                document.getElementById('gc-value-pv').textContent = d.count;
+                document.getElementById('gc-container-pv').style.display = '';
+              }
+              if (d.count_unique) {
+                document.getElementById('gc-value-uv').textContent = d.count_unique;
+                document.getElementById('gc-container-uv').style.display = '';
+              }
+            })
+            .catch(function () { });
+        }
+
+        
+        if (localStorage.getItem(KEY) === '1') {
+          showAdmin();
+        }
+
+        
+        window.addEventListener('message', function (event) {
+          if (event.origin !== 'https://giscus.app') return;
+          var data = event.data;
+          if (!data || !data.giscus) return;
+          if (!('viewer' in data.giscus)) return;  
+          var viewer = data.giscus.viewer;
+          if (viewer && viewer.login === ADMIN) {
+            localStorage.setItem(KEY, '1');
+            showAdmin();
+          } else {
+            
+            localStorage.removeItem(KEY);
+            document.querySelectorAll('.dn-admin-only').forEach(function (el) {
+              el.style.display = 'none';
+            });
+          }
+        });
+      })();
+    </script>
 </aside><button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1642,6 +1672,18 @@
         <path d="M12 6H0l6-6z" />
     </svg>
 </a><script>
+document.addEventListener('DOMContentLoaded', function() {
+  var nodes = document.querySelectorAll('pre.mermaid');
+  if (!nodes.length) return;
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js';
+  s.onload = function() {
+    mermaid.initialize({ startOnLoad: false, theme: 'neutral', themeVariables: { fontSize: '13px' } });
+    mermaid.run({ nodes: nodes });
+  };
+  document.body.appendChild(s);
+});
+</script><script>
 (function() {
   var container = document.getElementById('posts-container');
   var toggle = document.getElementById('view-toggle');
