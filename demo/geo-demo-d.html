@@ -1747,6 +1747,7 @@
 
       // ── SCHEMA SWITCHING ───────────────────────────────────────────────────────
       function switchSchema(type) {
+        if (typeof spHide === 'function' && spVisible) spHide();
         currentSchema = type;
         // tabs
         document.querySelector('#section-D').querySelectorAll('.schema-tab').forEach(t => {

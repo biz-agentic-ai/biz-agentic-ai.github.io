@@ -2094,6 +2094,7 @@
       const totalSlides = 6;
 
       function c1GoTo(n) {
+        if (typeof spHide === 'function' && spVisible) spHide();
         document.querySelector('#section-C1').querySelectorAll('.slide').forEach((s, i) => {
           s.classList.toggle('active', i === n);
         });
